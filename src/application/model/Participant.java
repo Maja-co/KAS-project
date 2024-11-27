@@ -12,12 +12,15 @@ public class Participant {
     private final ArrayList<Event> events = new ArrayList<>();
     private Conferences conference;
 
-    public Participant(String name, String address, String country, String phoneNumber) {
+    public Participant(String name, String address, String country, String phoneNumber, Hotel hotel, Conferences conference) {
         this.name = name;
         this.address = address;
         this.country = country;
         this.phoneNumber = phoneNumber;
+        this.hotel = hotel;
+        this.conference = conference;
     }
+
 
     // Metoder tilhørende Enrollment (get, add og remove) 1..* dobbelt asso
     public ArrayList<Enrollment> getEnrollments() {

@@ -30,9 +30,11 @@ public class Hotel {
           listOfHotelFacilities.remove(hotelFacility);
     }
 
-
-
     public double getPricePrDay() {
         return pricePrDay;
+    }
+
+    public Object getName() {
+        return name;
     }
 }

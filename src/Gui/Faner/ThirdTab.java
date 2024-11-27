@@ -28,36 +28,36 @@ public class ThirdTab {
         ScrollPane scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
 
-        // Add ScrollPane to layout
+        // Opret VBox og tilføj ScrollPane
         VBox content = new VBox(scrollPane);
         tab.setContent(content);
 
-        // Create ListView to show participants
+        // Opret ListView til at vise deltagere
         participantListView = new ListView<>();
+        System.out.println("participantListView initialiseret");
 
-        // Add ListView to GridPane
+        // Tilføj ListView til GridPane
         gridPane.add(participantListView, 0, 0);
 
-        // Update participant list in the GUI
+        // Opdater deltagerlisten i GUI'en ved at kalde metoden
         updateParticipantList();
 
         return tab;
     }
 
-    // Update the ListView with participants from Storage
+    // Opdater deltagerlisten i GUI'en med nye deltagere
     public void updateParticipantList() {
         Platform.runLater(() -> {
-            // Clear existing items
             participantListView.getItems().clear();
-
-            // Fetch all enrollments from Storage and add participant names to ListView
-            for (var enrollment : Storage.getEnrollments()) {
+            var enrollments = Storage.getEnrollments();
+            System.out.println("Deltagerliste opdateres med " + enrollments.size() + " tilmeldinger.");
+            for (var enrollment : enrollments) {
                 participantListView.getItems().add(enrollment.getParticipant().getName());
             }
         });
     }
 
-    // Get ListView (for external use if needed)
+    // Metode til at få ListView (hvis du har brug for det et andet sted)
     public ListView<String> getListView() {
         return participantListView;
     }

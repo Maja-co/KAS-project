@@ -27,6 +27,10 @@ public class Conferences {
         this.numberOfSeats = numberOfSeats;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public double getPricePrDay() {
         return pricePrDay;
     }

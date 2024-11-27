@@ -12,6 +12,12 @@ import javafx.scene.control.ScrollPane;
 
 public class FirstTab {
 
+    private ThirdTab thirdTab;  // Reference til ThirdTab
+
+    public FirstTab() {
+        this.thirdTab = new ThirdTab();  // Sæt reference ved initialisering
+    }
+
     public Tab createFirstTab() {
         // Opret fane
         Tab tab = new Tab("Konferencer");
@@ -43,6 +49,7 @@ public class FirstTab {
             int col = i % 2; // Beregn kolonne
             gridPane.add(imageButton, col, row);
         }
+
         // ScrollPane til GridPane
         ScrollPane scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
@@ -71,7 +78,12 @@ public class FirstTab {
         Tooltip tooltip = new Tooltip("Klik for at tilmelde dig!");
         button.setTooltip(tooltip);
 
-        button.setOnAction(e -> new PopUp().showPopup());
+        // Når knappen trykkes, vis pop-up og opdater ThirdTab deltagerliste
+        button.setOnAction(e -> {
+            new PopUp(this.thirdTab).showPopup();  // Send ThirdTab til PopUp
+        });
+
         return button;
     }
 }
+
