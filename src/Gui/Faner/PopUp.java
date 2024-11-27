@@ -6,6 +6,9 @@ import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import application.controller.Controller;
+
+import java.time.LocalDate;
 
 public class PopUp {
 
@@ -69,10 +72,27 @@ public class PopUp {
         // Tilmeld-knap
         Button submitButton = new Button("Tilmeld mig");
         submitButton.setOnAction(e -> {
-            // Her kan du håndtere indsendelse af data
-            System.out.println("Tilmelding sendt!");
+            String name = nameField.getText();
+            String address = adresseField.getText();
+            String country = countryField.getText();
+            String mobile = mobileField.getText();
+            LocalDate startDate = startDatePicker.getValue();
+            LocalDate endDate = endDatePicker.getValue();
+            boolean isSpeaker = speakerCheckBox.isSelected();
+            boolean hasCompanion = companionCheckBox.isSelected();
+            String companionName = companionField.getText();
+            boolean needsAccommodation = accommodationCheckBox.isSelected();
+            String selectedHotel = hotelListView.getSelectionModel().getSelectedItem();
+            boolean companionEvents = eventCheckBox.isSelected();
+            String selectedEvent = eventListView.getSelectionModel().getSelectedItem();
+
+            // Opret tilmeldingen gennem Controller
+            //Controller.CreateEnrollment(name, address, country, mobile, startDate, endDate, isSpeaker, hasCompanion, companionName, needsAccommodation, selectedHotel, companionEvents, selectedEvent);
+
+            System.out.println("Tilmelding oprettet for: " + name);
             popup.close();
         });
+
 
         // Layout opsætning
         popupContent.getChildren().addAll(

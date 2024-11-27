@@ -1,8 +1,11 @@
 package Gui.Faner;
 
+import application.controller.Controller;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+
+import java.time.LocalDate;
 
 public class SecondTab {
 
@@ -40,17 +43,20 @@ public class SecondTab {
         // Knapper
         Button createButton = new Button("Opret");
         createButton.setOnAction(e -> {
-            // Simpel validering
             if (validateInputs(subjectField, conferenceField, adresseField, seatsField, priceField, startDatePicker, endDatePicker)) {
-                // Håndter oprettelsen af konferencen
-                System.out.println("Konference oprettet:");
-                System.out.println("Emne: " + subjectField.getText());
-                System.out.println("Navn: " + conferenceField.getText());
-                System.out.println("Adresse: " + adresseField.getText());
-                System.out.println("Antal pladser: " + seatsField.getText());
-                System.out.println("Pris: " + priceField.getText());
-                System.out.println("Startdato: " + startDatePicker.getValue());
-                System.out.println("Slutdato: " + endDatePicker.getValue());
+                String subject = subjectField.getText();
+                String name = conferenceField.getText();
+                String address = adresseField.getText();
+                int seats = Integer.parseInt(seatsField.getText());
+                double price = Double.parseDouble(priceField.getText());
+                LocalDate startDate = startDatePicker.getValue();
+                LocalDate endDate = endDatePicker.getValue();
+
+                // Brug Controller til at oprette konferencen
+                Controller.createConference(name, startDate, endDate, address, price, subject, seats);
+
+                // Feedback til brugeren
+                showAlert("Success", "Konference oprettet!");
             } else {
                 showAlert("Fejl", "Alle felter skal udfyldes korrekt!");
             }

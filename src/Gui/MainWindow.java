@@ -17,10 +17,8 @@ public class MainWindow extends Application {
 
         // Opret TabPane og tilføj faner
         TabPane tabPane = new TabPane();
-        ScrollPane scrollPane = new ScrollPane();
 
         // Tilføj FirstTab
-
         FirstTab firstTab = new FirstTab();
         Tab tab1 = firstTab.createFirstTab();
 
