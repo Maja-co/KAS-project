@@ -69,4 +69,8 @@ public class Participant {
     public void setConference(Conferences conference) {
         this.conference = conference;
     }
+
+    public String getName() {
+        return name;
+    }
 }

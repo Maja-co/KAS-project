@@ -2,6 +2,7 @@ package Gui;
 
 import Gui.Faner.FirstTab;
 import Gui.Faner.SecondTab;
+import Gui.Faner.ThirdTab;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.ScrollPane;
@@ -26,7 +27,10 @@ public class MainWindow extends Application {
         SecondTab secondTab = new SecondTab();
         Tab tab2 = secondTab.createSecondTab();
 
-        tabPane.getTabs().addAll(tab1, tab2);
+        ThirdTab thirdTab = new ThirdTab();
+        Tab tab3 = thirdTab.createThirdTab();
+
+        tabPane.getTabs().addAll(tab1, tab2, tab3);
 
         // Scene og vindue
         Scene scene = new Scene(tabPane, 480, 800);

@@ -56,9 +56,9 @@ public class SecondTab {
                 Controller.createConference(name, startDate, endDate, address, price, subject, seats);
 
                 // Feedback til brugeren
-                showAlert("Success", "Konference oprettet!");
+                showSuccess();
             } else {
-                showAlert("Fejl", "Alle felter skal udfyldes korrekt!");
+                showError();
             }
         });
 
@@ -96,12 +96,18 @@ public class SecondTab {
         }
     }
 
-    private void showAlert(String title, String message) {
+    private void showError(String message) {
         Alert alert = new Alert(Alert.AlertType.ERROR);
-        alert.setTitle(title);
-        alert.setHeaderText(null);
+        alert.setTitle("Fejl");
         alert.setContentText(message);
         alert.showAndWait();
-
     }
+
+    private void showSuccess(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Succes");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
 }

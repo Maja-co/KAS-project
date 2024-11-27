@@ -1,7 +1,6 @@
 package application.model;
 
 import java.time.LocalDate;
-import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
 
 public class Enrollment {
@@ -16,7 +15,8 @@ public class Enrollment {
     private Participant participant;
 
     public Enrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay,
-                      boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture, Participant participant) {
+                      boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture, Participant participant, Hotel hotel) {
+
         this.isParticipantPrivate = isParticipantPrivate;
         this.isCompanion = isCompanion;
         this.hotelStay = hotelStay;
@@ -24,6 +24,10 @@ public class Enrollment {
         this.dateOfArrival = dateOfArrival;
         this.dateOfDeparture = dateOfDeparture;
         this.participant = participant;
+    }
+
+    public boolean getHotelStay() {
+        return hotelStay;
     }
 
     //Metoder tilhørende Companion (get, set) 0..1

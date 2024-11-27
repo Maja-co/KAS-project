@@ -1,12 +1,14 @@
 package Gui.Faner;
 
+import Storage.Storage;
+import application.controller.Controller;
+import application.model.Enrollment;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
-import application.controller.Controller;
 
 import java.time.LocalDate;
 
@@ -21,12 +23,12 @@ public class PopUp {
         VBox popupContent = new VBox(15);
         popupContent.setPadding(new Insets(15));
 
-        // Sektion 1: Personlige oplysninger
+        // Felter til deltager
         TextField nameField = new TextField();
         nameField.setPromptText("Navn");
 
-        TextField adresseField = new TextField();
-        adresseField.setPromptText("Adresse");
+        TextField addressField = new TextField();
+        addressField.setPromptText("Adresse");
 
         TextField countryField = new TextField();
         countryField.setPromptText("Land");
@@ -34,101 +36,64 @@ public class PopUp {
         TextField mobileField = new TextField();
         mobileField.setPromptText("Mobilnummer");
 
-        // Sektion 2: Datoer
         DatePicker startDatePicker = new DatePicker();
         startDatePicker.setPromptText("Ankomstdato");
 
         DatePicker endDatePicker = new DatePicker();
         endDatePicker.setPromptText("Afrejsedato");
 
-        // Sektion 3: Ekstra valgmuligheder
-        CheckBox speakerCheckBox = new CheckBox("Er du foredragsholder?");
-        CheckBox companionCheckBox = new CheckBox("Medbringer du ledsager?");
-        TextField companionField = new TextField();
-        companionField.setPromptText("Ledsagers navn");
-        companionField.setDisable(true); // Deaktiveret som standard
-        companionCheckBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-            companionField.setDisable(!isSelected);
-        });
-
-        CheckBox accommodationCheckBox = new CheckBox("Ønsker du overnatning?");
-        ListView<String> hotelListView = new ListView<>();
-        hotelListView.getItems().addAll("Hotel A", "Hotel B", "Hotel C");
-        hotelListView.setPrefHeight(100);
-        hotelListView.setDisable(true); // Deaktiveret som standard
-        accommodationCheckBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-            hotelListView.setDisable(!isSelected);
-        });
-
-        CheckBox eventCheckBox = new CheckBox("Ønsker ledsager at deltage i udflugter/events?");
-        ListView<String> eventListView = new ListView<>();
-        eventListView.getItems().addAll("Udflugt 1", "Udflugt 2", "Event 3");
-        eventListView.setPrefHeight(150);
-        eventListView.setDisable(true); // Deaktiveret som standard
-        eventCheckBox.selectedProperty().addListener((obs, wasSelected, isSelected) -> {
-            eventListView.setDisable(!isSelected);
-        });
-
         // Tilmeld-knap
         Button submitButton = new Button("Tilmeld mig");
         submitButton.setOnAction(e -> {
             String name = nameField.getText();
-            String address = adresseField.getText();
+            String address = addressField.getText();
             String country = countryField.getText();
             String mobile = mobileField.getText();
             LocalDate startDate = startDatePicker.getValue();
             LocalDate endDate = endDatePicker.getValue();
-            boolean isSpeaker = speakerCheckBox.isSelected();
-            boolean hasCompanion = companionCheckBox.isSelected();
-            String companionName = companionField.getText();
-            boolean needsAccommodation = accommodationCheckBox.isSelected();
-            String selectedHotel = hotelListView.getSelectionModel().getSelectedItem();
-            boolean companionEvents = eventCheckBox.isSelected();
-            String selectedEvent = eventListView.getSelectionModel().getSelectedItem();
 
-            // Validering
-            if (name.isEmpty() || address.isEmpty() || country.isEmpty() || mobile.isEmpty() || startDate == null || endDate == null) {
-                System.out.println("Alle felter skal udfyldes.");
+            if (name.isEmpty() || address.isEmpty() || country.isEmpty() || mobile.isEmpty()
+                    || startDate == null || endDate == null) {
+                showError("Alle felter skal udfyldes!");
                 return;
             }
 
-            if (needsAccommodation && selectedHotel == null) {
-                System.out.println("Vælg et hotel.");
-                return;
+            // Opret tilmelding gennem Controller
+            Enrollment enrollment = Controller.createEnrollment(name, address, country, mobile, startDate, endDate);
+
+            if (enrollment != null) {
+                Storage.addEnrollment(enrollment);
+                showSuccess("Tilmelding oprettet for: " + name);
+                popup.close();
+            } else {
+                showError("Kunne ikke oprette tilmeldingen.");
             }
-
-            if (companionEvents && selectedEvent == null) {
-                System.out.println("Vælg et event.");
-                return;
-            }
-
-            // Opret tilmeldingen gennem Controller
-            Controller.createEnrollment(name, address, country, mobile, startDate, endDate, isSpeaker, hasCompanion, companionName, needsAccommodation, selectedHotel, companionEvents, selectedEvent);
-
-            System.out.println("Tilmelding oprettet for: " + name);
-            popup.close();
         });
 
-
-        // Layout opsætning
         popupContent.getChildren().addAll(
-                new Label("Personlige oplysninger:"),
-                nameField, adresseField, countryField, mobileField,
-                new Label("Datoer:"),
-                startDatePicker, endDatePicker,
-                new Label("Valgmuligheder:"),
-                speakerCheckBox,
-                companionCheckBox, companionField,
-                accommodationCheckBox, hotelListView,
-                eventCheckBox, eventListView,
-                submitButton
+                new Label("Udfyld oplysninger for tilmelding:"),
+                nameField, addressField, countryField, mobileField,
+                startDatePicker, endDatePicker, submitButton
         );
 
         // Scene og visning
-        Scene popupScene = new Scene(popupContent, 400, 800);
+        Scene popupScene = new Scene(popupContent, 400, 400);
         popup.setScene(popupScene);
         popup.setTitle("Tilmeld dig til konferencen");
         popup.show();
+    }
 
+    private void showError(String message) {
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Fejl");
+        alert.setContentText(message);
+        alert.showAndWait();
+    }
+
+    private void showSuccess(String message) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Succes");
+        alert.setContentText(message);
+        alert.showAndWait();
     }
 }

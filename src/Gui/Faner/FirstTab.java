@@ -43,7 +43,6 @@ public class FirstTab {
             int col = i % 2; // Beregn kolonne
             gridPane.add(imageButton, col, row);
         }
-
         // ScrollPane til GridPane
         ScrollPane scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
@@ -61,7 +60,7 @@ public class FirstTab {
             image = new Image(getClass().getResourceAsStream(imagePath));
         } catch (Exception e) {
             System.err.println("Billede ikke fundet: " + imagePath);
-            image = null; // Hvis billede ikke findes
+            image = new Image(getClass().getResourceAsStream("/Storage/resource/placeholder.png"));
         }
 
         ImageView imageView = new ImageView(image);
@@ -74,7 +73,5 @@ public class FirstTab {
 
         button.setOnAction(e -> new PopUp().showPopup());
         return button;
-
     }
-
 }

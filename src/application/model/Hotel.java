@@ -27,8 +27,10 @@ public class Hotel {
     }
 
     public void removeHotelFacilities(HotelFacilities hotelFacility){
-          listOfHotelFacilities.remove(hotelFacility)  ;
+          listOfHotelFacilities.remove(hotelFacility);
     }
+
+
 
     public double getPricePrDay() {
         return pricePrDay;
