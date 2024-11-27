@@ -1,10 +1,7 @@
 package application.controller;
 
 import Storage.Storage;
-import application.model.Conferences;
-import application.model.Enrollment;
-import application.model.Hotel;
-import application.model.Participant;
+import application.model.*;
 
 import java.time.LocalDate;
 
@@ -16,21 +13,32 @@ public class Controller {
         return conference;
     }
 
-    public static Hotel CreateHotel(String name, String address, int pricePrDay, String location) {
+    public static Hotel createHotel(String name, String address, int pricePrDay, String location) {
         Hotel hotel = new Hotel(name, address, pricePrDay, location);
         Storage.addHotel(hotel);
         return hotel;
     }
-//    public static Enrollment CreateEnrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay, boolean isParticipantLecturer,
-//                                              LocalDate dateOfArrival, LocalDate dateOfDeparture, Participant participant){
-//        Enrollment enrollment = new Enrollment(isParticipantPrivate, isCompanion, hotelStay, isParticipantLecturer, dateOfArrival, dateOfDeparture, participant);
-//        Storage.addEnrollment(enrollment);
-//        return enrollment;
-//    }
-//    public static Enrollment CreateEnrollment(String name, String address, String country, String mobile, LocalDate startDate, LocalDate endDate, boolean isSpeaker, boolean hasCompanion, String companionName, boolean needsAccommodation, String selectedHotel, boolean companionEvents, String selectedEvent) {
-//        Enrollment enrollment = new Enrollment(name, address, country, mobile, startDate, endDate, isSpeaker, hasCompanion, companionName, needsAccommodation, selectedHotel, companionEvents, selectedEvent);
-//        Storage.addEnrollment(enrollment);
-//        return enrollment;
-//    }
 
+    public static Enrollment createEnrollment(String name, String address, String country, String mobile, LocalDate startDate, LocalDate endDate, boolean isSpeaker, boolean hasCompanion, String companionName, boolean needsAccommodation, String selectedHotel, boolean companionEvents, String selectedEvent) {
+        // Opret en Participant instans
+        Participant participant = new Participant(name, address, country, mobile); // Sørg for korrekt konstruktion af Participant
+
+        // Hvis der er en ledsager, opret Companion
+        Companion companion = null;
+        if (hasCompanion) {
+            companion = new Companion(companionName); // Sørg for korrekt konstruktion af Companion
+        }
+
+        // Opret Enrollment
+        Enrollment enrollment = new Enrollment(false, hasCompanion, needsAccommodation, isSpeaker, startDate, endDate, participant);
+
+        // Hvis der er en ledsager, tilknyt denne til enrollment
+        if (companion != null) {
+            enrollment.setCompanion(companion);
+        }
+        Storage.addEnrollment(enrollment);
+
+        return enrollment;
+
+    }
 }

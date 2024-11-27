@@ -86,8 +86,24 @@ public class PopUp {
             boolean companionEvents = eventCheckBox.isSelected();
             String selectedEvent = eventListView.getSelectionModel().getSelectedItem();
 
+            // Validering
+            if (name.isEmpty() || address.isEmpty() || country.isEmpty() || mobile.isEmpty() || startDate == null || endDate == null) {
+                System.out.println("Alle felter skal udfyldes.");
+                return;
+            }
+
+            if (needsAccommodation && selectedHotel == null) {
+                System.out.println("Vælg et hotel.");
+                return;
+            }
+
+            if (companionEvents && selectedEvent == null) {
+                System.out.println("Vælg et event.");
+                return;
+            }
+
             // Opret tilmeldingen gennem Controller
-            //Controller.CreateEnrollment(name, address, country, mobile, startDate, endDate, isSpeaker, hasCompanion, companionName, needsAccommodation, selectedHotel, companionEvents, selectedEvent);
+            Controller.createEnrollment(name, address, country, mobile, startDate, endDate, isSpeaker, hasCompanion, companionName, needsAccommodation, selectedHotel, companionEvents, selectedEvent);
 
             System.out.println("Tilmelding oprettet for: " + name);
             popup.close();

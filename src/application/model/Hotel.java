@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public class Hotel {
     private String name;
     private String address;
-    private int pricePrDay;
+    private double pricePrDay;
     private String country;
     private ArrayList<HotelFacilities> listOfHotelFacilities = new ArrayList<>();
 
@@ -30,7 +30,7 @@ public class Hotel {
           listOfHotelFacilities.remove(hotelFacility)  ;
     }
 
-    public int getPricePrDay() {
+    public double getPricePrDay() {
         return pricePrDay;
     }
 }
