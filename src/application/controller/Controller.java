@@ -18,10 +18,10 @@ public class Controller {
         return hotel;
     }
 
-    public static Enrollment createEnrollment(String name, String address, String country, String mobile, LocalDate startDate, LocalDate endDate, boolean isSpeaker, boolean hasCompanion, String companionName, boolean needsAccommodation, Hotel hotel) {
-        Participant participant = new Participant(name, address, country, mobile);
+    public static Enrollment createEnrollment(String name, String address, String country, String phoneNumber, Hotel hotel, Conferences conference, LocalDate startDate, LocalDate endDate, boolean isSpeaker, boolean hasCompanion, String companionName, boolean needsAccommodation, String selectedHotelName, boolean companionEvents, String selectedEvent) {
+        Participant participant = new Participant(name, address, country, phoneNumber, hotel, conference);
         Companion companion = hasCompanion ? new Companion(companionName) : null;
-        Enrollment enrollment = new Enrollment(false, hasCompanion, needsAccommodation, isSpeaker, startDate, endDate, participant, hotel);
+        Enrollment enrollment = new Enrollment(false, hasCompanion, needsAccommodation, isSpeaker, startDate, endDate, participant, selectedHotelName, companionEvents, selectedEvent);
         if (companion != null) {
             enrollment.setCompanion(companion);
         }

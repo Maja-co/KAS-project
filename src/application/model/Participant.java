@@ -12,12 +12,15 @@ public class Participant {
     private final ArrayList<Event> events = new ArrayList<>();
     private Conferences conference;
 
-    public Participant(String name, String address, String country, String phoneNumber) {
+    public Participant(String name, String address, String country, String phoneNumber, Hotel hotel, Conferences conference) {
         this.name = name;
         this.address = address;
         this.country = country;
         this.phoneNumber = phoneNumber;
+        this.hotel = hotel;
+        this.conference = conference;
     }
+
 
     // Metoder tilhørende Enrollment (get, add og remove) 1..* dobbelt asso
     public ArrayList<Enrollment> getEnrollments() {
@@ -32,7 +35,7 @@ public class Participant {
 
     //Might be removed, make a decision later 21.11.24
     public void removeEnrollment(Enrollment enrollment) {
-            enrollments.remove(enrollment);
+        enrollments.remove(enrollment);
     }
 
     // Metoder tilhørende Event (get, add og remove) 0..* enkelt rettet
@@ -62,6 +65,7 @@ public class Participant {
             this.hotel = hotel;
         }
     }
+
     public Conferences getConference() {
         return conference;
     }

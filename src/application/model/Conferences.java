@@ -27,6 +27,10 @@ public class Conferences {
         this.numberOfSeats = numberOfSeats;
     }
 
+    public String getName() {
+        return name;
+    }
+
     public double getPricePrDay() {
         return pricePrDay;
     }
@@ -43,7 +47,7 @@ public class Conferences {
     }
 
     public void removeEvent(Event event) {
-            events.remove(event);
+        events.remove(event);
     }
 
     //Metoder for Hotel-klassen (0...*)

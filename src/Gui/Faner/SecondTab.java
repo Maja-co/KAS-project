@@ -56,12 +56,11 @@ public class SecondTab {
                 Controller.createConference(name, startDate, endDate, address, price, subject, seats);
 
                 // Feedback til brugeren
-                showSuccess();
+                showSuccess("Konferencen blev oprettet succesfuldt!");
             } else {
-                showError();
+                showError("Alle felter skal udfyldes korrekt!");
             }
         });
-
 
         // Tilføj til layout
         content.getChildren().addAll(

@@ -13,10 +13,14 @@ public class Enrollment {
     private final ArrayList<HotelFacilities> hotelFacilitiesList = new ArrayList<>();
     private Companion companion;
     private Participant participant;
+    private String selectedHotelName;
+    private boolean companionEvents;
+    private String selectedEvent;
+
 
     public Enrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay,
-                      boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture, Participant participant, Hotel hotel) {
-
+                      boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture, Participant participant,
+                      String selectedHotelName, boolean companionEvents, String selectedEvent) {
         this.isParticipantPrivate = isParticipantPrivate;
         this.isCompanion = isCompanion;
         this.hotelStay = hotelStay;
@@ -24,7 +28,11 @@ public class Enrollment {
         this.dateOfArrival = dateOfArrival;
         this.dateOfDeparture = dateOfDeparture;
         this.participant = participant;
+        this.selectedHotelName = selectedHotelName;  // gem hotelnavnet
+        this.companionEvents = companionEvents;
+        this.selectedEvent = selectedEvent;
     }
+
 
     public boolean getHotelStay() {
         return hotelStay;
@@ -36,7 +44,7 @@ public class Enrollment {
     }
 
     public void setCompanion(Companion companion) {
-            this.companion = companion;
+        this.companion = companion;
     }
 
     // Metoder tilhørende Hotelfacilities (get, add og remove) 1..*
@@ -51,7 +59,7 @@ public class Enrollment {
     }
 
     public void removeHotelFacilities(HotelFacilities hotelFacilities) {
-            hotelFacilitiesList.remove(hotelFacilities);
+        hotelFacilitiesList.remove(hotelFacilities);
     }
 
     // Metoder tilhørende Participant (get) 1 komposition dobbelt asso
@@ -72,8 +80,12 @@ public class Enrollment {
     }
 
     private double calculateDays() {
+        if (dateOfArrival == null || dateOfDeparture == null) {
+            return 0;  // Hvis datoerne ikke er defineret, returneres 0
+        }
         return (double) ((dateOfDeparture.toEpochDay() - dateOfArrival.toEpochDay()));
     }
+
 
 }
 

@@ -28,6 +28,10 @@ public class Storage {
 
     public static void addEnrollment(Enrollment enrollment) {
         enrollments.add(enrollment);
+        // Debugging output to verify the enrollment addition
+        System.out.println("Enrollment added: " + (enrollment.getParticipant() != null
+                ? enrollment.getParticipant().getName()
+                : "Participant is null"));
     }
 
     public static List<Enrollment> getEnrollments() {
