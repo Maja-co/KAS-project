@@ -5,7 +5,6 @@ import Gui.Faner.SecondTab;
 import Gui.Faner.ThirdTab;
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
 import javafx.scene.control.TabPane;
 import javafx.stage.Stage;
@@ -27,6 +26,7 @@ public class MainWindow extends Application {
         SecondTab secondTab = new SecondTab();
         Tab tab2 = secondTab.createSecondTab();
 
+        //Tilføjer ThirdTab
         ThirdTab thirdTab = new ThirdTab();
         Tab tab3 = thirdTab.createThirdTab();
 
