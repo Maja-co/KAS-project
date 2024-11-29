@@ -1,5 +1,6 @@
 package Gui.Faner;
 
+import application.model.Conferences;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Tab;
@@ -9,6 +10,10 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.ScrollPane;
+import Storage.Storage;
+
+
+import java.util.List;
 
 public class FirstTab {
 
@@ -29,22 +34,11 @@ public class FirstTab {
         gridPane.setHgap(20);
         gridPane.setVgap(20);
 
-        // Billeder og knapper
-        String[] imagePaths = {
-                "/Storage/resource/Picture 1.png",
-                "/Storage/resource/Picture 2.png",
-                "/Storage/resource/Picture 3.png",
-                "/Storage/resource/Picture 4.png",
-                "/Storage/resource/Picture 5.png",
-                "/Storage/resource/Picture 6.png",
-                "/Storage/resource/Picture 7.png",
-                "/Storage/resource/Picture 8.png",
-                "/Storage/resource/Picture 9.png",
-                "/Storage/resource/Picture 10.png"
-        };
-
-        for (int i = 0; i < imagePaths.length; i++) {
-            Button imageButton = createImageButton(imagePaths[i]);
+        // Konferencer og deres billede paths
+        List<Conferences> conferences = Storage.getConferences(); // Hent konferencerne fra Storage
+        for (int i = 0; i < conferences.size(); i++) {
+            Conferences conference = conferences.get(i);
+            Button imageButton = createImageButton(conference, conference.getImagePath()); // Giv knappen konferencen som parameter
             int row = i / 2;
             int col = i % 2;
             gridPane.add(imageButton, col, row);
@@ -61,7 +55,7 @@ public class FirstTab {
         return tab;
     }
 
-    private Button createImageButton(String imagePath) {
+    private Button createImageButton(Conferences conference, String imagePath) {
         Image image;
         try {
             image = new Image(getClass().getResourceAsStream(imagePath));
@@ -75,15 +69,16 @@ public class FirstTab {
         imageView.setFitHeight(180);
 
         Button button = new Button("", imageView);
-        Tooltip tooltip = new Tooltip("Hallo man klik mig lige. Du skal jo med til det her klimalort");
+        button.setUserData(conference);
+        Tooltip tooltip = new Tooltip("Klik for at tilmelde dig til: " + conference.getName());
         button.setTooltip(tooltip);
 
-        // Når knappen trykkes, vis pop-up og opdater ThirdTab deltagerliste
+        // Når knappen trykkes, tilmeld deltageren til konferencen
         button.setOnAction(e -> {
-            new PopUp(this.thirdTab).showPopup();  // Send ThirdTab til PopUp
+            // Åbn pop-up med konferencens detaljer og tilmeld deltageren
+            new PopUp(this.thirdTab, conference).showPopup();
         });
 
         return button;
     }
 }
-

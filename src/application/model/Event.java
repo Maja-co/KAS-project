@@ -20,4 +20,8 @@ public class Event {
     public double getPricePerEvent() {
         return pricePerEvent;
     }
+
+    public String getName() {
+        return name;
+    }
 }

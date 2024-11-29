@@ -11,12 +11,13 @@ public class Conferences {
     private double pricePrDay;
     private String category;
     private int numberOfSeats;
+    private String imagePath;
 
     private ArrayList<Enrollment> enrollments = new ArrayList<>();
     private ArrayList<Event> events = new ArrayList<>();
     private ArrayList<Hotel> hotels = new ArrayList<>();
 
-    public Conferences(String name, LocalDate startDate, LocalDate endDate, String location, double pricePrDay, String category, int numberOfSeats) {
+    public Conferences(String name, LocalDate startDate, LocalDate endDate, String location, double pricePrDay, String category, int numberOfSeats, String imagePath) {
         this.name = name;
         this.startDate = startDate;
         this.endDate = endDate;
@@ -24,6 +25,7 @@ public class Conferences {
         this.pricePrDay = pricePrDay;
         this.category = category;
         this.numberOfSeats = numberOfSeats;
+        this.imagePath = imagePath;
     }
 
     public String getName() {
@@ -90,5 +92,8 @@ public class Conferences {
 
     public double calculateConferencePrice() {
         return pricePrDay * (endDate.toEpochDay() - startDate.toEpochDay());
+    }
+    public String getImagePath() {
+        return imagePath;
     }
 }

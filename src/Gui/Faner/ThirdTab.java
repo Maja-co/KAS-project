@@ -1,6 +1,9 @@
 package Gui.Faner;
 
 import Storage.Storage;
+import application.model.Conferences;
+import application.model.Enrollment;
+import application.model.Participant;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
 import javafx.scene.control.Alert;
@@ -10,9 +13,11 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.util.List;
+
 public class ThirdTab {
 
-    private final ListView<String> participantListView = new ListView<>();
+    private ListView<Participant> participantListView = new ListView<>();
 
     public Tab createThirdTab() {
         Tab tab = new Tab("Deltagerliste");
@@ -34,60 +39,57 @@ public class ThirdTab {
         updateParticipantList();
 
         participantListView.setOnMouseClicked(event -> {
-            String selectedItem = participantListView.getSelectionModel().getSelectedItem();
+            Participant selectedItem = participantListView.getSelectionModel().getSelectedItem();
             if (selectedItem != null) {
-                showParticipantDetails(selectedItem);
+//                showParticipantDetails(selectedItem);
             }
         });
-
         return tab;
     }
 
-    public void updateParticipantList() {
-        Platform.runLater(() -> {
-            participantListView.getItems().clear();
-
-            var enrollments = Storage.getEnrollments();
-            if (enrollments != null && !enrollments.isEmpty()) {
-                for (var enrollment : enrollments) {
-                    if (enrollment.getParticipant() != null) {
-                        String displayText = enrollment.getParticipant().getName()
-                                + ", tilmeldt: " + enrollment.getConference().getName();
-                        participantListView.getItems().add(displayText);
-                    }
-                }
-            }
-        });
-    }
-
-    private void showParticipantDetails(String selectedParticipant) {
-        var enrollments = Storage.getEnrollments();
-        for (var enrollment : enrollments) {
-            if (selectedParticipant.contains(enrollment.getParticipant().getName())) {
-                String details = "Konference: " + enrollment.getConference().getName() + "\n"
-                        + "Navn: " + enrollment.getParticipant().getName() + "\n"
-                        + "Adresse: " + enrollment.getParticipant().getAddress() + "\n"
-                        + "Land: " + enrollment.getParticipant().getCountry() + "\n"
-                        + "Mobil: " + enrollment.getParticipant().getPhoneNumber() + "\n"
-                        + "Ankomstdato: " + enrollment.getArrivalDate() + "\n"
-                        + "Afrejsedato: " + enrollment.getDepartureDate() + "\n"
-                        + "Foredragsholder: " + (enrollment.isSpeaker() ? "Ja" : "Nej") + "\n"
-                        + "Ledsager: " + (enrollment.isAccompanied()
-                        ? "Ja - " + enrollment.getCompanionName()
-                        : "Nej") + "\n"
-                        + "Overnatning: " + (enrollment.wantsAccommodation()
-                        ? "Ja - Hotel: " + enrollment.getHotelName()
-                        : "Nej") + "\n"
-                        + "Ledsagerudflugt: " + (enrollment.wantsCompanionTrip()
-                        ? "Ja - " + enrollment.getCompanionTrip()
-                        : "Nej");
-                Alert detailsAlert = new Alert(Alert.AlertType.INFORMATION);
-                detailsAlert.setTitle("Deltagerdetaljer");
-                detailsAlert.setHeaderText("Detaljer for " + enrollment.getParticipant().getName());
-                detailsAlert.setContentText(details);
-                detailsAlert.showAndWait();
-                break;
+    void updateParticipantList() {
+        List<Enrollment> enrollments = Storage.getEnrollments();
+        for (Enrollment enrollment : enrollments) {
+            participantListView.getItems().add(enrollment.getParticipant());
+            Conferences conference = enrollment.getConference();
+            if (conference != null) {
+                // Brug conference.getName() her, hvis conference ikke er null
+                System.out.println(conference.getName());
+            } else {
+                System.out.println("Ingen tilknyttet konference");
             }
         }
     }
+
+
+//    private void showParticipantDetails(Participant selectedParticipant) {
+//        List<Enrollment> enrollments = Storage.getEnrollments();
+//        for (Enrollment enrollment : enrollments) {
+//            if (selectedParticipant.contains(enrollment.getParticipant().getName())) {
+////                String details = "Konference: " + enrollment.getConference().getName() + "\n"
+////                        + "Navn: " + enrollment.getParticipant().getName() + "\n"
+////                        + "Adresse: " + enrollment.getParticipant().getAddress() + "\n"
+////                        + "Land: " + enrollment.getParticipant().getCountry() + "\n"
+////                        + "Mobil: " + enrollment.getParticipant().getPhoneNumber() + "\n"
+////                        + "Ankomstdato: " + enrollment.getArrivalDate() + "\n"
+////                        + "Afrejsedato: " + enrollment.getDepartureDate() + "\n"
+////                        + "Foredragsholder: " + (enrollment.isSpeaker() ? "Ja" : "Nej") + "\n"
+////                        + "Ledsager: " + (enrollment.isAccompanied()
+////                        ? "Ja - " + enrollment.getCompanionName()
+////                        : "Nej") + "\n"
+////                        + "Overnatning: " + (enrollment.wantsAccommodation()
+////                        ? "Ja - Hotel: " + enrollment.getHotelName()
+////                        : "Nej") + "\n"
+////                        + "Ledsagerudflugt: " + (enrollment.wantsCompanionTrip()
+////                        ? "Ja - " + enrollment.getCompanionTrip()
+////                        : "Nej");
+//                Alert detailsAlert = new Alert(Alert.AlertType.INFORMATION);
+//                detailsAlert.setTitle("Deltagerdetaljer");
+//                detailsAlert.setHeaderText("Detaljer for " + enrollment.getParticipant().getName());
+////                detailsAlert.setContentText(details);
+//                detailsAlert.showAndWait();
+////                break;
+//            }
+//        }
+//    }
 }

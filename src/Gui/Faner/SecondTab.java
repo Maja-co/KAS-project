@@ -4,6 +4,8 @@ import application.controller.Controller;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.VBox;
+import application.controller.Controller;
+
 
 import java.time.LocalDate;
 
@@ -53,7 +55,9 @@ public class SecondTab {
                 LocalDate endDate = endDatePicker.getValue();
 
                 // Brug Controller til at oprette konferencen
-                Controller.createConference(name, startDate, endDate, address, price, subject, seats);
+                String imagePath = "/path/to/default/image.png"; // Eller en placeholder hvis du ikke har billeddata
+                Controller.createConference(name, startDate, endDate, address, price, subject, seats, imagePath);
+
 
                 // Feedback til brugeren
                 showSuccess("Konferencen blev oprettet succesfuldt!");

@@ -10,8 +10,29 @@ public class App {
     public static void main(String[] args) {
         initStorage();
 
-//        Conferences havOgHimmel = Controller.createConference("Hav og Himmel", LocalDate.of(2024, 1, 10), LocalDate.of(2024, 1, 13), "Island Brygge", 1500, "Business", 200);
-//        Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "Glemsomhedens sti 42", 1000, 1250);
+        Conferences renEnergiIndenforPlanetærGrænserI2024 = Controller.createConference("Ren energi indenfor planetær Grænser i 2040",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",500, "/Storage/resource/Picture 1.png");
+
+        Conferences cirkulærByggerri = Controller.createConference("Cirkulært byggeri: Fra tanke til handling",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",2000, "/Storage/resource/Picture 2.png");
+
+        Conferences harmoniseringAfEpder = Controller.createConference("Harmonisering af EPD'er",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",25, "/Storage/resource/Picture 3.png");
+
+        Conferences cirkulærCementOgBeton = Controller.createConference("Cirkulær cement og beton",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",250, "/Storage/resource/Picture 4.png");
+
+        Conferences etbæredygtigEnergisystemFremMod2040 = Controller.createConference("Ren energi indenfor planetær Grænser i 2040",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",2500, "/Storage/resource/Picture 5.png");
+
+        Conferences PyrolyseOgBiokul = Controller.createConference("Pyrolyse og biokul",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",500, "/Storage/resource/Picture 6.png");
+
+        Conferences EusKommendeKrav = Controller.createConference("Eu's kommende krav - en cekulær gamechanger indefor cement- og betonbranchen",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",500, "/Storage/resource/Picture 7.png");
+
+        Conferences hjælpBiodiversitetOgKlima = Controller.createConference("Hjælp biodiversitet og klima gennem plantebaserede investering",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",500, "/Storage/resource/Picture 8.png");
+
+        Conferences FremskrivningAfAntalletAfElektriskeLastbilerIDanmark = Controller.createConference("Fremskrivning af antallet af elektriske lastbiler i Danmark",LocalDate.of(2024,11,15),LocalDate.of(2024,11,18),"Danmark", 4000, "grønomstilling", 200, "/Storage/resource/Picture 9.png");
+
+        Conferences GrønneOgSundeVelfærdsbygninger = Controller.createConference("Grønne og sunde velfærdsbygninger", LocalDate.of(2024, 2,14), LocalDate.of(2088,2,18), "Iran", 2800, "grønomstilling", 200, "/Storage/resource/Picture 10.png");
+
+        Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "Glemsomhedens sti 42", 1000, 1250);
+        Event egeskov = Controller.createEvent("Egeskov", "GGWP", LocalDate.of(2024,12,19),LocalDate.of(2024,12,19),75);
+        Event trapHolt = Controller.createEvent("Trapholt", "GGWP", LocalDate.of(2024,12,20),LocalDate.of(2024,12,20),200);
 //
 //// Test 01
 //        System.out.println("Test 01 ");

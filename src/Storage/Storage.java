@@ -4,17 +4,20 @@ import application.model.*;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Storage {
     private static final ArrayList<Enrollment> enrollments = new ArrayList<>();
     private static final ArrayList<HotelFacilities> hotelFacilitiesList = new ArrayList<>();
     private static final ArrayList<Hotel> hotels = new ArrayList<>();
     private static final ArrayList<Event> events = new ArrayList<>();
-    private static final ArrayList<Conferences> conferences = new ArrayList<>();
+    private static ArrayList<Conferences> conferences = new ArrayList<>();
     private static final ArrayList<Participant> participants = new ArrayList<>();
+
 
     // Methods for Enrollment-class
     public static ArrayList<Enrollment> getEnrollments() {
+        System.out.println("Enrollment" + enrollments);
         return new ArrayList<>(enrollments);
     }
 
@@ -67,14 +70,20 @@ public class Storage {
     }
 
     // Methods for Conferences
-    public static ArrayList<Conferences> getConferences() {
-        return new ArrayList<>(conferences);
+    public static List<Conferences> getConferences() {
+        if (conferences == null) {
+            System.out.println("Fejl: conferences listen er null.");
+            return new ArrayList<>();
+        }
+        return conferences;
     }
+
 
     public static void addConference(Conferences conference) {
-        conferences.add(conference);
+        if (!conferences.contains(conference)) {
+            conferences.add(conference);
+        }
     }
-
     // Methods for Participants
     public static Participant getParticipant(String name) {
         for (Participant p : participants) {
@@ -89,21 +98,4 @@ public class Storage {
         participants.add(participant);
     }
 
-    public static void initSampleData() {
-        // Create sample conferences
-        Conferences conference1 = new Conferences("Himmel og Hav", LocalDate.now(), LocalDate.now().plusDays(2), "Copenhagen", 1500, "Havet", 200);
-        addConference(conference1);
-
-        // Create sample participants
-        Participant participant1 = new Participant("John Doe", "Main St 1", "Denmark", "12345678");
-        addParticipant(participant1);
-
-        // Create sample hotels
-        Hotel hotel1 = new Hotel("Grand Hotel", "City Center", 800, 1200);
-        addHotel(hotel1);
-
-        // Create sample hotel facilities
-        HotelFacilities spa = new HotelFacilities("Spa", 300);
-        addHotelFacilities(spa);
-    }
 }

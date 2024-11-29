@@ -1,10 +1,8 @@
 package Gui.Faner;
 
 import Storage.Storage;
-import application.model.Conferences;
-import application.model.Enrollment;
-import application.model.Hotel;
-import application.model.Participant;
+import application.controller.Controller;
+import application.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
@@ -15,11 +13,12 @@ import javafx.stage.Stage;
 import java.time.LocalDate;
 
 public class PopUp {
-
     private ThirdTab thirdTab;
+    private Conferences conference;
 
-    public PopUp(ThirdTab thirdTab) {
+    public PopUp(ThirdTab thirdTab, Conferences conference) {
         this.thirdTab = thirdTab;
+        this.conference = conference;
     }
 
     public void showPopup() {
@@ -64,7 +63,7 @@ public class PopUp {
 
         CheckBox eventCheckBox = new CheckBox("Ønsker ledsager at deltage i udflugter/events?");
         ListView<String> eventListView = new ListView<>();
-        eventListView.getItems().addAll(Storage.getConferences().stream().map(Conferences::getName).toList());
+        eventListView.getItems().addAll(Storage.getEvents().stream().map(Event::getName).toList());
         eventListView.setDisable(true);
         eventListView.setPrefHeight(150);
         eventCheckBox.selectedProperty().addListener((obs, oldVal, newVal) -> {
@@ -73,64 +72,55 @@ public class PopUp {
 
         Button submitButton = new Button("Tilmeld mig");
         submitButton.setOnAction(e -> {
-            try {
-                // Hent input og valider det
-                String name = nameField.getText().trim();
-                String address = addressField.getText().trim();
-                String country = countryField.getText().trim();
-                String mobile = mobileField.getText().trim();
-                LocalDate startDate = startDatePicker.getValue();
-                LocalDate endDate = endDatePicker.getValue();
-                boolean isLecturer = speakerCheckBox.isSelected();
-                boolean hasCompanion = companionCheckBox.isSelected();
-                String companionName = hasCompanion ? companionField.getText().trim() : "";
+            // Hent input og valider det
+            String name = nameField.getText().trim();
+            String address = addressField.getText().trim();
+            String country = countryField.getText().trim();
+            String mobile = mobileField.getText().trim();
 
-                // Find det valgte hotel og event
-                String selectedHotelName = hotelListView.getSelectionModel().getSelectedItem();
-                Hotel selectedHotel = Storage.getHotels().stream()
-                        .filter(h -> h.getName().equals(selectedHotelName))
-                        .findFirst().orElse(null);
-
-                String selectedEventName = eventListView.getSelectionModel().getSelectedItem();
-                Conferences selectedEvent = Storage.getConferences().stream()
-                        .filter(c -> c.getName().equals(selectedEventName))
-                        .findFirst().orElse(null);
-
-                // Opret Participant objekt
-                Participant participant = new Participant(name, address, country, mobile);
-
-                // Opret Enrollment
-                Enrollment enrollment = new Enrollment(
-                        true,  // isParticipantPrivate
-                        hasCompanion,  // isCompanion
-                        accommodationCheckBox.isSelected(),  // hotelStay
-                        isLecturer,  // isParticipantLecturer
-                        startDate,  // dateOfArrival
-                        endDate,  // dateOfDeparture
-                        participant,  // participant
-                        selectedEvent,  // conference
-                        selectedHotel  // hotel
-                );
-
-                // Tilføj Enrollment til Storage
-                Storage.addEnrollment(enrollment);
+            if (name.isEmpty() || address.isEmpty() || country.isEmpty() || mobile.isEmpty()) {
+                // Vis en advarsel, hvis input ikke er komplet
+                Alert alert = new Alert(Alert.AlertType.WARNING);
+                alert.setTitle("Fejl");
+                alert.setHeaderText("Udfyld venligst alle felter");
+                alert.showAndWait();
 
                 // Opdater deltagerlisten i ThirdTab
                 thirdTab.updateParticipantList();
-
-                // Luk popup
-                popup.close();
-            } catch (Exception ex) {
-                // Vis fejlmeddelelse, hvis der er problemer med input
-                Alert alert = new Alert(Alert.AlertType.ERROR);
-                alert.setContentText("Fejl: " + ex.getMessage());
-                alert.showAndWait();
+                return;
             }
+
+            boolean isLecturer = speakerCheckBox.isSelected();
+            boolean hasCompanion = companionCheckBox.isSelected();
+            String companionName = hasCompanion ? companionField.getText().trim() : "";
+
+            // Find det valgte hotel og event
+            String selectedHotelName = hotelListView.getSelectionModel().getSelectedItem();
+            Hotel selectedHotel = Storage.getHotels().stream()
+                    .filter(h -> h.getName().equals(selectedHotelName))
+                    .findFirst().orElse(null);
+
+            String selectedEventName = eventListView.getSelectionModel().getSelectedItem();
+            Conferences selectedEvent = Storage.getConferences().stream()
+                    .filter(c -> c.getName().equals(selectedEventName))
+                    .findFirst().orElse(null);
+
+            // Opret deltager
+            Participant participant = Controller.createParticipant(name, address, country, mobile);
+            Controller.createEnrollment(true, true, false, isLecturer, LocalDate.of(2024, 2, 2), LocalDate.of(2024, 4, 4), participant, conference, selectedHotel);
+
+            // Opdater deltagerlisten i ThirdTab
+            thirdTab.updateParticipantList();
+
+            // Luk popup
+            popup.close();
         });
 
-        popupContent.getChildren().addAll(nameField, addressField, countryField, mobileField,
-                startDatePicker, endDatePicker, speakerCheckBox, companionCheckBox, companionField,
-                accommodationCheckBox, hotelListView, eventCheckBox, eventListView, submitButton);
+        popupContent.getChildren().
+
+                addAll(nameField, addressField, countryField, mobileField,
+                        startDatePicker, endDatePicker, speakerCheckBox, companionCheckBox, companionField,
+                        accommodationCheckBox, hotelListView, eventCheckBox, eventListView, submitButton);
 
         Scene popupScene = new Scene(new ScrollPane(popupContent), 400, 400);
         popup.setScene(popupScene);
