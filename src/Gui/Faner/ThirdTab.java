@@ -67,7 +67,8 @@ public class ThirdTab extends Tab {
     private void showParticipantDetails(Participant selectedParticipant) {
         List<Enrollment> enrollments = Storage.getEnrollments();
         for (Enrollment enrollment : enrollments) {
-            if (Participant.toString();
+            // Tjek om den valgte deltager svarer til deltageren i tilmeldingen
+            if (enrollment.getParticipant().equals(selectedParticipant)) {
                 String details = "Konference: " + enrollment.getConference().getName() + "\n"
                         + "Navn: " + enrollment.getParticipant().getName() + "\n"
                         + "Adresse: " + enrollment.getParticipant().getAddress() + "\n"
