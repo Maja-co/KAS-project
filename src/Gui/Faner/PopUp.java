@@ -75,17 +75,17 @@ public class PopUp {
             eventListView.setDisable(!newVal);
         });
 
-        // Knappen til at tilmelde
+        // Knappen til at tilmelde sig
         Button submitButton = new Button("Tilmeld mig - Samlet pris: 0 kr");
         submitButton.setPrefWidth(300);
 
-        // Dynamisk beregning af pris
+        // beregning af pris
         ChangeListener<Object> priceUpdater = (obs, oldVal, newVal) -> {
             double totalPrice = conference.calculateConferencePrice();
 
             if (accommodationCheckBox.isSelected() && hotelListView.getSelectionModel().getSelectedItem() != null) {
                 Hotel selectedHotel = Storage.getHotels().stream()
-                        .filter(h -> h.getName().equals(hotelListView.getSelectionModel().getSelectedItem()))
+                        .filter(hotel -> hotel.getName().equals(hotelListView.getSelectionModel().getSelectedItem()))
                         .findFirst().orElse(null);
                 if (selectedHotel != null) {
                     totalPrice += selectedHotel.getPricePerDaySingle() * (endDatePicker.getValue().toEpochDay() - startDatePicker.getValue().toEpochDay());
