@@ -9,6 +9,7 @@ import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
@@ -34,7 +35,12 @@ public class ThirdTab extends Tab {
 
         participantListView.setPrefWidth(500); // Sætter bredden til 300 pixels
 
-
+        // Opret og centrer overskriften
+        Label titleLabel = new Label("Deltagerliste");
+        titleLabel.setStyle("-fx-font-family: Georgia; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;");
+        HBox titleBox = new HBox(titleLabel);
+        titleBox.setAlignment(javafx.geometry.Pos.CENTER);
+        titleBox.setPadding(new Insets(10));
         // Opsæt søgefelt
         searchField.setPromptText("Søg efter en deltager");
         searchField.textProperty().addListener((obs, oldText, newText) -> {

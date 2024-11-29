@@ -5,6 +5,7 @@ import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import application.controller.Controller;
 import javafx.scene.paint.Color;
@@ -23,6 +24,14 @@ public class SecondTab {
         VBox content = new VBox(15);
         content.setPadding(new Insets(15));
         content.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
+        content.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
+
+        // Overskriften
+        Label label = new Label("Opret en ny konference:");
+        label.setStyle("-fx-font-family: Georgia; -fx-font-size: 24px; -fx-font-weight: normal; -fx-text-fill: #FFFFFF;");
+        HBox titleBox = new HBox(label);
+        titleBox.setAlignment(javafx.geometry.Pos.CENTER);
+        titleBox.setPadding(new Insets(10));
 
         // Felter
         TextField subjectField = new TextField();
@@ -71,10 +80,6 @@ public class SecondTab {
             }
         });
 
-        // Tilføj til layout
-        Label label = new Label("Opret en ny konference:");
-        label.setFont(javafx.scene.text.Font.font("Arial", 24));  // Sætter fonten til Arial og størrelsen til 18px
-        label.setStyle("-fx-font-weight: normal; -fx-text-fill: #000000;");
         content.getChildren().addAll(
                 label,
                 subjectField,

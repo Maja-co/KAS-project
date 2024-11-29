@@ -9,6 +9,7 @@ import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -28,12 +29,25 @@ public class PopUp {
     public void showPopup() {
         Stage popup = new Stage();
         popup.initModality(Modality.APPLICATION_MODAL);
-
         VBox popupContent = new VBox(15);
-        popupContent.setPadding(new Insets(15));
+        popupContent.setPadding(new Insets(20));
         popupContent.setSpacing(10);
         popupContent.setPrefHeight(800);
         popupContent.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
+        popupContent.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
+
+        // Opret HBox til at centrere overskriften
+        HBox headerBox = new HBox();
+        headerBox.setAlignment(javafx.geometry.Pos.CENTER);  // Centrer overskriften
+        headerBox.setPadding(new Insets(10));  // Tilføj lidt padding rundt om overskriften
+
+        // Overskriften
+        Label label = new Label("Tilmeldelse til: " + conference.getName());
+        label.setStyle("-fx-font-family: Georgia; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;");
+        headerBox.getChildren().add(label);
+
+        // Tilføj HBox med overskriften til popupContent
+        popupContent.getChildren().add(headerBox);
 
         // Felter til input
         TextField nameField = new TextField();
@@ -147,8 +161,9 @@ public class PopUp {
                 accommodationCheckBox, hotelListView, eventCheckBox, eventListView, submitButton
         );
 
-        Scene popupScene = new Scene(new ScrollPane(popupContent), 500, 600); // Justeret størrelse
+        Scene popupScene = new Scene(new ScrollPane(popupContent), 650, 750);  // Grundlæggende størrelse
         popup.setScene(popupScene);
+        popup.sizeToScene();  // Automatisk tilpasning
         popup.setTitle("Tilmelding");
         popup.show();
     }

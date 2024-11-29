@@ -2,20 +2,12 @@ package Gui.Faner;
 
 import application.model.Conferences;
 import javafx.geometry.Insets;
-import javafx.scene.control.Button;
-import javafx.scene.control.Tab;
-import javafx.scene.control.Tooltip;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.VBox;
-import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.*;
 import Storage.Storage;
 import javafx.scene.paint.Color;
-
-
 import java.util.List;
 
 public class FirstTab {
@@ -31,11 +23,25 @@ public class FirstTab {
         Tab tab = new Tab("Konferencer");
         tab.setClosable(false);
 
-        // GridPane til billeder
+        // Layout til overskriften og indhold
+        VBox vbox = new VBox(20);
+        vbox.setPadding(new Insets(20));
+        vbox.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
+
+        // HBox til at centrere overskriften
+        HBox headerBox = new HBox();
+        headerBox.setAlignment(javafx.geometry.Pos.CENTER);
+        headerBox.setPadding(new Insets(10));
+
+        // Overskriften
+        Label label = new Label("Find din næste konference her");
+        label.setStyle("-fx-font-family: Georgia; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;");  // Opdateret med farve og fed skrift
+        headerBox.getChildren().add(label);
+        vbox.getChildren().add(headerBox);
         GridPane gridPane = new GridPane();
-        gridPane.setPadding(new Insets(20));
         gridPane.setHgap(20);
         gridPane.setVgap(20);
+        gridPane.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
 
 
@@ -46,6 +52,13 @@ public class FirstTab {
             Button imageButton = createImageButton(conference, conference.getImagePath()); // Giv knappen konferencen som parameter
             int row = i / 2;
             int col = i % 2;
+
+            // Set background for each GridPane cell (col, row)
+            Region cell = new Region();
+            cell.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
+            gridPane.add(cell, col, row);  // Add the background cell
+
+            // Add the image button to the grid cell
             gridPane.add(imageButton, col, row);
         }
 
@@ -53,9 +66,11 @@ public class FirstTab {
         ScrollPane scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
 
-        // Tilføj ScrollPane til layout
-        VBox content = new VBox(scrollPane);
-        tab.setContent(content);
+        // Tilføj ScrollPane til VBox
+        vbox.getChildren().add(scrollPane);  // Tilføj ScrollPane med konferencerne til VBox
+
+        // Tilføj hele VBox til tab
+        tab.setContent(vbox);
 
         return tab;
     }
