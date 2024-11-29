@@ -19,8 +19,8 @@ public class FirstTab {
 
     private ThirdTab thirdTab;  // Reference til ThirdTab
 
-    public FirstTab() {
-        this.thirdTab = new ThirdTab();  // Sæt reference ved initialisering
+    public FirstTab(ThirdTab thirdTab) {
+        this.thirdTab = thirdTab;  // Sæt reference ved initialisering
     }
 
     public Tab createFirstTab() {

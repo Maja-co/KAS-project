@@ -18,8 +18,9 @@ public class MainWindow extends Application {
         // Opret TabPane og tilføj faner
         TabPane tabPane = new TabPane();
 
+        ThirdTab thirdTab = new ThirdTab();
         // Tilføj FirstTab
-        FirstTab firstTab = new FirstTab();
+        FirstTab firstTab = new FirstTab(thirdTab);
         Tab tab1 = firstTab.createFirstTab();
 
         // Tilføj ekstra faner (placeholder for nu)
@@ -27,10 +28,8 @@ public class MainWindow extends Application {
         Tab tab2 = secondTab.createSecondTab();
 
         //Tilføjer ThirdTab
-        ThirdTab thirdTab = new ThirdTab();
-        Tab tab3 = thirdTab.createThirdTab();
 
-        tabPane.getTabs().addAll(tab1, tab2, tab3);
+        tabPane.getTabs().addAll(tab1, tab2, thirdTab);
 
         // Scene og vindue
         Scene scene = new Scene(tabPane, 480, 800);

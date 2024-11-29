@@ -13,15 +13,16 @@ import javafx.scene.control.Tab;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class ThirdTab {
+public class ThirdTab extends Tab {
 
     private ListView<Participant> participantListView = new ListView<>();
 
-    public Tab createThirdTab() {
-        Tab tab = new Tab("Deltagerliste");
-        tab.setClosable(false);
+    public ThirdTab() {
+        this.setText("Deltagerliste");
+        this.setClosable(false);
 
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10));
@@ -32,10 +33,10 @@ public class ThirdTab {
         scrollPane.setFitToWidth(true);
 
         VBox content = new VBox(scrollPane);
-        tab.setContent(content);
+        //tab.setContent(content);
 
         gridPane.add(participantListView, 0, 1);
-
+        this.setContent(gridPane);
         updateParticipantList();
 
         participantListView.setOnMouseClicked(event -> {
@@ -44,13 +45,13 @@ public class ThirdTab {
 //                showParticipantDetails(selectedItem);
             }
         });
-        return tab;
     }
 
     void updateParticipantList() {
         List<Enrollment> enrollments = Storage.getEnrollments();
+        ArrayList<Participant> participants = new ArrayList<>();
         for (Enrollment enrollment : enrollments) {
-            participantListView.getItems().add(enrollment.getParticipant());
+            participants.add(enrollment.getParticipant());
             Conferences conference = enrollment.getConference();
             if (conference != null) {
                 // Brug conference.getName() her, hvis conference ikke er null
@@ -59,37 +60,38 @@ public class ThirdTab {
                 System.out.println("Ingen tilknyttet konference");
             }
         }
+        participantListView.getItems().setAll(participants);
     }
 
 
-//    private void showParticipantDetails(Participant selectedParticipant) {
-//        List<Enrollment> enrollments = Storage.getEnrollments();
-//        for (Enrollment enrollment : enrollments) {
-//            if (selectedParticipant.contains(enrollment.getParticipant().getName())) {
-////                String details = "Konference: " + enrollment.getConference().getName() + "\n"
-////                        + "Navn: " + enrollment.getParticipant().getName() + "\n"
-////                        + "Adresse: " + enrollment.getParticipant().getAddress() + "\n"
-////                        + "Land: " + enrollment.getParticipant().getCountry() + "\n"
-////                        + "Mobil: " + enrollment.getParticipant().getPhoneNumber() + "\n"
-////                        + "Ankomstdato: " + enrollment.getArrivalDate() + "\n"
-////                        + "Afrejsedato: " + enrollment.getDepartureDate() + "\n"
-////                        + "Foredragsholder: " + (enrollment.isSpeaker() ? "Ja" : "Nej") + "\n"
-////                        + "Ledsager: " + (enrollment.isAccompanied()
-////                        ? "Ja - " + enrollment.getCompanionName()
-////                        : "Nej") + "\n"
-////                        + "Overnatning: " + (enrollment.wantsAccommodation()
-////                        ? "Ja - Hotel: " + enrollment.getHotelName()
-////                        : "Nej") + "\n"
-////                        + "Ledsagerudflugt: " + (enrollment.wantsCompanionTrip()
-////                        ? "Ja - " + enrollment.getCompanionTrip()
-////                        : "Nej");
-//                Alert detailsAlert = new Alert(Alert.AlertType.INFORMATION);
-//                detailsAlert.setTitle("Deltagerdetaljer");
-//                detailsAlert.setHeaderText("Detaljer for " + enrollment.getParticipant().getName());
-////                detailsAlert.setContentText(details);
-//                detailsAlert.showAndWait();
-////                break;
-//            }
-//        }
-//    }
+    private void showParticipantDetails(Participant selectedParticipant) {
+        List<Enrollment> enrollments = Storage.getEnrollments();
+        for (Enrollment enrollment : enrollments) {
+            if (Participant.toString();
+                String details = "Konference: " + enrollment.getConference().getName() + "\n"
+                        + "Navn: " + enrollment.getParticipant().getName() + "\n"
+                        + "Adresse: " + enrollment.getParticipant().getAddress() + "\n"
+                        + "Land: " + enrollment.getParticipant().getCountry() + "\n"
+                        + "Mobil: " + enrollment.getParticipant().getPhoneNumber() + "\n"
+                        + "Ankomstdato: " + enrollment.getArrivalDate() + "\n"
+                        + "Afrejsedato: " + enrollment.getDepartureDate() + "\n"
+                        + "Foredragsholder: " + (enrollment.isSpeaker() ? "Ja" : "Nej") + "\n"
+                        + "Ledsager: " + (enrollment.isAccompanied()
+                        ? "Ja - " + enrollment.getCompanionName()
+                        : "Nej") + "\n"
+                        + "Overnatning: " + (enrollment.wantsAccommodation()
+                        ? "Ja - Hotel: " + enrollment.getHotelName()
+                        : "Nej") + "\n"
+                        + "Ledsagerudflugt: " + (enrollment.wantsCompanionTrip()
+                        ? "Ja - " + enrollment.getCompanionTrip()
+                        : "Nej");
+                Alert detailsAlert = new Alert(Alert.AlertType.INFORMATION);
+                detailsAlert.setTitle("Deltagerdetaljer");
+                detailsAlert.setHeaderText("Detaljer for " + enrollment.getParticipant().getName());
+                detailsAlert.setContentText(details);
+                detailsAlert.showAndWait();
+                break;
+            }
+        }
+    }
 }
