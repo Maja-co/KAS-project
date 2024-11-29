@@ -1,41 +1,48 @@
 package application.model;
 
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
+import java.util.List;
 
 public class Hotel {
     private String name;
     private String address;
-    private double pricePrDay;
-    private String country;
-    private ArrayList<HotelFacilities> listOfHotelFacilities = new ArrayList<>();
+    private int pricePerDayDouble;
+    private int pricePerDaySingle;
+    private List<HotelFacilities> listOfHotelFacilities;
 
-    public Hotel(String name, String address, int pricePrDay, String country) {
+    public Hotel(String name, String address, int pricePerDaySingle, int pricePerDayDouble) {
         this.name = name;
         this.address = address;
-        this.pricePrDay = pricePrDay;
-        this.country = country;
+        this.pricePerDayDouble = pricePerDayDouble;
+        this.pricePerDaySingle = pricePerDaySingle;
+        this.listOfHotelFacilities = new ArrayList<>();
     }
 
-    //Metode for HotelFacilities klassen ( get(), add() og remove().), 0..* enkelt rettet
-    public ArrayList<HotelFacilities> getHotelFacilities() {
-        return new ArrayList<>(listOfHotelFacilities);
+    public double priceForHotelSingle(LocalDate startDate, LocalDate endDate) {
+        long days = ChronoUnit.DAYS.between(startDate, endDate);
+        return pricePerDaySingle * days;
     }
 
-    public void addHotelFacilities(HotelFacilities hotelFacility) {
-        if (!listOfHotelFacilities.contains(hotelFacility)) {
-            listOfHotelFacilities.add(hotelFacility);
-        }
+    public double priceForHotelDouble(LocalDate startDate, LocalDate endDate) {
+        long days = ChronoUnit.DAYS.between(startDate, endDate);
+        return pricePerDayDouble * days;
     }
 
-    public void removeHotelFacilities(HotelFacilities hotelFacility) {
-        listOfHotelFacilities.remove(hotelFacility);
-    }
-
-    public double getPricePrDay() {
-        return pricePrDay;
-    }
-
-    public Object getName() {
+    public String getName() {
         return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public int getPricePerDayDouble() {
+        return pricePerDayDouble;
+    }
+
+    public int getPricePerDaySingle() {
+        return pricePerDaySingle;
     }
 }

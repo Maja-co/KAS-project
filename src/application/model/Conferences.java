@@ -12,10 +12,9 @@ public class Conferences {
     private String category;
     private int numberOfSeats;
 
-    // Link attributes:
-    private final ArrayList<Enrollment> enrollments = new ArrayList<>();
-    private final ArrayList<Event> events = new ArrayList<>();
-    private final ArrayList<Hotel> hotels = new ArrayList<>();
+    private ArrayList<Enrollment> enrollments = new ArrayList<>();
+    private ArrayList<Event> events = new ArrayList<>();
+    private ArrayList<Hotel> hotels = new ArrayList<>();
 
     public Conferences(String name, LocalDate startDate, LocalDate endDate, String location, double pricePrDay, String category, int numberOfSeats) {
         this.name = name;
@@ -31,11 +30,22 @@ public class Conferences {
         return name;
     }
 
+    public LocalDate getStartDate() {
+        return startDate;
+    }
+
+    public LocalDate getEndDate() {
+        return endDate;
+    }
+
+    public String getLocation() {
+        return location;
+    }
+
     public double getPricePrDay() {
         return pricePrDay;
     }
 
-    //Metoder for Event-klassen ( 0..*)
     public ArrayList<Event> getEvents() {
         return new ArrayList<>(events);
     }
@@ -50,7 +60,6 @@ public class Conferences {
         events.remove(event);
     }
 
-    //Metoder for Hotel-klassen (0...*)
     public ArrayList<Hotel> getHotels() {
         return new ArrayList<>(hotels);
     }
@@ -65,12 +74,11 @@ public class Conferences {
         hotels.remove(hotel);
     }
 
-    //Metoder for Enrollment-klassen (0...*)
     public ArrayList<Enrollment> getEnrollments() {
         return new ArrayList<>(enrollments);
     }
 
-    public void addEnrollments(Enrollment enrollment) {
+    public void addEnrollment(Enrollment enrollment) {
         if (!enrollments.contains(enrollment)) {
             enrollments.add(enrollment);
         }
@@ -80,11 +88,7 @@ public class Conferences {
         enrollments.remove(enrollment);
     }
 
-    public int calculateTotalRevenue() {
-        int total = 0;
-        for (Enrollment enrollment : enrollments) {
-            total += enrollment.calculateTotalPrice();
-        }
-        return total;
+    public double calculateConferencePrice() {
+        return pricePrDay * (endDate.toEpochDay() - startDate.toEpochDay());
     }
 }

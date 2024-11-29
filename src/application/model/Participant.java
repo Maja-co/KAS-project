@@ -10,17 +10,30 @@ public class Participant {
     private Hotel hotel;
     private final ArrayList<Enrollment> enrollments = new ArrayList<>();
     private final ArrayList<Event> events = new ArrayList<>();
-    private Conferences conference;
 
-    public Participant(String name, String address, String country, String phoneNumber, Hotel hotel, Conferences conference) {
+    public Participant(String name, String address, String country, String phoneNumber) {
         this.name = name;
         this.address = address;
         this.country = country;
         this.phoneNumber = phoneNumber;
-        this.hotel = hotel;
-        this.conference = conference;
     }
 
+    // Gettere for de øvrige felter
+    public String getName() {
+        return name;
+    }
+
+    public String getAddress() {
+        return address;
+    }
+
+    public String getCountry() {
+        return country;
+    }
+
+    public String getPhoneNumber() {
+        return phoneNumber;
+    }
 
     // Metoder tilhørende Enrollment (get, add og remove) 1..* dobbelt asso
     public ArrayList<Enrollment> getEnrollments() {
@@ -33,9 +46,10 @@ public class Participant {
         }
     }
 
-    //Might be removed, make a decision later 21.11.24
     public void removeEnrollment(Enrollment enrollment) {
-        enrollments.remove(enrollment);
+        if (enrollments.contains(enrollment)) {
+            enrollments.remove(enrollment);
+        }
     }
 
     // Metoder tilhørende Event (get, add og remove) 0..* enkelt rettet
@@ -66,15 +80,8 @@ public class Participant {
         }
     }
 
-    public Conferences getConference() {
-        return conference;
-    }
-
-    public void setConference(Conferences conference) {
-        this.conference = conference;
-    }
-
-    public String getName() {
-        return name;
+    @Override
+    public String toString() {
+        return name + " (" + country + ")";
     }
 }

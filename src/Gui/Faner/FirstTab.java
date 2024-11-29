@@ -75,7 +75,7 @@ public class FirstTab {
         imageView.setFitHeight(180);
 
         Button button = new Button("", imageView);
-        Tooltip tooltip = new Tooltip("Klik for at tilmelde dig!");
+        Tooltip tooltip = new Tooltip("Hallo man klik mig lige. Du skal jo med til det her klimalort");
         button.setTooltip(tooltip);
 
         // Når knappen trykkes, vis pop-up og opdater ThirdTab deltagerliste

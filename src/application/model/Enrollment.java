@@ -13,14 +13,14 @@ public class Enrollment {
     private final ArrayList<HotelFacilities> hotelFacilitiesList = new ArrayList<>();
     private Companion companion;
     private Participant participant;
-    private String selectedHotelName;
-    private boolean companionEvents;
-    private String selectedEvent;
-
+    private Conferences conference;
+    private Hotel hotel;
+    private final ArrayList<Event> events = new ArrayList<>();
 
     public Enrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay,
-                      boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture, Participant participant,
-                      String selectedHotelName, boolean companionEvents, String selectedEvent) {
+                      boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture,
+                      Participant participant, Conferences conference, Hotel hotel) {
+        this.conference = conference;
         this.isParticipantPrivate = isParticipantPrivate;
         this.isCompanion = isCompanion;
         this.hotelStay = hotelStay;
@@ -28,64 +28,84 @@ public class Enrollment {
         this.dateOfArrival = dateOfArrival;
         this.dateOfDeparture = dateOfDeparture;
         this.participant = participant;
-        this.selectedHotelName = selectedHotelName;  // gem hotelnavnet
-        this.companionEvents = companionEvents;
-        this.selectedEvent = selectedEvent;
+        this.hotel = hotel;
     }
 
+    public LocalDate getArrivalDate() {
+        return dateOfArrival;
+    }
 
-    public boolean getHotelStay() {
+    public LocalDate getDepartureDate() {
+        return dateOfDeparture;
+    }
+
+    public boolean isSpeaker() {
+        return isParticipantLecturer;
+    }
+
+    public boolean isAccompanied() {
+        return companion != null;
+    }
+
+    public String getCompanionName() {
+        return isAccompanied() ? companion.getName() : null;
+    }
+
+    public boolean wantsAccommodation() {
         return hotelStay;
     }
 
-    //Metoder tilhørende Companion (get, set) 0..1
-    public Companion getCompanion() {
-        return companion;
+    public String getHotelName() {
+        return hotel != null ? hotel.getName() : "Ingen hotel valgt";
     }
 
-    public void setCompanion(Companion companion) {
-        this.companion = companion;
+    public boolean wantsCompanionTrip() {
+        return isAccompanied() && companion.wantsTrip();
     }
 
-    // Metoder tilhørende Hotelfacilities (get, add og remove) 1..*
-    public ArrayList<HotelFacilities> getHotelFacilitiesList() {
-        return new ArrayList<>(hotelFacilitiesList);
+    public String getCompanionTrip() {
+        return isAccompanied() ? companion.getTripDetails() : null;
     }
 
-    public void addHotelFacilities(HotelFacilities hotelFacilities) {
-        if (!hotelFacilitiesList.contains(hotelFacilities)) {
-            hotelFacilitiesList.add(hotelFacilities);
-        }
-    }
-
-    public void removeHotelFacilities(HotelFacilities hotelFacilities) {
-        hotelFacilitiesList.remove(hotelFacilities);
-    }
-
-    // Metoder tilhørende Participant (get) 1 komposition dobbelt asso
     public Participant getParticipant() {
         return participant;
     }
 
+    public Conferences getConference() {
+        return conference;
+    }
+
     public double calculateTotalPrice() {
-        // Konferencepris: Hvis deltager ikke er foredragsholder, betales dagsprisen for konferencen
-        double conferencePrice = isParticipantLecturer ? 0 : participant.getConference().getPricePrDay() * calculateDays();
-
-        // Hotelpris: Hvis deltager har valgt hotelophold, betales dagsprisen for hotellet
-        double hotelPrice = hotelStay ? participant.getHotel().getPricePrDay() * calculateDays() : 0;
-
-        // Ledsagerpris: Hvis deltager har ledsager, tillægges en fast pris pr. dag
-        double companionPrice = isCompanion ? calculateDays() * 80 : 0;
-        return conferencePrice + hotelPrice + companionPrice;
+        double totalPrice = 0;
+        totalPrice += calculateConferencePrice();
+        totalPrice += calculateHotelPrice();
+        totalPrice += calculateEventPrice();
+        return totalPrice;
     }
 
-    private double calculateDays() {
-        if (dateOfArrival == null || dateOfDeparture == null) {
-            return 0;  // Hvis datoerne ikke er defineret, returneres 0
+    private double calculateConferencePrice() {
+        return isParticipantLecturer ? 0 : conference.calculateConferencePrice();
+    }
+
+    private double calculateHotelPrice() {
+        if (!hotelStay || hotel == null) return 0;
+
+        double hotelPrice = isCompanion
+                ? hotel.priceForHotelDouble(dateOfArrival, dateOfDeparture)
+                : hotel.priceForHotelSingle(dateOfArrival, dateOfDeparture);
+
+        for (HotelFacilities facility : hotelFacilitiesList) {
+            hotelPrice += facility.getPricePerFacility();
         }
-        return (double) ((dateOfDeparture.toEpochDay() - dateOfArrival.toEpochDay()));
+
+        return hotelPrice;
     }
 
-
+    private double calculateEventPrice() {
+        double eventPrice = 0;
+        for (Event event : events) {
+            eventPrice += event.getPricePerEvent();
+        }
+        return eventPrice;
+    }
 }
-

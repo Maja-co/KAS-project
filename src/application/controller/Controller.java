@@ -12,22 +12,31 @@ public class Controller {
         return conference;
     }
 
-    public static Hotel createHotel(String name, String address, int pricePrDay, String location) {
-        Hotel hotel = new Hotel(name, address, pricePrDay, location);
+    public static Hotel createHotel(String name, String address, int pricePerDaySingle, int pricePerDayDouble) {
+        Hotel hotel = new Hotel(name, address, pricePerDaySingle, pricePerDayDouble);
         Storage.addHotel(hotel);
         return hotel;
     }
 
-    public static Enrollment createEnrollment(String name, String address, String country, String phoneNumber, Hotel hotel, Conferences conference, LocalDate startDate, LocalDate endDate, boolean isSpeaker, boolean hasCompanion, String companionName, boolean needsAccommodation, String selectedHotelName, boolean companionEvents, String selectedEvent) {
-        Participant participant = new Participant(name, address, country, phoneNumber, hotel, conference);
-        Companion companion = hasCompanion ? new Companion(companionName) : null;
-        Enrollment enrollment = new Enrollment(false, hasCompanion, needsAccommodation, isSpeaker, startDate, endDate, participant, selectedHotelName, companionEvents, selectedEvent);
-        if (companion != null) {
-            enrollment.setCompanion(companion);
-        }
+    public static HotelFacilities createHotelFacilities(String name, double price) {
+        return new HotelFacilities(name, price);
+    }
+
+    public static Event createEvent(String name, String description, LocalDate startDate, LocalDate endDate, double price) {
+        return new Event(name, description, startDate, endDate, price);
+    }
+
+    public static Participant createParticipant(String name, String address, String country, String phoneNumber) {
+        Participant participant = new Participant(name, address, country, phoneNumber);
+        Storage.addParticipant(participant);
+        return participant;
+    }
+
+    public static Enrollment createEnrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay,
+                                              boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture,
+                                              Participant participant, Conferences conference, Hotel hotel) {
+        Enrollment enrollment = new Enrollment(isParticipantPrivate, isCompanion, hotelStay, isParticipantLecturer, dateOfArrival, dateOfDeparture, participant, conference, hotel);
         Storage.addEnrollment(enrollment);
         return enrollment;
     }
-
-
 }

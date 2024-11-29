@@ -1,12 +1,16 @@
 package application.model;
 
-import java.util.ArrayList;
-
 public class HotelFacilities {
-    private final ArrayList<String> listOfHotelFacilities = new ArrayList<>();
-    private int pricePerFacilites;
+    private String nameOfFacility;
+    private double pricePerFacility;
 
-    public HotelFacilities(int pricePerFacilites) {
-        this.pricePerFacilites = pricePerFacilites;
+    public HotelFacilities(String nameOfFacility,double pricePerFacility) {
+        this.pricePerFacility = pricePerFacility;
+        this.nameOfFacility = nameOfFacility;
+    }
+
+
+    public double getPricePerFacility() {
+        return pricePerFacility;
     }
 }

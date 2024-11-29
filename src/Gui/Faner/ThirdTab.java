@@ -3,6 +3,7 @@ package Gui.Faner;
 import Storage.Storage;
 import javafx.application.Platform;
 import javafx.geometry.Insets;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Tab;
@@ -11,65 +12,82 @@ import javafx.scene.layout.VBox;
 
 public class ThirdTab {
 
-    private ListView<String> participantListView = new ListView<>();
+    private final ListView<String> participantListView = new ListView<>();
 
     public Tab createThirdTab() {
-        // Create the tab
         Tab tab = new Tab("Deltagerliste");
         tab.setClosable(false);
 
-        // Create GridPane
         GridPane gridPane = new GridPane();
         gridPane.setPadding(new Insets(10));
         gridPane.setVgap(10);
         gridPane.setHgap(10);
 
-        // Create ScrollPane for GridPane
         ScrollPane scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
 
-        // Opret VBox og tilføj ScrollPane
         VBox content = new VBox(scrollPane);
         tab.setContent(content);
 
-        // Tilføj ListView til GridPane
         gridPane.add(participantListView, 0, 1);
 
-        // Opdater deltagerlisten i GUI'en
         updateParticipantList();
+
+        participantListView.setOnMouseClicked(event -> {
+            String selectedItem = participantListView.getSelectionModel().getSelectedItem();
+            if (selectedItem != null) {
+                showParticipantDetails(selectedItem);
+            }
+        });
 
         return tab;
     }
 
-    // Opdater deltagerlisten i GUI'en med nye deltagere
     public void updateParticipantList() {
         Platform.runLater(() -> {
-            if (participantListView == null) {
-                System.err.println("participantListView er ikke initialiseret!"); //Slet det
-                return;
-            }
-
             participantListView.getItems().clear();
 
-            // Hent tilmeldinger fra Storage
             var enrollments = Storage.getEnrollments();
             if (enrollments != null && !enrollments.isEmpty()) {
-                System.out.println("Deltagerliste opdateres med " + enrollments.size() + " tilmeldinger."); //Ikke brug for slet det
                 for (var enrollment : enrollments) {
-                    if (enrollment.getParticipant() != null && enrollment.getParticipant().getName() != null) {
-                        participantListView.getItems().add(enrollment.getParticipant().getName());
-                    } else {
-                        System.err.println("Tilmelding mangler gyldig deltager eller navn."); //Kan følgende slettes?
+                    if (enrollment.getParticipant() != null) {
+                        String displayText = enrollment.getParticipant().getName()
+                                + ", tilmeldt: " + enrollment.getConference().getName();
+                        participantListView.getItems().add(displayText);
                     }
                 }
-            } else {
-                System.out.println("Ingen tilmeldinger fundet på deltagerlisten."); //Kan dette slettes?
             }
         });
     }
 
-    // Metode til at få ListView (hvis du har brug for det et andet sted)
-    public ListView<String> getListView() {
-        return participantListView;
+    private void showParticipantDetails(String selectedParticipant) {
+        var enrollments = Storage.getEnrollments();
+        for (var enrollment : enrollments) {
+            if (selectedParticipant.contains(enrollment.getParticipant().getName())) {
+                String details = "Konference: " + enrollment.getConference().getName() + "\n"
+                        + "Navn: " + enrollment.getParticipant().getName() + "\n"
+                        + "Adresse: " + enrollment.getParticipant().getAddress() + "\n"
+                        + "Land: " + enrollment.getParticipant().getCountry() + "\n"
+                        + "Mobil: " + enrollment.getParticipant().getPhoneNumber() + "\n"
+                        + "Ankomstdato: " + enrollment.getArrivalDate() + "\n"
+                        + "Afrejsedato: " + enrollment.getDepartureDate() + "\n"
+                        + "Foredragsholder: " + (enrollment.isSpeaker() ? "Ja" : "Nej") + "\n"
+                        + "Ledsager: " + (enrollment.isAccompanied()
+                        ? "Ja - " + enrollment.getCompanionName()
+                        : "Nej") + "\n"
+                        + "Overnatning: " + (enrollment.wantsAccommodation()
+                        ? "Ja - Hotel: " + enrollment.getHotelName()
+                        : "Nej") + "\n"
+                        + "Ledsagerudflugt: " + (enrollment.wantsCompanionTrip()
+                        ? "Ja - " + enrollment.getCompanionTrip()
+                        : "Nej");
+                Alert detailsAlert = new Alert(Alert.AlertType.INFORMATION);
+                detailsAlert.setTitle("Deltagerdetaljer");
+                detailsAlert.setHeaderText("Detaljer for " + enrollment.getParticipant().getName());
+                detailsAlert.setContentText(details);
+                detailsAlert.showAndWait();
+                break;
+            }
+        }
     }
 }
