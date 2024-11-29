@@ -3,8 +3,11 @@ package Gui.Faner;
 import application.controller.Controller;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
 import application.controller.Controller;
+import javafx.scene.paint.Color;
 
 
 import java.time.LocalDate;
@@ -14,11 +17,12 @@ public class SecondTab {
     public Tab createSecondTab() {
         // Opret fane
         Tab tab = new Tab("Opret konferencer");
-        tab.setClosable(false); // Forhindre lukning af fanen
+        tab.setClosable(false);
 
         // Layout
         VBox content = new VBox(15);
         content.setPadding(new Insets(15));
+        content.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
 
         // Felter
         TextField subjectField = new TextField();
@@ -68,8 +72,11 @@ public class SecondTab {
         });
 
         // Tilføj til layout
+        Label label = new Label("Opret en ny konference:");
+        label.setFont(javafx.scene.text.Font.font("Arial", 24));  // Sætter fonten til Arial og størrelsen til 18px
+        label.setStyle("-fx-font-weight: normal; -fx-text-fill: #000000;");
         content.getChildren().addAll(
-                new Label("Opret en ny konference:"),
+                label,
                 subjectField,
                 conferenceField,
                 adresseField,
@@ -79,6 +86,7 @@ public class SecondTab {
                 endDatePicker,
                 new VBox(10, createButton)
         );
+
 
         tab.setContent(content);
         return tab;

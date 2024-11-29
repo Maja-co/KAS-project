@@ -7,10 +7,13 @@ import javafx.scene.control.Tab;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.control.ScrollPane;
 import Storage.Storage;
+import javafx.scene.paint.Color;
 
 
 import java.util.List;
@@ -33,6 +36,8 @@ public class FirstTab {
         gridPane.setPadding(new Insets(20));
         gridPane.setHgap(20);
         gridPane.setVgap(20);
+        gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
+
 
         // Konferencer og deres billede paths
         List<Conferences> conferences = Storage.getConferences(); // Hent konferencerne fra Storage

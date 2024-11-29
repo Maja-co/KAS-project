@@ -6,7 +6,10 @@ import application.model.Enrollment;
 import application.model.Participant;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -27,6 +30,8 @@ public class ThirdTab extends Tab {
         gridPane.setPadding(new Insets(10));
         gridPane.setVgap(10);
         gridPane.setHgap(10);
+        gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.5), null, null)));
+
         participantListView.setPrefWidth(500); // Sætter bredden til 300 pixels
 
 

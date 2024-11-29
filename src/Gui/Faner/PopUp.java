@@ -7,7 +7,10 @@ import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
+import javafx.scene.layout.Background;
+import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 
@@ -29,7 +32,8 @@ public class PopUp {
         VBox popupContent = new VBox(15);
         popupContent.setPadding(new Insets(15));
         popupContent.setSpacing(10);
-        popupContent.setPrefHeight(800); // Gør popuppen højere
+        popupContent.setPrefHeight(800);
+        popupContent.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
 
         // Felter til input
         TextField nameField = new TextField();

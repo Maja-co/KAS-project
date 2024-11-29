@@ -33,6 +33,7 @@ public class MainWindow extends Application {
 
         // Scene og vindue
         Scene scene = new Scene(tabPane, 480, 800);
+        scene.setFill(javafx.scene.paint.Color.LIGHTBLUE);
         primaryStage.setScene(scene);
         primaryStage.show();
     }
