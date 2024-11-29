@@ -96,4 +96,8 @@ public class Conferences {
     public String getImagePath() {
         return imagePath;
     }
+    @Override
+    public String toString() {
+        return name; // Returnerer konferencens navn
+    }
 }

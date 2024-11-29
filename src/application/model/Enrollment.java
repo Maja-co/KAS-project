@@ -19,7 +19,7 @@ public class Enrollment {
 
     public Enrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay,
                       boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture,
-                      Participant participant, Conferences conference, Hotel hotel) {
+                      Participant participant, Conferences conference, Hotel hotel, Companion companion) {
         this.conference = conference;
         this.isParticipantPrivate = isParticipantPrivate;
         this.isCompanion = isCompanion;
@@ -29,8 +29,11 @@ public class Enrollment {
         this.dateOfDeparture = dateOfDeparture;
         this.participant = participant;
         this.hotel = hotel;
+        this.companion = companion;
     }
-
+    public boolean hasCompanion(){
+        return companion != null;
+    }
     public LocalDate getArrivalDate() {
         return dateOfArrival;
     }

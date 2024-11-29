@@ -43,7 +43,8 @@ public class SecondTab {
         endDatePicker.setPromptText("Slutdato");
 
         // Knapper
-        Button createButton = new Button("Opret");
+        Button createButton = new Button("Opret konferencen");
+        createButton.setPrefWidth(400);
         createButton.setOnAction(e -> {
             if (validateInputs(subjectField, conferenceField, adresseField, seatsField, priceField, startDatePicker, endDatePicker)) {
                 String subject = subjectField.getText();
@@ -55,7 +56,7 @@ public class SecondTab {
                 LocalDate endDate = endDatePicker.getValue();
 
                 // Brug Controller til at oprette konferencen
-                String imagePath = "/path/to/default/image.png"; // Eller en placeholder hvis du ikke har billeddata
+                String imagePath = "/path/to/default/image.png";
                 Controller.createConference(name, startDate, endDate, address, price, subject, seats, imagePath);
 
 
