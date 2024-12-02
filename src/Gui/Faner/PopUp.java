@@ -100,19 +100,19 @@ public class PopUp {
         // beregning af pris
         ChangeListener<Object> priceUpdater = (obs, oldVal, newVal) -> {
             double totalPrice = conference.calculateConferencePrice();
-
-            if (accommodationCheckBox.isSelected() && hotelListView.getSelectionModel().getSelectedItem() != null) {
-                Hotel selectedHotel = Storage.getHotels().stream()
-                        .filter(hotel -> hotel.getName().equals(hotelListView.getSelectionModel().getSelectedItem()))
-                        .findFirst().orElse(null);
-                if (selectedHotel != null) {
-                    totalPrice += selectedHotel.getPricePerDaySingle() * (endDatePicker.getValue().toEpochDay() - startDatePicker.getValue().toEpochDay());
-                }
-            }
-
-            if (companionCheckBox.isSelected()) {
-                totalPrice += 500;
-            }
+//
+//            if (accommodationCheckBox.isSelected() && hotelListView.getSelectionModel().getSelectedItem() != null) {
+//                Hotel selectedHotel = Storage.getHotels().stream()
+//                        .filter(hotel -> hotel.getName().equals(hotelListView.getSelectionModel().getSelectedItem()))
+//                        .findFirst().orElse(null);
+//                if (selectedHotel != null) {
+//                    totalPrice += selectedHotel.getPricePerDaySingle() * (endDatePicker.getValue().toEpochDay() - startDatePicker.getValue().toEpochDay());
+//                }
+//            }
+//
+//            if (companionCheckBox.isSelected()) {
+//                totalPrice += 500;
+//            }
 
             submitButton.setText(String.format("Tilmeld mig - Samlet pris: %.2f kr", totalPrice));
         };

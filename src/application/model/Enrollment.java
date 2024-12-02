@@ -2,6 +2,7 @@ package application.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+import Storage.Storage;
 
 public class Enrollment {
     private boolean isParticipantPrivate;
@@ -31,9 +32,11 @@ public class Enrollment {
         this.hotel = hotel;
         this.companion = companion;
     }
-    public boolean hasCompanion(){
+
+    public boolean hasCompanion() {
         return companion != null;
     }
+
     public LocalDate getArrivalDate() {
         return dateOfArrival;
     }
@@ -77,38 +80,42 @@ public class Enrollment {
     public Conferences getConference() {
         return conference;
     }
-
-    public double calculateTotalPrice() {
-        double totalPrice = 0;
-        totalPrice += calculateConferencePrice();
-        totalPrice += calculateHotelPrice();
-        totalPrice += calculateEventPrice();
-        return totalPrice;
+    public LocalDate getDateOfDeparture() {
+        return dateOfDeparture;
+    }
+    public LocalDate getDateOfArrival() {
+        return dateOfArrival;
     }
 
-    private double calculateConferencePrice() {
-        return isParticipantLecturer ? 0 : conference.calculateConferencePrice();
-    }
-
-    private double calculateHotelPrice() {
-        if (!hotelStay || hotel == null) return 0;
-
-        double hotelPrice = isCompanion
-                ? hotel.priceForHotelDouble(dateOfArrival, dateOfDeparture)
-                : hotel.priceForHotelSingle(dateOfArrival, dateOfDeparture);
-
-        for (HotelFacilities facility : hotelFacilitiesList) {
-            hotelPrice += facility.getPricePerFacility();
+    public double calculateTotalPrice(Enrollment enrollment) {
+        double totalprice = 0;
+        if (!isParticipantLecturer) {
+            totalprice += conference.calculateConferencePrice();
+        }
+        // if (isParticipantPrivate == true && isParticipantLecturer == false) {
+        //     totalprice += conference.calculateConferencePrice();
+        // }
+        if (hotelStay) {
+            if (isCompanion) {
+                totalprice += hotel.priceForHotelDobbel(getDateOfArrival(), getDateOfDeparture());
+            } else {
+                totalprice += hotel.priceForHotelSingle(getDateOfArrival(), getDateOfDeparture());
+            }
         }
 
-        return hotelPrice;
-    }
-
-    private double calculateEventPrice() {
-        double eventPrice = 0;
-        for (Event event : events) {
-            eventPrice += event.getPricePerEvent();
+        for (HotelFacilities hotelFacilities : Storage.getHotelFacilitiesArrayList()) {
+            if (hotelFacilities != null) {
+                totalprice += hotelFacilities.getPricePerFacility();
+            }
         }
-        return eventPrice;
+        //Her kommer pris metode for events***** if ()
+        for (Event event : Storage.getEvents()) {
+
+            if (event != null) {
+                totalprice += event.getPricePerEvent();
+            }
+
+        }
+        return totalprice;
     }
 }

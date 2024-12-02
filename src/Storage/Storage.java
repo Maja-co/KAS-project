@@ -42,6 +42,9 @@ public class Storage {
     public static void removeHotelFacilities(HotelFacilities hotelFacilities) {
         hotelFacilitiesList.remove(hotelFacilities);
     }
+    public static ArrayList<HotelFacilities> getHotelFacilitiesArrayList() {
+        return new ArrayList<>(hotelFacilitiesList);
+    }
 
     // Methods for Hotels
     public static ArrayList<Hotel> getHotels() {

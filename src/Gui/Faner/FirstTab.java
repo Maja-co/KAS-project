@@ -80,7 +80,7 @@ public class FirstTab {
         try {
             image = new Image(getClass().getResourceAsStream(imagePath));
         } catch (Exception e) {
-            System.err.println("Billede ikke fundet: " + imagePath);
+            System.err.println("Billede ej fundet: " + imagePath);
             image = new Image(getClass().getResourceAsStream("/Storage/resource/placeholder.png"));
         }
 

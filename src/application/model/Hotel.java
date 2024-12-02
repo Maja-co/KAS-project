@@ -8,26 +8,39 @@ import java.util.List;
 public class Hotel {
     private String name;
     private String address;
-    private int pricePerDayDouble;
-    private int pricePerDaySingle;
+    private int pricePrDayDobbel;
+    private int priceprDaySingle;
     private List<HotelFacilities> listOfHotelFacilities;
 
-    public Hotel(String name, String address, int pricePerDaySingle, int pricePerDayDouble) {
+    public Hotel(String name, String address, int priceprDaySingle, int pricePrDayDobbel) {
         this.name = name;
         this.address = address;
-        this.pricePerDayDouble = pricePerDayDouble;
-        this.pricePerDaySingle = pricePerDaySingle;
+        this.pricePrDayDobbel = pricePrDayDobbel;
+        this.priceprDaySingle = priceprDaySingle;
         this.listOfHotelFacilities = new ArrayList<>();
     }
 
-    public double priceForHotelSingle(LocalDate startDate, LocalDate endDate) {
-        long days = ChronoUnit.DAYS.between(startDate, endDate);
-        return pricePerDaySingle * days;
-    }
+    public double priceForHotelSingle(LocalDate startDate, LocalDate endDate){
+        double priceForHotelSingle = 0;
+        priceForHotelSingle += priceprDaySingle * (endDate.toEpochDay() -startDate.toEpochDay()-1);
+        for (HotelFacilities listOfHotelFacility : listOfHotelFacilities) {
+            if (listOfHotelFacility != null){
+                priceForHotelSingle += listOfHotelFacility.getPricePerFacility();
+            }
 
-    public double priceForHotelDouble(LocalDate startDate, LocalDate endDate) {
-        long days = ChronoUnit.DAYS.between(startDate, endDate);
-        return pricePerDayDouble * days;
+        }
+        return priceForHotelSingle;
+    }
+    public double priceForHotelDobbel(LocalDate startDate, LocalDate endDate){
+        double priceForHotelDobbel = 0;
+        priceForHotelDobbel += pricePrDayDobbel * (endDate.toEpochDay() -startDate.toEpochDay()-1);
+        for (HotelFacilities listOfHotelFacility : listOfHotelFacilities) {
+            if (listOfHotelFacility != null){
+                priceForHotelDobbel += listOfHotelFacility.getPricePerFacility();
+            }
+
+        }
+        return priceForHotelDobbel;
     }
 
     public String getName() {
@@ -38,11 +51,4 @@ public class Hotel {
         return address;
     }
 
-    public int getPricePerDayDouble() {
-        return pricePerDayDouble;
-    }
-
-    public int getPricePerDaySingle() {
-        return pricePerDaySingle;
-    }
 }
