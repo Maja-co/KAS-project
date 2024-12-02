@@ -34,11 +34,15 @@ public class Controller {
         return participant;
     }
 
-    public static Enrollment createEnrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay,
+    public static Enrollment createEnrollment(boolean isParticipantPrivate, boolean companion, boolean hotelStay,
                                               boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture,
-                                              Participant participant, Conferences conference, Hotel hotel, Companion companion) {
-        Enrollment enrollment = new Enrollment(isParticipantPrivate, isCompanion, hotelStay, isParticipantLecturer, dateOfArrival, dateOfDeparture, participant, conference, hotel, companion);
+                                              Participant participant, Conferences conference, Hotel hotel) {
+        Enrollment enrollment = new Enrollment(isParticipantPrivate, companion, hotelStay, isParticipantLecturer, dateOfArrival, dateOfDeparture, participant, conference, hotel);
         Storage.addEnrollment(enrollment);
         return enrollment;
     }
+    public static void addHotelFacilityToHotel(Hotel hotel, HotelFacilities facility) {
+        hotel.addHotelFacilities(facility);
+    }
+
 }

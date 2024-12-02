@@ -30,17 +30,4 @@ public class Companion {
         return tripDetails != null ? tripDetails : "Ingen ledsagerudflugt valgt";
     }
 
-    // Setters
-    public void setWantsTrip(boolean wantsTrip) {
-        this.wantsTrip = wantsTrip;
-    }
-
-    public void setTripDetails(String tripDetails) {
-        if (wantsTrip) {
-            this.tripDetails = tripDetails;
-        } else {
-            this.tripDetails = null; // Sætter til null, hvis ledsageren ikke ønsker udflugt
-        }
-    }
-
 }

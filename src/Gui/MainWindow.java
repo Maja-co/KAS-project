@@ -1,8 +1,8 @@
 package Gui;
 
-import Gui.Faner.FirstTab;
-import Gui.Faner.SecondTab;
-import Gui.Faner.ThirdTab;
+import Gui.Faner.ConferencesViewFirstTab;
+import Gui.Faner.ConferencesCreationSecondTab;
+import Gui.Faner.ParticipantViewThirdTab;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.control.Tab;
@@ -18,18 +18,18 @@ public class MainWindow extends Application {
         // Opret TabPane og tilføj faner
         TabPane tabPane = new TabPane();
 
-        ThirdTab thirdTab = new ThirdTab();
+        ParticipantViewThirdTab participantViewThirdTab = new ParticipantViewThirdTab();
         // Tilføj FirstTab
-        FirstTab firstTab = new FirstTab(thirdTab);
-        Tab tab1 = firstTab.createFirstTab();
+        ConferencesViewFirstTab conferencesViewFirstTab = new ConferencesViewFirstTab(participantViewThirdTab);
+        Tab tab1 = conferencesViewFirstTab.createFirstTab();
 
         // Tilføj ekstra faner (placeholder for nu)
-        SecondTab secondTab = new SecondTab();
-        Tab tab2 = secondTab.createSecondTab();
+        ConferencesCreationSecondTab conferencesCreationSecondTab = new ConferencesCreationSecondTab();
+        Tab tab2 = conferencesCreationSecondTab.createSecondTab();
 
         //Tilføjer ThirdTab
 
-        tabPane.getTabs().addAll(tab1, tab2, thirdTab);
+        tabPane.getTabs().addAll(tab1, tab2, participantViewThirdTab);
 
         // Scene og vindue
         Scene scene = new Scene(tabPane, 480, 800);

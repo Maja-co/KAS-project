@@ -1,6 +1,7 @@
 package application.model;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 public class Event {
     String name;
@@ -8,6 +9,7 @@ public class Event {
     LocalDate startDate;
     LocalDate endDate;
     double pricePerEvent;
+    ArrayList<Event> events = new ArrayList<>();
 
     public Event(String name, String adress, LocalDate startDate, LocalDate endDate, double pricePerEvent) {
         this.name = name;
@@ -17,6 +19,7 @@ public class Event {
         this.pricePerEvent = pricePerEvent;
     }
 
+
     public double getPricePerEvent() {
         return pricePerEvent;
     }
@@ -24,4 +27,11 @@ public class Event {
     public String getName() {
         return name;
     }
+
+public void addEvent (Event event) {
+        if (!events.contains(event)){
+            events.add(event);
+        }
+
+}
 }

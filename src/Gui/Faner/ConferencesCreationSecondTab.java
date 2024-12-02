@@ -7,13 +7,12 @@ import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
-import application.controller.Controller;
 import javafx.scene.paint.Color;
 
 
 import java.time.LocalDate;
 
-public class SecondTab {
+public class ConferencesCreationSecondTab {
 
     public Tab createSecondTab() {
         // Opret fane
@@ -91,7 +90,6 @@ public class SecondTab {
                 endDatePicker,
                 new VBox(10, createButton)
         );
-
 
         tab.setContent(content);
         return tab;

@@ -8,7 +8,7 @@ public class Conferences {
     private static LocalDate startDate;
     private static LocalDate endDate;
     private String location;
-    private static double pricePrDay;
+    private double pricePrDay;
     private String category;
     private int numberOfSeats;
     private String imagePath;
@@ -90,15 +90,16 @@ public class Conferences {
         enrollments.remove(enrollment);
     }
 
-    public static double calculateConferencePrice() {
-        double priceForConference = 0;
-        priceForConference += pricePrDay * (endDate.toEpochDay() -startDate.toEpochDay());
-        return priceForConference;
+    public double calculateConferencePrice(LocalDate startDate, LocalDate endDate) {
+        if (endDate.toEpochDay() - startDate.toEpochDay() == 0)
+            return  pricePrDay * 1;
+        return pricePrDay * (endDate.toEpochDay() - startDate.toEpochDay());
     }
 
     public String getImagePath() {
         return imagePath;
     }
+
     @Override
     public String toString() {
         return name; // Returnerer konferencens navn

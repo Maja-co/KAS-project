@@ -2,25 +2,28 @@ package application.model;
 
 import java.time.LocalDate;
 import java.util.ArrayList;
+
 import Storage.Storage;
 
 public class Enrollment {
     private boolean isParticipantPrivate;
-    private static boolean isCompanion;
-    private static boolean hotelStay;
-    private static boolean isParticipantLecturer;
-    private static LocalDate dateOfArrival;
-    private static LocalDate dateOfDeparture;
-    private final ArrayList<HotelFacilities> hotelFacilitiesList = new ArrayList<>();
+    private boolean isCompanion;
+    private boolean hotelStay;
+    private boolean isParticipantLecturer;
+    private LocalDate dateOfArrival;
+    private LocalDate dateOfDeparture;
+
+    private Hotel hotel;
     private Companion companion;
+    private Conferences conference;
     private Participant participant;
-    private static Conferences conference;
-    private static Hotel hotel;
     private final ArrayList<Event> events = new ArrayList<>();
+    private final ArrayList<HotelFacilities> hotelFacilitiesList = new ArrayList<>();
 
     public Enrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay,
                       boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture,
-                      Participant participant, Conferences conference, Hotel hotel, Companion companion) {
+                      Participant participant, Conferences conference, Hotel hotel) {
+
         this.conference = conference;
         this.isParticipantPrivate = isParticipantPrivate;
         this.isCompanion = isCompanion;
@@ -30,7 +33,22 @@ public class Enrollment {
         this.dateOfDeparture = dateOfDeparture;
         this.participant = participant;
         this.hotel = hotel;
-        this.companion = companion;
+    }
+
+    public ArrayList<HotelFacilities> getHotelFacilitiesList() {
+        return hotelFacilitiesList;
+    }
+
+    public void addHotelFacilities(HotelFacilities hotelFacility) {
+        if(!hotelFacilitiesList.contains(hotelFacility)) {
+            hotelFacilitiesList.add(hotelFacility);
+        }
+    }
+
+    public void addEvent(Event event) {
+        if (!events.contains(event)) {
+            events.add(event);
+        }
     }
 
     public boolean hasCompanion() {
@@ -80,42 +98,38 @@ public class Enrollment {
     public Conferences getConference() {
         return conference;
     }
-    public static LocalDate getDateOfDeparture() {
+
+    public LocalDate getDateOfDeparture() {
         return dateOfDeparture;
     }
-    public static LocalDate getDateOfArrival() {
+
+    public LocalDate getDateOfArrival() {
         return dateOfArrival;
     }
 
-    public static double calculateTotalPrice() {
-        double totalprice = 0;
+    public double calculateTotalPrice() {
+        double totalPrice = 0;
+
         if (!isParticipantLecturer) {
-            totalprice += conference.calculateConferencePrice();
+            totalPrice += conference.calculateConferencePrice(dateOfArrival, dateOfDeparture);
         }
-        // if (isParticipantPrivate == true && isParticipantLecturer == false) {
-        //     totalprice += conference.calculateConferencePrice();
-        // }
-        if (hotelStay) {
+
+        if (hotelStay && hotel != null) {
             if (isCompanion) {
-                totalprice += hotel.priceForHotelDobbel(getDateOfArrival(), getDateOfDeparture());
+                totalPrice += hotel.priceForHotelDobbel(dateOfArrival, dateOfDeparture);
             } else {
-                totalprice += hotel.priceForHotelSingle(getDateOfArrival(), getDateOfDeparture());
+                totalPrice += hotel.priceForHotelSingle(dateOfArrival, dateOfDeparture);
             }
         }
 
-        for (HotelFacilities hotelFacilities : Storage.getHotelFacilitiesArrayList()) {
-            if (hotelFacilities != null) {
-                totalprice += hotelFacilities.getPricePerFacility();
-            }
+        for (HotelFacilities facility : hotelFacilitiesList) {
+            totalPrice += facility.getPricePerFacility();
         }
-        //Her kommer pris metode for events***** if ()
-        for (Event event : Storage.getEvents()) {
 
-            if (event != null) {
-                totalprice += event.getPricePerEvent();
-            }
-
+        for (Event event : events) {
+            totalPrice += event.getPricePerEvent();
         }
-        return totalprice;
+
+        return totalPrice;
     }
 }

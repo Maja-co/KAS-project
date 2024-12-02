@@ -10,12 +10,12 @@ import Storage.Storage;
 import javafx.scene.paint.Color;
 import java.util.List;
 
-public class FirstTab {
+public class ConferencesViewFirstTab {
 
-    private ThirdTab thirdTab;  // Reference til ThirdTab
+    private ParticipantViewThirdTab participantViewThirdTab;  // Reference til ThirdTab
 
-    public FirstTab(ThirdTab thirdTab) {
-        this.thirdTab = thirdTab;  // Sæt reference ved initialisering
+    public ConferencesViewFirstTab(ParticipantViewThirdTab participantViewThirdTab) {
+        this.participantViewThirdTab = participantViewThirdTab;  // Sæt reference ved initialisering
     }
 
     public Tab createFirstTab() {
@@ -96,7 +96,7 @@ public class FirstTab {
         // Når knappen trykkes, tilmeld deltageren til konferencen
         button.setOnAction(e -> {
             // Åbn pop-up med konferencens detaljer og tilmeld deltageren
-            new PopUp(this.thirdTab, conference).showPopup();
+            new RegistrationPopUp(this.participantViewThirdTab, conference).showPopup();
         });
 
         return button;

@@ -8,9 +8,11 @@ public class HotelFacilities {
         this.pricePerFacility = pricePerFacility;
         this.nameOfFacility = nameOfFacility;
     }
-
-
     public double getPricePerFacility() {
         return pricePerFacility;
+    }
+
+    public String getNameOfFacility() {
+        return nameOfFacility;
     }
 }

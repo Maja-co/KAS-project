@@ -15,14 +15,14 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ThirdTab extends Tab {
+public class ParticipantViewThirdTab extends Tab {
 
     private ListView<Participant> participantListView = new ListView<>();
     private TextField searchField = new TextField();
     private ComboBox<Conferences> conferenceComboBox = new ComboBox<>();
     private Label participantDetailsLabel = new Label(); // Label til at vise deltageroplysninger
 
-    public ThirdTab() {
+    public ParticipantViewThirdTab() {
         this.setText("Deltagerliste");
         this.setClosable(false);
 
@@ -32,8 +32,10 @@ public class ThirdTab extends Tab {
         gridPane.setVgap(10);
         gridPane.setHgap(10);
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.5), null, null)));
+        gridPane.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
 
-        participantListView.setPrefWidth(500); // Sætter bredden til 300 pixels
+        participantListView.setPrefWidth(530);// Sætter bredden til 300 pixels
+        participantListView.setPrefHeight(780);
 
         // Opret og centrer overskriften
         Label titleLabel = new Label("Deltagerliste");
@@ -41,6 +43,7 @@ public class ThirdTab extends Tab {
         HBox titleBox = new HBox(titleLabel);
         titleBox.setAlignment(javafx.geometry.Pos.CENTER);
         titleBox.setPadding(new Insets(10));
+
         // Opsæt søgefelt
         searchField.setPromptText("Søg efter en deltager");
         searchField.textProperty().addListener((obs, oldText, newText) -> {
@@ -114,12 +117,13 @@ public class ThirdTab extends Tab {
                         + "Ledsager: " + (enrollment.hasCompanion()
                         ? "Ja - Navn: " + enrollment.getCompanionName()
                         : "Nej") + "\n"
-                        + "Overnatning: " + (enrollment.wantsAccommodation()
+                        + "Overnatning: " + "\n"+ (enrollment.wantsAccommodation()
                         ? "Ja - Hotel: " + enrollment.getHotelName()
                         : "Nej") + "\n"
                         + "Ledsagerudflugt: " + (enrollment.wantsCompanionTrip()
                         ? "Ja - " + enrollment.getCompanionTrip()
-                        : "Nej");
+                        : "Nej") + "\n"
+                        + "Total pris: " + enrollment.calculateTotalPrice();
                 participantDetailsLabel.setText(details);
                 break;
             }
