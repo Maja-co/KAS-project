@@ -5,6 +5,7 @@ import application.controller.Controller;
 import application.model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.layout.Background;
@@ -38,7 +39,7 @@ public class PopUp {
 
         // Opret HBox til at centrere overskriften
         HBox headerBox = new HBox();
-        headerBox.setAlignment(javafx.geometry.Pos.CENTER);  // Centrer overskriften
+        headerBox.setAlignment(Pos.CENTER);  // Centrer overskriften
         headerBox.setPadding(new Insets(10));  // Tilføj lidt padding rundt om overskriften
 
         // Overskriften
@@ -94,35 +95,9 @@ public class PopUp {
         });
 
         // Knappen til at tilmelde sig
-        Button submitButton = new Button("Tilmeld mig - Samlet pris: 0 kr");
-        submitButton.setPrefWidth(300);
+        Button submitButton = new Button("Tilmeld mig");
+        submitButton.setPrefWidth(600);
 
-        // beregning af pris
-        ChangeListener<Object> priceUpdater = (obs, oldVal, newVal) -> {
-            double totalPrice = conference.calculateConferencePrice();
-//
-//            if (accommodationCheckBox.isSelected() && hotelListView.getSelectionModel().getSelectedItem() != null) {
-//                Hotel selectedHotel = Storage.getHotels().stream()
-//                        .filter(hotel -> hotel.getName().equals(hotelListView.getSelectionModel().getSelectedItem()))
-//                        .findFirst().orElse(null);
-//                if (selectedHotel != null) {
-//                    totalPrice += selectedHotel.getPricePerDaySingle() * (endDatePicker.getValue().toEpochDay() - startDatePicker.getValue().toEpochDay());
-//                }
-//            }
-//
-//            if (companionCheckBox.isSelected()) {
-//                totalPrice += 500;
-//            }
-
-            submitButton.setText(String.format("Tilmeld mig - Samlet pris: %.2f kr", totalPrice));
-        };
-
-        // Tilføj listeners for at opdatere prisen
-        accommodationCheckBox.selectedProperty().addListener(priceUpdater);
-        companionCheckBox.selectedProperty().addListener(priceUpdater);
-        hotelListView.getSelectionModel().selectedItemProperty().addListener(priceUpdater);
-        startDatePicker.valueProperty().addListener(priceUpdater);
-        endDatePicker.valueProperty().addListener(priceUpdater);
 
         // Handling for tilmeldingsknappen
         submitButton.setOnAction(e -> {

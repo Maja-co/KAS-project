@@ -6,16 +6,16 @@ import Storage.Storage;
 
 public class Enrollment {
     private boolean isParticipantPrivate;
-    private boolean isCompanion;
-    private boolean hotelStay;
-    private boolean isParticipantLecturer;
-    private LocalDate dateOfArrival;
-    private LocalDate dateOfDeparture;
+    private static boolean isCompanion;
+    private static boolean hotelStay;
+    private static boolean isParticipantLecturer;
+    private static LocalDate dateOfArrival;
+    private static LocalDate dateOfDeparture;
     private final ArrayList<HotelFacilities> hotelFacilitiesList = new ArrayList<>();
     private Companion companion;
     private Participant participant;
-    private Conferences conference;
-    private Hotel hotel;
+    private static Conferences conference;
+    private static Hotel hotel;
     private final ArrayList<Event> events = new ArrayList<>();
 
     public Enrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay,
@@ -80,14 +80,14 @@ public class Enrollment {
     public Conferences getConference() {
         return conference;
     }
-    public LocalDate getDateOfDeparture() {
+    public static LocalDate getDateOfDeparture() {
         return dateOfDeparture;
     }
-    public LocalDate getDateOfArrival() {
+    public static LocalDate getDateOfArrival() {
         return dateOfArrival;
     }
 
-    public double calculateTotalPrice(Enrollment enrollment) {
+    public static double calculateTotalPrice() {
         double totalprice = 0;
         if (!isParticipantLecturer) {
             totalprice += conference.calculateConferencePrice();

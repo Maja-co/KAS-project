@@ -5,10 +5,10 @@ import java.util.ArrayList;
 
 public class Conferences {
     private String name;
-    private LocalDate startDate;
-    private LocalDate endDate;
+    private static LocalDate startDate;
+    private static LocalDate endDate;
     private String location;
-    private double pricePrDay;
+    private static double pricePrDay;
     private String category;
     private int numberOfSeats;
     private String imagePath;
@@ -90,9 +90,12 @@ public class Conferences {
         enrollments.remove(enrollment);
     }
 
-    public double calculateConferencePrice() {
-        return pricePrDay * (endDate.toEpochDay() - startDate.toEpochDay());
+    public static double calculateConferencePrice() {
+        double priceForConference = 0;
+        priceForConference += pricePrDay * (endDate.toEpochDay() -startDate.toEpochDay());
+        return priceForConference;
     }
+
     public String getImagePath() {
         return imagePath;
     }

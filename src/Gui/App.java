@@ -10,7 +10,7 @@ public class App {
     public static void main(String[] args) {
         initStorage();
 
-        Conferences renEnergiIndenforPlanetærGrænserI2024 = Controller.createConference("Ren energi indenfor planetær Grænser i 2040",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",500, "/Storage/resource/Picture 1.png");
+        Conferences renEnergiIndenforPlanetærGrænserI2024 = Controller.createConference("Ren energi indenfor planetær Grænser i 2040",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",100,"grønomstilling",500, "/Storage/resource/Picture 1.png");
 
         Conferences cirkulærByggerri = Controller.createConference("Cirkulært byggeri: Fra tanke til handling",LocalDate.of(2024,01,01), LocalDate.of(2024,1,5),"Svinestien",1500,"grønomstilling",2000, "/Storage/resource/Picture 2.png");
 
