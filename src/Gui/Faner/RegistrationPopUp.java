@@ -93,23 +93,18 @@ public class RegistrationPopUp {
                     hotelFacilitiesListView.getItems().addAll(
                             selectedHotel.getListOfHotelFacilities().stream().map(HotelFacilities::getNameOfFacility).toList()
                     );
-                    // Aktiver hotelfaciliteterne, når et hotel er valgt
                     hotelFacilitiesListView.setDisable(false);
                 }
             } else {
-                // Hvis intet hotel er valgt, deaktiver faciliteterne
                 hotelFacilitiesListView.setDisable(true);
             }
         });
 
-        // Lyt efter ændringer i accommodationCheckBox og deaktiver/aktiver hotelfaciliteter
         accommodationCheckBox.selectedProperty().addListener((obs, wasSelected, isNowSelected) -> {
             if (!isNowSelected) {
-                // Hvis overnatning ikke er valgt, deaktiver hotelfaciliteterne
                 hotelFacilitiesListView.setDisable(true);
                 hotelFacilitiesListView.getItems().clear();
             } else {
-                // Hvis overnatning er valgt, aktiver hotelfaciliteterne, hvis der er et valgt hotel
                 if (hotelListView.getSelectionModel().getSelectedItem() != null) {
                     hotelFacilitiesListView.setDisable(false);
                 }
@@ -132,8 +127,6 @@ public class RegistrationPopUp {
             LocalDate startDate = startDatePicker.getValue();
             LocalDate endDate = endDatePicker.getValue();
             double totalPrice = 0;
-
-            // Hvis deltageren er foredragsholder, er prisen 0
             if (!speakerCheckBox.isSelected()) {
                 totalPrice = conference.calculateConferencePrice(startDate, endDate);
             }

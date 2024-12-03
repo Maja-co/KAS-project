@@ -71,8 +71,6 @@ public class ConferencesCreationSecondTab {
                 String imagePath = "/path/to/default/image.png";
                 Controller.createConference(name, startDate, endDate, address, price, subject, seats, imagePath);
 
-
-                // Feedback til brugeren
                 showSuccess("Konferencen blev oprettet succesfuldt!");
             } else {
                 showError("Alle felter skal udfyldes korrekt!");

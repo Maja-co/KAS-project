@@ -30,13 +30,9 @@ public class ConferencesViewFirstTab {
         VBox vbox = new VBox(20);
         vbox.setPadding(new Insets(20));
         vbox.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
-
-        // HBox til at centrere overskriften
         HBox headerBox = new HBox();
         headerBox.setAlignment(javafx.geometry.Pos.CENTER);
         headerBox.setPadding(new Insets(10));
-
-        // Overskriften
         Label label = new Label("Find din næste konference her");
         label.setStyle("-fx-font-family: Georgia; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;");
         headerBox.getChildren().add(label);
@@ -47,7 +43,6 @@ public class ConferencesViewFirstTab {
         gridPane.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
 
-        // Konferencer og deres billede paths
         List<Conferences> conferences = Storage.getConferences();
         for (int i = 0; i < conferences.size(); i++) {
             Conferences conference = conferences.get(i);
@@ -60,7 +55,6 @@ public class ConferencesViewFirstTab {
             gridPane.add(imageButton, col, row);
         }
 
-        // ScrollPane til GridPane
         ScrollPane scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
         vbox.getChildren().add(scrollPane);
