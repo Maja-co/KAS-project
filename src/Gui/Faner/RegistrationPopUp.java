@@ -131,9 +131,14 @@ public class RegistrationPopUp {
         ChangeListener<Object> priceUpdater = (obs, oldVal, newVal) -> {
             LocalDate startDate = startDatePicker.getValue();
             LocalDate endDate = endDatePicker.getValue();
-            double totalPrice = conference.calculateConferencePrice(startDate, endDate);
+            double totalPrice = 0;
 
-            // Beregn hotelpris baseret på valgt hotel
+            // Hvis deltageren er foredragsholder, er prisen 0
+            if (!speakerCheckBox.isSelected()) {
+                totalPrice = conference.calculateConferencePrice(startDate, endDate);
+            }
+
+            // Beregn hotelpris og faciliteter
             if (accommodationCheckBox.isSelected() && hotelListView.getSelectionModel().getSelectedItem() != null) {
                 String selectedHotelName = hotelListView.getSelectionModel().getSelectedItem();
                 Hotel selectedHotel = Storage.getHotels().stream()
@@ -142,20 +147,20 @@ public class RegistrationPopUp {
                         .orElse(null);
 
                 if (selectedHotel != null) {
-                    // Tilføj prisen for faciliteterne, hvis der er nogen valgt
-                    double facilitiesPrice = 0;
+                    totalPrice += selectedHotel.priceForHotelSingle(startDate, endDate);
+
+                    // Tilføj prisen for faciliteterne
                     for (String facilityName : hotelFacilitiesListView.getSelectionModel().getSelectedItems()) {
                         HotelFacilities facility = selectedHotel.getListOfHotelFacilities().stream()
                                 .filter(f -> f.getNameOfFacility().equals(facilityName))
                                 .findFirst()
                                 .orElse(null);
                         if (facility != null) {
-                            facilitiesPrice += facility.getPricePerFacility();
+                            totalPrice += facility.getPricePerFacility();
                         }
                     }
-                    totalPrice += facilitiesPrice;
 
-                    // Hvis ledsager er valgt, tilføj ekstra omkostning for dobbeltværelse
+                    // Hvis ledsager er valgt, tilføj dobbeltværelsesomkostning
                     if (companionCheckBox.isSelected()) {
                         totalPrice += selectedHotel.priceForHotelDobbel(startDate, endDate);
                     }
@@ -164,28 +169,29 @@ public class RegistrationPopUp {
 
             // Beregn prisen for valgte udflugter/events
             if (eventCheckBox.isSelected()) {
-                double eventsPrice = 0;
                 for (String eventName : eventListView.getSelectionModel().getSelectedItems()) {
                     Event selectedEvent = Storage.getEvents().stream()
                             .filter(event -> event.getName().equals(eventName))
                             .findFirst()
                             .orElse(null);
                     if (selectedEvent != null) {
-                        eventsPrice += selectedEvent.getPricePerEvent();
+                        totalPrice += selectedEvent.getPricePerEvent();
                     }
                 }
-                totalPrice += eventsPrice;
             }
 
             // Opdater knappen med den samlede pris
             submitButton.setText(String.format("Tilmeld mig - Samlet pris: %.2f kr", totalPrice));
         };
 
+        speakerCheckBox.selectedProperty().addListener(priceUpdater);
         accommodationCheckBox.selectedProperty().addListener(priceUpdater);
         companionCheckBox.selectedProperty().addListener(priceUpdater);
         hotelListView.getSelectionModel().selectedItemProperty().addListener(priceUpdater);
         startDatePicker.valueProperty().addListener(priceUpdater);
         endDatePicker.valueProperty().addListener(priceUpdater);
+        eventListView.getSelectionModel().selectedItemProperty().addListener(priceUpdater);
+        hotelFacilitiesListView.getSelectionModel().selectedItemProperty().addListener(priceUpdater);
 
         // Handling for tilmeldingsknappen
         submitButton.setOnAction(e -> {

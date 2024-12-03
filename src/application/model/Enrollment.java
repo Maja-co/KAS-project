@@ -44,6 +44,9 @@ public class Enrollment {
             hotelFacilitiesList.add(hotelFacility);
         }
     }
+    public Hotel getHotel() {
+        return hotel;
+    }
 
     public void addEvent(Event event) {
         if (!events.contains(event)) {

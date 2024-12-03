@@ -1,9 +1,7 @@
 package Gui.Faner;
 
 import Storage.Storage;
-import application.model.Conferences;
-import application.model.Enrollment;
-import application.model.Participant;
+import application.model.*;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.Background;
@@ -106,28 +104,65 @@ public class ParticipantViewThirdTab extends Tab {
         List<Enrollment> enrollments = Storage.getEnrollments();
         for (Enrollment enrollment : enrollments) {
             if (enrollment.getParticipant().equals(selectedParticipant)) {
-                String details = "Konference: " + enrollment.getConference().getName() + "\n"
-                        + "Navn: " + enrollment.getParticipant().getName() + "\n"
-                        + "Adresse: " + enrollment.getParticipant().getAddress() + "\n"
-                        + "Land: " + enrollment.getParticipant().getCountry() + "\n"
-                        + "Mobil: " + enrollment.getParticipant().getPhoneNumber() + "\n"
-                        + "Ankomstdato: " + enrollment.getArrivalDate() + "\n"
-                        + "Afrejsedato: " + enrollment.getDepartureDate() + "\n"
-                        + "Foredragsholder: " + (enrollment.isSpeaker() ? "Ja" : "Nej") + "\n"
-                        + "Ledsager: " + (enrollment.hasCompanion()
-                        ? "Ja - Navn: " + enrollment.getCompanionName()
-                        : "Nej") + "\n"
-                        + "Overnatning: " + "\n"+ (enrollment.wantsAccommodation()
-                        ? "Ja - Hotel: " + enrollment.getHotelName()
-                        : "Nej") + "\n"
-                        + "Ledsagerudflugt: " + (enrollment.wantsCompanionTrip()
-                        ? "Ja - " + enrollment.getCompanionTrip()
-                        : "Nej") + "\n"
-                        + "Total pris: " + enrollment.calculateTotalPrice();
-                participantDetailsLabel.setText(details);
+                StringBuilder details = new StringBuilder();
+                details.append("Konference: ").append(enrollment.getConference().getName()).append("\n")
+                        .append("Navn: ").append(selectedParticipant.getName()).append("\n")
+                        .append("Adresse: ").append(selectedParticipant.getAddress()).append("\n")
+                        .append("Land: ").append(selectedParticipant.getCountry()).append("\n")
+                        .append("Mobil: ").append(selectedParticipant.getPhoneNumber()).append("\n")
+                        .append("Ankomstdato: ").append(enrollment.getArrivalDate()).append("\n")
+                        .append("Afrejsedato: ").append(enrollment.getDepartureDate()).append("\n")
+                        .append("Foredragsholder: ").append(enrollment.isSpeaker() ? "Ja" : "Nej").append("\n");
+
+                // Ledsager
+                if (enrollment.hasCompanion()) {
+                    details.append("Ledsager: Ja - Navn: ").append(enrollment.getCompanionName()).append("\n")
+                            .append("Ledsagerudflugt: ").append(enrollment.wantsCompanionTrip()
+                                    ? enrollment.getCompanionTrip()
+                                    : "Ingen ledsagerudflugt valgt").append("\n");
+                } else {
+                    details.append("Ledsager: Nej\n");
+                }
+
+                // Overnatning
+                if (enrollment.wantsAccommodation()) {
+                    details.append("Overnatning: Ja - Hotel: ").append(enrollment.getHotelName()).append("\n");
+
+                    Hotel hotel = enrollment.getHotel();
+                    if (hotel != null) {
+                        List<HotelFacilities> facilities = hotel.getListOfHotelFacilities();
+                        if (!facilities.isEmpty()) {
+                            details.append("Hotel-faciliteter: ");
+                            for (HotelFacilities facility : facilities) {
+                                details.append(facility.getNameOfFacility()).append(", ");
+                            }
+                            details.setLength(details.length() - 2);
+                            details.append("\n");
+                        }
+                    }
+                } else {
+                    details.append("Overnatning: Nej\n");
+                }
+
+
+                // Events
+                if (!enrollment.getHotelFacilitiesList().isEmpty()) {
+                    details.append("Valgte faciliteter: ");
+                    for (HotelFacilities facility : enrollment.getHotelFacilitiesList()) {
+                        details.append(facility.getNameOfFacility()).append(", ");
+                    }
+                    details.setLength(details.length() - 2);
+                    details.append("\n");
+                }
+
+                // Total pris
+                details.append("Total pris: ").append(enrollment.calculateTotalPrice()).append(" kr\n");
+
+                participantDetailsLabel.setText(details.toString());
                 break;
             }
         }
     }
+
 
 }
