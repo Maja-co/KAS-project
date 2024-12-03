@@ -18,7 +18,7 @@ public class ParticipantViewThirdTab extends Tab {
     private ListView<Participant> participantListView = new ListView<>();
     private TextField searchField = new TextField();
     private ComboBox<Conferences> conferenceComboBox = new ComboBox<>();
-    private Label participantDetailsLabel = new Label(); // Label til at vise deltageroplysninger
+    private Label participantDetailsLabel = new Label();
 
     public ParticipantViewThirdTab() {
         this.setText("Deltagerliste");
@@ -32,7 +32,7 @@ public class ParticipantViewThirdTab extends Tab {
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.5), null, null)));
         gridPane.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
 
-        participantListView.setPrefWidth(530);// Sætter bredden til 300 pixels
+        participantListView.setPrefWidth(530);
         participantListView.setPrefHeight(780);
 
         // Opret og centrer overskriften
@@ -126,15 +126,15 @@ public class ParticipantViewThirdTab extends Tab {
 
                 // Overnatning
                 if (enrollment.wantsAccommodation()) {
-                    details.append("Overnatning: Ja - Hotel: ").append(enrollment.getHotelName()).append("\n");
+                    details.append("Overnatning: Ja:\nHotel: ").append(enrollment.getHotelName()).append("\n");
 
                     Hotel hotel = enrollment.getHotel();
                     if (hotel != null) {
                         List<HotelFacilities> facilities = hotel.getListOfHotelFacilities();
                         if (!facilities.isEmpty()) {
-                            details.append("Hotel-faciliteter: ");
+                            details.append("Hotel-faciliteter:\n ");
                             for (HotelFacilities facility : facilities) {
-                                details.append(facility.getNameOfFacility()).append(", ");
+                                details.append(facility.getNameOfFacility()).append(",\n ");
                             }
                             details.setLength(details.length() - 2);
                             details.append("\n");
@@ -143,7 +143,6 @@ public class ParticipantViewThirdTab extends Tab {
                 } else {
                     details.append("Overnatning: Nej\n");
                 }
-
 
                 // Events
                 if (!enrollment.getHotelFacilitiesList().isEmpty()) {
@@ -163,6 +162,4 @@ public class ParticipantViewThirdTab extends Tab {
             }
         }
     }
-
-
 }

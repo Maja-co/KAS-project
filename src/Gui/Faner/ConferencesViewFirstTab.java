@@ -1,5 +1,6 @@
 package Gui.Faner;
 
+import Gui.Faner.RegistrationPopUp;
 import application.model.Conferences;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
@@ -8,14 +9,16 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.*;
 import Storage.Storage;
 import javafx.scene.paint.Color;
+
 import java.util.List;
 
 public class ConferencesViewFirstTab {
 
-    private ParticipantViewThirdTab participantViewThirdTab;  // Reference til ThirdTab
+    private ParticipantViewThirdTab participantViewThirdTab;
+
 
     public ConferencesViewFirstTab(ParticipantViewThirdTab participantViewThirdTab) {
-        this.participantViewThirdTab = participantViewThirdTab;  // Sæt reference ved initialisering
+        this.participantViewThirdTab = participantViewThirdTab;
     }
 
     public Tab createFirstTab() {
@@ -35,7 +38,7 @@ public class ConferencesViewFirstTab {
 
         // Overskriften
         Label label = new Label("Find din næste konference her");
-        label.setStyle("-fx-font-family: Georgia; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;");  // Opdateret med farve og fed skrift
+        label.setStyle("-fx-font-family: Georgia; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;");
         headerBox.getChildren().add(label);
         vbox.getChildren().add(headerBox);
         GridPane gridPane = new GridPane();
@@ -44,32 +47,23 @@ public class ConferencesViewFirstTab {
         gridPane.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
 
-
         // Konferencer og deres billede paths
-        List<Conferences> conferences = Storage.getConferences(); // Hent konferencerne fra Storage
+        List<Conferences> conferences = Storage.getConferences();
         for (int i = 0; i < conferences.size(); i++) {
             Conferences conference = conferences.get(i);
-            Button imageButton = createImageButton(conference, conference.getImagePath()); // Giv knappen konferencen som parameter
+            Button imageButton = createImageButton(conference, conference.getImagePath());
             int row = i / 2;
             int col = i % 2;
-
-            // Set background for each GridPane cell (col, row)
             Region cell = new Region();
             cell.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
-            gridPane.add(cell, col, row);  // Add the background cell
-
-            // Add the image button to the grid cell
+            gridPane.add(cell, col, row);
             gridPane.add(imageButton, col, row);
         }
 
         // ScrollPane til GridPane
         ScrollPane scrollPane = new ScrollPane(gridPane);
         scrollPane.setFitToWidth(true);
-
-        // Tilføj ScrollPane til VBox
-        vbox.getChildren().add(scrollPane);  // Tilføj ScrollPane med konferencerne til VBox
-
-        // Tilføj hele VBox til tab
+        vbox.getChildren().add(scrollPane);
         tab.setContent(vbox);
 
         return tab;
@@ -92,13 +86,9 @@ public class ConferencesViewFirstTab {
         button.setUserData(conference);
         Tooltip tooltip = new Tooltip("Klik for at tilmelde dig til: " + conference.getName());
         button.setTooltip(tooltip);
-
-        // Når knappen trykkes, tilmeld deltageren til konferencen
         button.setOnAction(e -> {
-            // Åbn pop-up med konferencens detaljer og tilmeld deltageren
             new RegistrationPopUp(this.participantViewThirdTab, conference).showPopup();
         });
-
         return button;
     }
 }
