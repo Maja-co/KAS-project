@@ -23,18 +23,6 @@ public class Hotel {
         return listOfHotelFacilities;
     }
 
-//    public double priceForHotelSingle(LocalDate startDate, LocalDate endDate) {
-//        long days = endDate
-//        double priceForHotelSingle = 0;
-//        priceForHotelSingle += pricePrDaySingle * (endDate.toEpochDay() - startDate.toEpochDay() - 1);
-//        for (HotelFacilities listOfHotelFacility : listOfHotelFacilities) {
-//            if (listOfHotelFacility != null) {
-//                priceForHotelSingle += listOfHotelFacility.getPricePerFacility();
-//            }
-//        }
-//        return priceForHotelSingle;
-//    }
-
     public double priceForHotelSingle(LocalDate startDate, LocalDate endDate) {
         long days = endDate.toEpochDay() - startDate.toEpochDay();
         double priceForHotelSingle = 0;

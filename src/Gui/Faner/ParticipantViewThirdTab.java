@@ -120,7 +120,7 @@ public class ParticipantViewThirdTab extends Tab {
                         .append("Foredragsholder: ").append(enrollment.isSpeaker() ? "Ja" : "Nej").append("\n");
 
                 // Ledsager
-                if (enrollment.hasCompanion()) {
+                if (enrollment.isAccompanied()) {
                     details.append("Ledsager: Ja - Navn: ").append(enrollment.getCompanionName()).append("\n")
                             .append("Ledsagerudflugt: ").append(enrollment.wantsCompanionTrip()
                                     ? enrollment.getCompanionTrip()

@@ -73,8 +73,7 @@ public class RegistrationPopUp {
         TextField companionField = new TextField();
         companionField.setPromptText("Ledsagers navn");
         companionField.setDisable(true);
-        companionCheckBox.selectedProperty().addListener((obs, oldVal, newVal) ->
-                companionField.setDisable(!newVal));
+        companionCheckBox.selectedProperty().addListener((obs, oldVal, newVal) -> companionField.setDisable(!newVal));
 
         CheckBox accommodationCheckBox = new CheckBox("Ønsker du overnatning?");
         ListView<String> hotelListView = new ListView<>();
@@ -132,6 +131,7 @@ public class RegistrationPopUp {
             LocalDate startDate = startDatePicker.getValue();
             LocalDate endDate = endDatePicker.getValue();
             double totalPrice = 0;
+
             if (!speakerCheckBox.isSelected()) {
                 totalPrice = conference.calculateConferencePrice(startDate, endDate);
             }
@@ -145,7 +145,12 @@ public class RegistrationPopUp {
                         .orElse(null);
 
                 if (selectedHotel != null) {
-                    totalPrice += selectedHotel.priceForHotelSingle(startDate, endDate);
+                    // Tjek om der er ledsager, og brug den rette pris for værelset
+                    if (companionCheckBox.isSelected()) {
+                        totalPrice += selectedHotel.priceForHotelDobbel(startDate, endDate);
+                    } else {
+                        totalPrice += selectedHotel.priceForHotelSingle(startDate, endDate);
+                    }
 
                     // Tilføj prisen for faciliteterne
                     for (String facilityName : hotelFacilitiesListView.getSelectionModel().getSelectedItems()) {
@@ -156,11 +161,6 @@ public class RegistrationPopUp {
                         if (facility != null) {
                             totalPrice += facility.getPricePerFacility();
                         }
-                    }
-
-                    // Hvis ledsager er valgt, tilføj dobbeltværelsesomkostning
-                    if (companionCheckBox.isSelected()) {
-                        totalPrice += selectedHotel.priceForHotelDobbel(startDate, endDate);
                     }
                 }
             }
@@ -177,6 +177,7 @@ public class RegistrationPopUp {
                     }
                 }
             }
+
 
             // Opdater knappen med den samlede pris
             submitButton.setText(String.format("Tilmeld mig - Samlet pris: %.2f kr", totalPrice));
