@@ -178,8 +178,6 @@ public class RegistrationPopUp {
                 }
             }
 
-
-            // Opdater knappen med den samlede pris
             submitButton.setText(String.format("Tilmeld mig - Samlet pris: %.2f kr", totalPrice));
         };
 
@@ -208,10 +206,9 @@ public class RegistrationPopUp {
                 return;
             }
 
-
             boolean isLecturer = speakerCheckBox.isSelected();
-            boolean hasCompanion = companionCheckBox.isSelected();
-            String companionName = hasCompanion ? companionField.getText().trim() : "";
+            boolean isAccompanied = companionCheckBox.isSelected();
+            String companionName = isAccompanied ? companionField.getText().trim() : "";
 
             Hotel selectedHotel = Storage.getHotels().stream().filter(h -> h.getName().equals(hotelListView.getSelectionModel().getSelectedItem())).findFirst().orElse(null);
             Participant participant = Controller.createParticipant(name, address, country, mobile);

@@ -3,11 +3,9 @@ package application.model;
 import java.time.LocalDate;
 import java.util.ArrayList;
 
-import Storage.Storage;
-
 public class Enrollment {
     private boolean isParticipantPrivate;
-    private boolean isCompanion;
+    private boolean isAccompanied;
     private boolean hotelStay;
     private boolean isParticipantLecturer;
     private LocalDate dateOfArrival;
@@ -20,13 +18,13 @@ public class Enrollment {
     private final ArrayList<Event> events = new ArrayList<>();
     private final ArrayList<HotelFacilities> hotelFacilitiesList = new ArrayList<>();
 
-    public Enrollment(boolean isParticipantPrivate, boolean isCompanion, boolean hotelStay,
+    public Enrollment(boolean isParticipantPrivate, boolean isAccompanied, boolean hotelStay,
                       boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture,
                       Participant participant, Conferences conference, Hotel hotel) {
 
         this.conference = conference;
         this.isParticipantPrivate = isParticipantPrivate;
-        this.isCompanion = isCompanion;
+        this.isAccompanied = isAccompanied;
         this.hotelStay = hotelStay;
         this.isParticipantLecturer = isParticipantLecturer;
         this.dateOfArrival = dateOfArrival;
@@ -55,10 +53,6 @@ public class Enrollment {
         }
     }
 
-    public boolean hasCompanion() {
-        return companion != null;
-    }
-
     public LocalDate getArrivalDate() {
         return dateOfArrival;
     }
@@ -83,6 +77,10 @@ public class Enrollment {
         return hotelStay;
     }
 
+    public ArrayList<Event> getEvents() {
+        return events;
+    }
+
     public String getHotelName() {
         return hotel != null ? hotel.getName() : "Ingen hotel valgt";
     }
@@ -103,14 +101,6 @@ public class Enrollment {
         return conference;
     }
 
-    public LocalDate getDateOfDeparture() {
-        return dateOfDeparture;
-    }
-
-    public LocalDate getDateOfArrival() {
-        return dateOfArrival;
-    }
-
     public double calculateTotalPrice() {
         double totalPrice = 0;
 
@@ -119,7 +109,7 @@ public class Enrollment {
         }
 
         if (hotelStay && hotel != null) {
-            if (isCompanion) {
+            if (isAccompanied) {
                 totalPrice += hotel.priceForHotelDobbel(dateOfArrival, dateOfDeparture);
             } else {
                 totalPrice += hotel.priceForHotelSingle(dateOfArrival, dateOfDeparture);
@@ -136,4 +126,5 @@ public class Enrollment {
 
         return totalPrice;
     }
+
 }

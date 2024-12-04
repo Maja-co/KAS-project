@@ -128,7 +128,6 @@ public class ParticipantViewThirdTab extends Tab {
                 } else {
                     details.append("Ledsager: Nej\n");
                 }
-
                 // Overnatning
                 if (enrollment.wantsAccommodation()) {
                     details.append("Overnatning: Ja:\nHotel: ").append(enrollment.getHotelName()).append("\n");
