@@ -23,27 +23,36 @@ public class Hotel {
         return listOfHotelFacilities;
     }
 
+//    public double priceForHotelSingle(LocalDate startDate, LocalDate endDate) {
+//        long days = endDate
+//        double priceForHotelSingle = 0;
+//        priceForHotelSingle += pricePrDaySingle * (endDate.toEpochDay() - startDate.toEpochDay() - 1);
+//        for (HotelFacilities listOfHotelFacility : listOfHotelFacilities) {
+//            if (listOfHotelFacility != null) {
+//                priceForHotelSingle += listOfHotelFacility.getPricePerFacility();
+//            }
+//        }
+//        return priceForHotelSingle;
+//    }
+
     public double priceForHotelSingle(LocalDate startDate, LocalDate endDate) {
+        long days = endDate.toEpochDay() - startDate.toEpochDay();
         double priceForHotelSingle = 0;
-        priceForHotelSingle += pricePrDaySingle * (endDate.toEpochDay() - startDate.toEpochDay() - 1);
-        for (HotelFacilities listOfHotelFacility : listOfHotelFacilities) {
-            if (listOfHotelFacility != null) {
-                priceForHotelSingle += listOfHotelFacility.getPricePerFacility();
-            }
+        if (days < 1) {
+            return priceForHotelSingle = 0;
         }
+        priceForHotelSingle += pricePrDaySingle * days;
         return priceForHotelSingle;
     }
 
     public double priceForHotelDobbel(LocalDate startDate, LocalDate endDate) {
-        double priceForHotelDobbel = 0;
-        priceForHotelDobbel += pricePrDayDobbel * (endDate.toEpochDay() - startDate.toEpochDay() - 1);
-        for (HotelFacilities listOfHotelFacility : listOfHotelFacilities) {
-            if (listOfHotelFacility != null) {
-                priceForHotelDobbel += listOfHotelFacility.getPricePerFacility();
-            }
-
+        long days = endDate.toEpochDay() - startDate.toEpochDay();
+        double priceForHotelDobbelRoom = 0;
+        if (days < 1) {
+            return priceForHotelDobbelRoom = 0;
         }
-        return priceForHotelDobbel;
+        priceForHotelDobbelRoom += pricePrDayDobbel * days;
+        return priceForHotelDobbelRoom;
     }
 
     public String getName() {

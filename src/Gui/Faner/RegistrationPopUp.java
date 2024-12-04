@@ -193,6 +193,7 @@ public class RegistrationPopUp {
 
         // Handling for tilmeldingsknappen
         submitButton.setOnAction(e -> {
+            boolean wantsAccommodation = accommodationCheckBox.isSelected();
             String name = nameField.getText().trim();
             String address = addressField.getText().trim();
             String country = countryField.getText().trim();
@@ -206,13 +207,15 @@ public class RegistrationPopUp {
                 return;
             }
 
+
             boolean isLecturer = speakerCheckBox.isSelected();
             boolean hasCompanion = companionCheckBox.isSelected();
             String companionName = hasCompanion ? companionField.getText().trim() : "";
 
             Hotel selectedHotel = Storage.getHotels().stream().filter(h -> h.getName().equals(hotelListView.getSelectionModel().getSelectedItem())).findFirst().orElse(null);
             Participant participant = Controller.createParticipant(name, address, country, mobile);
-            Enrollment enrollment = Controller.createEnrollment(true, true, false, isLecturer, startDatePicker.getValue(), endDatePicker.getValue(), participant, conference, selectedHotel
+            Enrollment enrollment = Controller.createEnrollment(true, true, wantsAccommodation, isLecturer, startDatePicker.getValue(), endDatePicker.getValue(),
+                    participant, conference, selectedHotel, wantsAccommodation
             );
 
             if (selectedHotel != null) {
@@ -230,7 +233,6 @@ public class RegistrationPopUp {
                     enrollment.addEvent(selectedEvent);
                 }
             });
-
 
             participantViewThirdTab.updateParticipantList();
             popup.close();

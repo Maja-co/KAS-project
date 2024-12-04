@@ -65,67 +65,67 @@ public class App {
 
         //Deltager data:
         Participant mikkelAndersen = Controller.createParticipant("Mikkel Andersen", "Jyllandsgade 8 7100 Vejle", "Danmark ", "+45 70731584");
-        Enrollment mikkelEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 5, 12), LocalDate.of(2024, 5, 15), mikkelAndersen, GrønneOgSundeVelfærdsbygninger, transylvania);
+        Enrollment mikkelEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 5, 12), LocalDate.of(2024, 5, 15), mikkelAndersen, GrønneOgSundeVelfærdsbygninger, transylvania, true);
 
         Participant emmaJensen = Controller.createParticipant("Emma Jensen", "Østergade 25, 8000 Aarhus", "Danmark", "+45 12345678");
-        Enrollment emmaJensenEnrollment = Controller.createEnrollment(true, true, false, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), emmaJensen, cirkulærByggerri, denHvideSvane);
+        Enrollment emmaJensenEnrollment = Controller.createEnrollment(true, true, false, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), emmaJensen, cirkulærByggerri, denHvideSvane, true);
 
         Participant lucasHansen = Controller.createParticipant("Lucas Hansen", "Vestergade 45, 9000 Aalborg", "Danmark", "+45 87654321");
-        Enrollment lucasHansenEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), lucasHansen, renEnergiIndenforPlanetærGrænserI2024, tipTon);
+        Enrollment lucasHansenEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), lucasHansen, renEnergiIndenforPlanetærGrænserI2024, tipTon, true);
 
         Participant frejaSørensen = Controller.createParticipant("Freja Sørensen", "Nørregade 10, 5000 Odense", "Danmark", "+45 99887766");
-        Enrollment frejaSørensenEnrollment = Controller.createEnrollment(true, false, true, false, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), frejaSørensen, GrønneOgSundeVelfærdsbygninger, transylvania);
+        Enrollment frejaSørensenEnrollment = Controller.createEnrollment(true, false, true, false, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), frejaSørensen, GrønneOgSundeVelfærdsbygninger, transylvania, true);
 
         Participant madsNielsen = Controller.createParticipant("Mads Nielsen", "Søndergade 30, 6000 Kolding", "Danmark", "+45 11223344");
-        Enrollment madsNielsenEnrollment = Controller.createEnrollment(false, true, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), madsNielsen, PyrolyseOgBiokul, denHvideSvane);
+        Enrollment madsNielsenEnrollment = Controller.createEnrollment(false, true, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), madsNielsen, PyrolyseOgBiokul, denHvideSvane, true);
 
         Participant sofieKristensen = Controller.createParticipant("Sofie Kristensen", "Hovedgaden 50, 4000 Roskilde", "Danmark", "+45 44332211");
-        Enrollment sofieKristensenEnrollment = Controller.createEnrollment(true, true, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), sofieKristensen, harmoniseringAfEpder, tipTon);
+        Enrollment sofieKristensenEnrollment = Controller.createEnrollment(true, true, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), sofieKristensen, harmoniseringAfEpder, tipTon, true);
 
         Participant williamPetersen = Controller.createParticipant("William Petersen", "Lundgade 12, 7100 Vejle", "Danmark", "+45 55667788");
-        Enrollment williamPetersenEnrollment = Controller.createEnrollment(false, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), williamPetersen, GrønneOgSundeVelfærdsbygninger, transylvania);
+        Enrollment williamPetersenEnrollment = Controller.createEnrollment(false, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), williamPetersen, GrønneOgSundeVelfærdsbygninger, transylvania, true);
 
-        Participant claraMikkelsen = Controller.createParticipant("Clara Mikkelsen", "Parkvej 55, 2400 København", "Danmark", "+45 88990011");
-        Enrollment claraMikkelsenEnrollment = Controller.createEnrollment(true, false, false, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), claraMikkelsen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, tipTon);
-
-        Participant oscarChristensen = Controller.createParticipant("Oscar Christensen", "Kirkegade 9, 8000 Aarhus", "Danmark", "+45 66778899");
-        Enrollment oscarChristensenEnrollment = Controller.createEnrollment(false, true, true, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), oscarChristensen, EusKommendeKrav, denHvideSvane);
-
-        Participant idaThomsen = Controller.createParticipant("Ida Thomsen", "Vejgade 15, 3000 Helsingør", "Danmark", "+45 99880077");
-        Enrollment idaThomsenEnrollment = Controller.createEnrollment(true, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), idaThomsen, hjælpBiodiversitetOgKlima, transylvania);
-
-        Participant noahAndersen = Controller.createParticipant("Noah Andersen", "Søgade 4, 6000 Kolding", "Danmark", "+45 77441122");
-        Enrollment noahAndersenEnrollment = Controller.createEnrollment(false, true, true, true, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), noahAndersen, GrønneOgSundeVelfærdsbygninger, denHvideSvane);
-
-        Participant livaJacobsen = Controller.createParticipant("Liva Jacobsen", "Strandvej 44, 8700 Horsens", "Danmark", "+45 33225577");
-        Enrollment livaJacobsenEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), livaJacobsen, cirkulærCementOgBeton, tipTon);
-
-        Participant elliotMathisen = Controller.createParticipant("Elliot Mathisen", "Bakkegade 33, 2200 København", "Danmark", "+45 11225588");
-        Enrollment elliotMathisenEnrollment = Controller.createEnrollment(false, true, false, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), elliotMathisen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, transylvania);
-
-        Participant almaRasmussen = Controller.createParticipant("Alma Rasmussen", "Viborgvej 2, 8500 Grenaa", "Danmark", "+45 55221100");
-        Enrollment almaRasmussenEnrollment = Controller.createEnrollment(true, false, true, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), almaRasmussen, harmoniseringAfEpder, denHvideSvane);
-
-        Participant victorKnudsen = Controller.createParticipant("Victor Knudsen", "Skolegade 8, 7100 Vejle", "Danmark", "+45 22334455");
-        Enrollment victorKnudsenEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), victorKnudsen, renEnergiIndenforPlanetærGrænserI2024, tipTon);
-
-        Participant karlaMortensen = Controller.createParticipant("Karla Mortensen", "Lillegade 10, 2900 Hellerup", "Danmark", "+45 99887744");
-        Enrollment karlaMortensenEnrollment = Controller.createEnrollment(true, true, false, false, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), karlaMortensen, GrønneOgSundeVelfærdsbygninger, transylvania);
-
-        Participant malteLarsen = Controller.createParticipant("Malte Larsen", "Engvej 60, 4800 Nykøbing", "Danmark", "+45 55668822");
-        Enrollment malteLarsenEnrollment = Controller.createEnrollment(false, true, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), malteLarsen, hjælpBiodiversitetOgKlima, denHvideSvane);
-
-        Participant agnesØstergaard = Controller.createParticipant("Agnes Østergaard", "Markvej 1, 8600 Silkeborg", "Danmark", "+45 22331144");
-        Enrollment agnesØstergaardEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), agnesØstergaard, EusKommendeKrav, tipTon);
-
-        Participant felixAndersen = Controller.createParticipant("Felix Andersen", "Kystvej 20, 3700 Rønne", "Danmark", "+45 66332244");
-        Enrollment felixAndersenEnrollment = Controller.createEnrollment(false, true, true, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), felixAndersen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, transylvania);
-
-        Participant lærkeChristiansen = Controller.createParticipant("Lærke Christiansen", "Søborgvej 5, 2800 Kongens Lyngby", "Danmark", "+45 33447788");
-        Enrollment lærkeChristiansenEnrollment = Controller.createEnrollment(true, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), lærkeChristiansen, GrønneOgSundeVelfærdsbygninger, denHvideSvane);
-
-        Participant stormNørgaard = Controller.createParticipant("Storm Nørgaard", "Vesterbrogade 99, 1620 København", "Danmark", "+45 22990011");
-        Enrollment stormNørgaardEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), stormNørgaard, harmoniseringAfEpder, tipTon);
+//        Participant claraMikkelsen = Controller.createParticipant("Clara Mikkelsen", "Parkvej 55, 2400 København", "Danmark", "+45 88990011");
+//        Enrollment claraMikkelsenEnrollment = Controller.createEnrollment(true, false, false, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), claraMikkelsen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, tipTon, wantsAccommodation);
+//
+//        Participant oscarChristensen = Controller.createParticipant("Oscar Christensen", "Kirkegade 9, 8000 Aarhus", "Danmark", "+45 66778899");
+//        Enrollment oscarChristensenEnrollment = Controller.createEnrollment(false, true, true, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), oscarChristensen, EusKommendeKrav, denHvideSvane, wantsAccommodation);
+//
+//        Participant idaThomsen = Controller.createParticipant("Ida Thomsen", "Vejgade 15, 3000 Helsingør", "Danmark", "+45 99880077");
+//        Enrollment idaThomsenEnrollment = Controller.createEnrollment(true, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), idaThomsen, hjælpBiodiversitetOgKlima, transylvania, wantsAccommodation);
+//
+//        Participant noahAndersen = Controller.createParticipant("Noah Andersen", "Søgade 4, 6000 Kolding", "Danmark", "+45 77441122");
+//        Enrollment noahAndersenEnrollment = Controller.createEnrollment(false, true, true, true, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), noahAndersen, GrønneOgSundeVelfærdsbygninger, denHvideSvane, wantsAccommodation);
+//
+//        Participant livaJacobsen = Controller.createParticipant("Liva Jacobsen", "Strandvej 44, 8700 Horsens", "Danmark", "+45 33225577");
+//        Enrollment livaJacobsenEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), livaJacobsen, cirkulærCementOgBeton, tipTon, wantsAccommodation);
+//
+//        Participant elliotMathisen = Controller.createParticipant("Elliot Mathisen", "Bakkegade 33, 2200 København", "Danmark", "+45 11225588");
+//        Enrollment elliotMathisenEnrollment = Controller.createEnrollment(false, true, false, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), elliotMathisen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, transylvania, wantsAccommodation);
+//
+//        Participant almaRasmussen = Controller.createParticipant("Alma Rasmussen", "Viborgvej 2, 8500 Grenaa", "Danmark", "+45 55221100");
+//        Enrollment almaRasmussenEnrollment = Controller.createEnrollment(true, false, true, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), almaRasmussen, harmoniseringAfEpder, denHvideSvane, wantsAccommodation);
+//
+//        Participant victorKnudsen = Controller.createParticipant("Victor Knudsen", "Skolegade 8, 7100 Vejle", "Danmark", "+45 22334455");
+//        Enrollment victorKnudsenEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), victorKnudsen, renEnergiIndenforPlanetærGrænserI2024, tipTon, wantsAccommodation);
+//
+//        Participant karlaMortensen = Controller.createParticipant("Karla Mortensen", "Lillegade 10, 2900 Hellerup", "Danmark", "+45 99887744");
+//        Enrollment karlaMortensenEnrollment = Controller.createEnrollment(true, true, false, false, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), karlaMortensen, GrønneOgSundeVelfærdsbygninger, transylvania, wantsAccommodation);
+//
+//        Participant malteLarsen = Controller.createParticipant("Malte Larsen", "Engvej 60, 4800 Nykøbing", "Danmark", "+45 55668822");
+//        Enrollment malteLarsenEnrollment = Controller.createEnrollment(false, true, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), malteLarsen, hjælpBiodiversitetOgKlima, denHvideSvane, wantsAccommodation);
+//
+//        Participant agnesØstergaard = Controller.createParticipant("Agnes Østergaard", "Markvej 1, 8600 Silkeborg", "Danmark", "+45 22331144");
+//        Enrollment agnesØstergaardEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), agnesØstergaard, EusKommendeKrav, tipTon, wantsAccommodation);
+//
+//        Participant felixAndersen = Controller.createParticipant("Felix Andersen", "Kystvej 20, 3700 Rønne", "Danmark", "+45 66332244");
+//        Enrollment felixAndersenEnrollment = Controller.createEnrollment(false, true, true, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), felixAndersen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, transylvania, wantsAccommodation);
+//
+//        Participant lærkeChristiansen = Controller.createParticipant("Lærke Christiansen", "Søborgvej 5, 2800 Kongens Lyngby", "Danmark", "+45 33447788");
+//        Enrollment lærkeChristiansenEnrollment = Controller.createEnrollment(true, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), lærkeChristiansen, GrønneOgSundeVelfærdsbygninger, denHvideSvane, wantsAccommodation);
+//
+//        Participant stormNørgaard = Controller.createParticipant("Storm Nørgaard", "Vesterbrogade 99, 1620 København", "Danmark", "+45 22990011");
+//        Enrollment stormNørgaardEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), stormNørgaard, harmoniseringAfEpder, tipTon, wantsAccommodation);
 
 
         //Vores test af de udleveret data

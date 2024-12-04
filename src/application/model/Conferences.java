@@ -91,9 +91,12 @@ public class Conferences {
     }
 
     public double calculateConferencePrice(LocalDate startDate, LocalDate endDate) {
-        if (endDate.toEpochDay() - startDate.toEpochDay() == 0)
-            return pricePrDay * 1;
-        return pricePrDay * (endDate.toEpochDay() - startDate.toEpochDay());
+        long days = endDate.toEpochDay() - startDate.toEpochDay();
+        if (days <= 0) {
+            return pricePrDay;
+        } else {
+            return pricePrDay * (days + 1);
+        }
     }
 
     public String getImagePath() {
