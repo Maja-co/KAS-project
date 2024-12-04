@@ -41,8 +41,8 @@ public class Controller {
         Storage.addEnrollment(enrollment);
         return enrollment;
     }
+
     public static void addHotelFacilityToHotel(Hotel hotel, HotelFacilities facility) {
         hotel.addHotelFacilities(facility);
     }
-
 }

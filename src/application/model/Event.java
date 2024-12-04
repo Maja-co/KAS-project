@@ -19,7 +19,6 @@ public class Event {
         this.pricePerEvent = pricePerEvent;
     }
 
-
     public double getPricePerEvent() {
         return pricePerEvent;
     }
@@ -28,10 +27,9 @@ public class Event {
         return name;
     }
 
-public void addEvent (Event event) {
-        if (!events.contains(event)){
+    public void addEvent(Event event) {
+        if (!events.contains(event)) {
             events.add(event);
         }
-
-}
+    }
 }

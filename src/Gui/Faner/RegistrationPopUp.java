@@ -18,6 +18,11 @@ import javafx.stage.Stage;
 
 import java.time.LocalDate;
 
+/*
+Dette er popUp vinduet der kommer frem når du klikker på et billed i firstTab.
+Dette er selve tilmeldingsblanketten.
+ */
+
 public class RegistrationPopUp {
     private ParticipantViewThirdTab participantViewThirdTab;
     private Conferences conference;

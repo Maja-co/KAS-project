@@ -40,10 +40,11 @@ public class Enrollment {
     }
 
     public void addHotelFacilities(HotelFacilities hotelFacility) {
-        if(!hotelFacilitiesList.contains(hotelFacility)) {
+        if (!hotelFacilitiesList.contains(hotelFacility)) {
             hotelFacilitiesList.add(hotelFacility);
         }
     }
+
     public Hotel getHotel() {
         return hotel;
     }

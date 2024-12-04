@@ -12,6 +12,11 @@ import javafx.scene.paint.Color;
 
 import java.util.List;
 
+/*
+Dette er den første tab i guien.
+Her har man ud fra billederne mulighed for at vælge en konference man gerne vil til
+ */
+
 public class ConferencesViewFirstTab {
 
     private ParticipantViewThirdTab participantViewThirdTab;

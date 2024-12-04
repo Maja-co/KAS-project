@@ -92,7 +92,7 @@ public class Conferences {
 
     public double calculateConferencePrice(LocalDate startDate, LocalDate endDate) {
         if (endDate.toEpochDay() - startDate.toEpochDay() == 0)
-            return  pricePrDay * 1;
+            return pricePrDay * 1;
         return pricePrDay * (endDate.toEpochDay() - startDate.toEpochDay());
     }
 
@@ -102,6 +102,6 @@ public class Conferences {
 
     @Override
     public String toString() {
-        return name; // Returnerer konferencens navn
+        return name;
     }
 }

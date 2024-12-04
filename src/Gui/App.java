@@ -10,7 +10,7 @@ public class App {
     public static void main(String[] args) {
         initStorage();
 
-        //Konferencer
+        //Konferencer data:
         Conferences renEnergiIndenforPlanetærGrænserI2024 = Controller.createConference("Ren energi indenfor planetær Grænser i 2040", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 500, "/Storage/resource/Picture 1.png");
         Conferences cirkulærByggerri = Controller.createConference("Cirkulært byggeri: Fra tanke til handling", LocalDate.of(2024, 01, 01), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 2000, "/Storage/resource/Picture 2.png");
         Conferences harmoniseringAfEpder = Controller.createConference("Harmonisering af EPD'er", LocalDate.of(2024, 01, 01), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 25, "/Storage/resource/Picture 3.png");
@@ -22,12 +22,12 @@ public class App {
         Conferences FremskrivningAfAntalletAfElektriskeLastbilerIDanmark = Controller.createConference("Fremskrivning af antallet af elektriske lastbiler i Danmark", LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), "Danmark", 4000, "grønomstilling", 200, "/Storage/resource/Picture 9.png");
         Conferences GrønneOgSundeVelfærdsbygninger = Controller.createConference("Grønne og sunde velfærdsbygninger", LocalDate.of(2024, 2, 14), LocalDate.of(2088, 2, 18), "Iran", 2800, "grønomstilling", 200, "/Storage/resource/Picture 10.png");
 
-        //Hoteller:
+        //Hotelle data:
         Hotel denHvideSvane = Controller.createHotel("Den Hvide Svane", "Glemsomhedens sti 42", 1050, 1250);
         Hotel tipTon = Controller.createHotel("The Tipton Hotel", "138 St. James Street near Fenway Park in Boston, Massachusetts", 1000, 1500);
         Hotel transylvania = Controller.createHotel("Hotel Transylvania", "666 Transylvania Lane, Umbre, Romania", 230, 280);
 
-        //Hotel faciliteter eksempel
+        //Hotel faciliteter data
         HotelFacilities wifi = Controller.createHotelFacilities("WiFi", 20);
         HotelFacilities bathtub = Controller.createHotelFacilities("Badekar", 20);
         HotelFacilities elevator = Controller.createHotelFacilities("Elevator", 20);
@@ -59,12 +59,11 @@ public class App {
         Controller.addHotelFacilityToHotel(transylvania, airConditioning);
         Controller.addHotelFacilityToHotel(transylvania, childCare);
 
-        //Udflugter/events
+        //Udflugter/events data:
         Event egeskov = Controller.createEvent("Egeskov", "GGWP", LocalDate.of(2024, 12, 19), LocalDate.of(2024, 12, 19), 75);
         Event trapHolt = Controller.createEvent("Trapholt", "GGWP", LocalDate.of(2024, 12, 20), LocalDate.of(2024, 12, 20), 200);
 
-
-        //Deltager
+        //Deltager data:
         Participant mikkelAndersen = Controller.createParticipant("Mikkel Andersen", "Jyllandsgade 8 7100 Vejle", "Danmark ", "+45 70731584");
         Enrollment mikkelEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 5, 12), LocalDate.of(2024, 5, 15), mikkelAndersen, GrønneOgSundeVelfærdsbygninger, transylvania);
 
@@ -128,6 +127,8 @@ public class App {
         Participant stormNørgaard = Controller.createParticipant("Storm Nørgaard", "Vesterbrogade 99, 1620 København", "Danmark", "+45 22990011");
         Enrollment stormNørgaardEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), stormNørgaard, harmoniseringAfEpder, tipTon);
 
+
+        //Vores test af de udleveret data
 //// Test 01
 //        System.out.println("Test 01 ");
 //        Participant finnMadsen = Controller.createParticipant("Finn Madsen", "H.C. Andersens Boulevard 34, 1. th, 1553 København V","Denmark", "+45 88707270");

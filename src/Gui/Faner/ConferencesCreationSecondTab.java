@@ -12,6 +12,11 @@ import javafx.scene.paint.Color;
 
 import java.time.LocalDate;
 
+/*
+Følgende klasse er anden fane i guien.
+Her har man mulighed for at oprette en konference til systemet
+ */
+
 public class ConferencesCreationSecondTab {
 
     public Tab createSecondTab() {

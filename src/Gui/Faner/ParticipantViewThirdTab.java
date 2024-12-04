@@ -13,6 +13,11 @@ import javafx.scene.paint.Color;
 import java.util.ArrayList;
 import java.util.List;
 
+/*
+Dette er den tredjetab hvor man har mulighed for at se deltagerview
+Når man klikker på en deltager gør det muligt at se tilmeldingsinformationerne
+ */
+
 public class ParticipantViewThirdTab extends Tab {
 
     private ListView<Participant> participantListView = new ListView<>();

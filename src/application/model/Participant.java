@@ -18,7 +18,6 @@ public class Participant {
         this.phoneNumber = phoneNumber;
     }
 
-    // Gettere for de øvrige felter
     public String getName() {
         return name;
     }
@@ -35,7 +34,6 @@ public class Participant {
         return phoneNumber;
     }
 
-    // Metoder tilhørende Enrollment (get, add og remove) 1..* dobbelt asso
     public ArrayList<Enrollment> getEnrollments() {
         return new ArrayList<>(enrollments);
     }
@@ -52,7 +50,6 @@ public class Participant {
         }
     }
 
-    // Metoder tilhørende Event (get, add og remove) 0..* enkelt rettet
     public ArrayList<Event> getEvents() {
         return new ArrayList<>(events);
     }
@@ -69,7 +66,6 @@ public class Participant {
         }
     }
 
-    // Metoder tilhørende Hotel (get, set) 0..1 enkelt rettet
     public Hotel getHotel() {
         return hotel;
     }

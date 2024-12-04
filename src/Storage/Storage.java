@@ -14,13 +14,11 @@ public class Storage {
     private static ArrayList<Conferences> conferences = new ArrayList<>();
     private static final ArrayList<Participant> participants = new ArrayList<>();
 
-
     // Methods for Enrollment-class
     public static ArrayList<Enrollment> getEnrollments() {
         System.out.println("Enrollment" + enrollments);
         return new ArrayList<>(enrollments);
     }
-
 
     public static void addEnrollment(Enrollment enrollment) {
         enrollments.add(enrollment);
@@ -42,6 +40,7 @@ public class Storage {
     public static void removeHotelFacilities(HotelFacilities hotelFacilities) {
         hotelFacilitiesList.remove(hotelFacilities);
     }
+
     public static ArrayList<HotelFacilities> getHotelFacilitiesArrayList() {
         return new ArrayList<>(hotelFacilitiesList);
     }
@@ -87,6 +86,7 @@ public class Storage {
             conferences.add(conference);
         }
     }
+
     // Methods for Participants
     public static Participant getParticipant(String name) {
         for (Participant p : participants) {

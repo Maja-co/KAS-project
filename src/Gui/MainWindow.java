@@ -17,18 +17,11 @@ public class MainWindow extends Application {
 
         // Opret TabPane og tilføj faner
         TabPane tabPane = new TabPane();
-
         ParticipantViewThirdTab participantViewThirdTab = new ParticipantViewThirdTab();
-        // Tilføj FirstTab
         ConferencesViewFirstTab conferencesViewFirstTab = new ConferencesViewFirstTab(participantViewThirdTab);
         Tab tab1 = conferencesViewFirstTab.createFirstTab();
-
-        // Tilføj ekstra faner (placeholder for nu)
         ConferencesCreationSecondTab conferencesCreationSecondTab = new ConferencesCreationSecondTab();
         Tab tab2 = conferencesCreationSecondTab.createSecondTab();
-
-        //Tilføjer ThirdTab
-
         tabPane.getTabs().addAll(tab1, tab2, participantViewThirdTab);
 
         // Scene og vindue
@@ -40,6 +33,5 @@ public class MainWindow extends Application {
 
     public static void main(String[] args) {
         launch(args);
-
     }
 }

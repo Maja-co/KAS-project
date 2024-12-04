@@ -23,21 +23,22 @@ public class Hotel {
         return listOfHotelFacilities;
     }
 
-    public double priceForHotelSingle(LocalDate startDate, LocalDate endDate){
+    public double priceForHotelSingle(LocalDate startDate, LocalDate endDate) {
         double priceForHotelSingle = 0;
-        priceForHotelSingle += pricePrDaySingle * (endDate.toEpochDay() -startDate.toEpochDay()-1);
+        priceForHotelSingle += pricePrDaySingle * (endDate.toEpochDay() - startDate.toEpochDay() - 1);
         for (HotelFacilities listOfHotelFacility : listOfHotelFacilities) {
-            if (listOfHotelFacility != null){
+            if (listOfHotelFacility != null) {
                 priceForHotelSingle += listOfHotelFacility.getPricePerFacility();
             }
         }
         return priceForHotelSingle;
     }
-    public double priceForHotelDobbel(LocalDate startDate, LocalDate endDate){
+
+    public double priceForHotelDobbel(LocalDate startDate, LocalDate endDate) {
         double priceForHotelDobbel = 0;
-        priceForHotelDobbel += pricePrDayDobbel * (endDate.toEpochDay() -startDate.toEpochDay()-1);
+        priceForHotelDobbel += pricePrDayDobbel * (endDate.toEpochDay() - startDate.toEpochDay() - 1);
         for (HotelFacilities listOfHotelFacility : listOfHotelFacilities) {
-            if (listOfHotelFacility != null){
+            if (listOfHotelFacility != null) {
                 priceForHotelDobbel += listOfHotelFacility.getPricePerFacility();
             }
 
@@ -52,10 +53,10 @@ public class Hotel {
     public String getAddress() {
         return address;
     }
+
     public void addHotelFacilities(HotelFacilities facility) {
         if (!this.listOfHotelFacilities.contains(facility)) {
             this.listOfHotelFacilities.add(facility);
         }
     }
-
 }
