@@ -36,8 +36,8 @@ public class Controller {
 
     public static Enrollment createEnrollment(boolean isParticipantPrivate, boolean isAccompanied, boolean hotelStay,
                                               boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture,
-                                              Participant participant, Conferences conference, Hotel hotel, boolean wantsAccommodation) {
-        Enrollment enrollment = new Enrollment(isParticipantPrivate, isAccompanied, hotelStay, isParticipantLecturer, dateOfArrival, dateOfDeparture, participant, conference, hotel);
+                                              Participant participant, Conferences conference, Hotel hotel, Companion companion) {
+        Enrollment enrollment = new Enrollment(isParticipantPrivate, isAccompanied, hotelStay, isParticipantLecturer, dateOfArrival, dateOfDeparture, participant, conference, hotel, companion);
         Storage.addEnrollment(enrollment);
         return enrollment;
     }

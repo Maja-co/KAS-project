@@ -14,6 +14,7 @@ import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /*
 Dette er popUp vinduet der kommer frem når du klikker på et billed i firstTab.
@@ -207,13 +208,14 @@ public class RegistrationPopUp {
 
             boolean isLecturer = speakerCheckBox.isSelected();
             boolean isAccompanied = companionCheckBox.isSelected();
-            String companionName = isAccompanied ? companionField.getText().trim() : "";
+            Companion companion = isAccompanied
+                    ? new Companion(companionField.getText().trim(), "", false, new ArrayList<>())
+                    : null;
 
             Hotel selectedHotel = Storage.getHotels().stream().filter(h -> h.getName().equals(hotelListView.getSelectionModel().getSelectedItem())).findFirst().orElse(null);
             Participant participant = Controller.createParticipant(name, address, country, mobile);
-            Enrollment enrollment = Controller.createEnrollment(true, true, wantsAccommodation, isLecturer, startDatePicker.getValue(), endDatePicker.getValue(),
-                    participant, conference, selectedHotel, wantsAccommodation
-            );
+            Enrollment enrollment = Controller.createEnrollment(true, true, wantsAccommodation, isLecturer,
+                    startDatePicker.getValue(), endDatePicker.getValue(), participant, conference, selectedHotel, companion);
 
             if (selectedHotel != null) {
                 hotelFacilitiesListView.getSelectionModel().getSelectedItems().forEach(facilityName -> {

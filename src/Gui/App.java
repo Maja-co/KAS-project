@@ -3,8 +3,8 @@ package Gui;
 import application.controller.Controller;
 import application.model.*;
 import javafx.application.Application;
-
 import java.time.LocalDate;
+import java.util.List;
 
 public class App {
     public static void main(String[] args) {
@@ -12,13 +12,13 @@ public class App {
 
         //Konferencer data:
         Conferences renEnergiIndenforPlanetærGrænserI2024 = Controller.createConference("Ren energi indenfor planetær Grænser i 2040", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 500, "/Storage/resource/Picture 1.png");
-        Conferences cirkulærByggerri = Controller.createConference("Cirkulært byggeri: Fra tanke til handling", LocalDate.of(2024, 01, 01), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 2000, "/Storage/resource/Picture 2.png");
-        Conferences harmoniseringAfEpder = Controller.createConference("Harmonisering af EPD'er", LocalDate.of(2024, 01, 01), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 25, "/Storage/resource/Picture 3.png");
-        Conferences cirkulærCementOgBeton = Controller.createConference("Cirkulær cement og beton", LocalDate.of(2024, 01, 01), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 250, "/Storage/resource/Picture 4.png");
-        Conferences etbæredygtigEnergisystemFremMod2040 = Controller.createConference("Ren energi indenfor planetær Grænser i 2040", LocalDate.of(2024, 01, 01), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 2500, "/Storage/resource/Picture 5.png");
-        Conferences PyrolyseOgBiokul = Controller.createConference("Pyrolyse og biokul", LocalDate.of(2024, 01, 01), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 500, "/Storage/resource/Picture 6.png");
-        Conferences EusKommendeKrav = Controller.createConference("Eu's kommende krav - en cekulær gamechanger indefor cement- og betonbranchen", LocalDate.of(2024, 01, 01), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 500, "/Storage/resource/Picture 7.png");
-        Conferences hjælpBiodiversitetOgKlima = Controller.createConference("Hjælp biodiversitet og klima gennem plantebaserede investering", LocalDate.of(2024, 01, 01), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 500, "/Storage/resource/Picture 8.png");
+        Conferences cirkulærByggerri = Controller.createConference("Cirkulært byggeri: Fra tanke til handling", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 2000, "/Storage/resource/Picture 2.png");
+        Conferences harmoniseringAfEpder = Controller.createConference("Harmonisering af EPD'er", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 25, "/Storage/resource/Picture 3.png");
+        Conferences cirkulærCementOgBeton = Controller.createConference("Cirkulær cement og beton", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 250, "/Storage/resource/Picture 4.png");
+        Conferences etbæredygtigEnergisystemFremMod2040 = Controller.createConference("Ren energi indenfor planetær Grænser i 2040", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 2500, "/Storage/resource/Picture 5.png");
+        Conferences PyrolyseOgBiokul = Controller.createConference("Pyrolyse og biokul", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 500, "/Storage/resource/Picture 6.png");
+        Conferences EusKommendeKrav = Controller.createConference("Eu's kommende krav - en cekulær gamechanger indefor cement- og betonbranchen", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 500, "/Storage/resource/Picture 7.png");
+        Conferences hjælpBiodiversitetOgKlima = Controller.createConference("Hjælp biodiversitet og klima gennem plantebaserede investering", LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), "Svinestien", 1500, "grønomstilling", 500, "/Storage/resource/Picture 8.png");
         Conferences FremskrivningAfAntalletAfElektriskeLastbilerIDanmark = Controller.createConference("Fremskrivning af antallet af elektriske lastbiler i Danmark", LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), "Danmark", 4000, "grønomstilling", 200, "/Storage/resource/Picture 9.png");
         Conferences GrønneOgSundeVelfærdsbygninger = Controller.createConference("Grønne og sunde velfærdsbygninger", LocalDate.of(2024, 2, 14), LocalDate.of(2088, 2, 18), "Iran", 2800, "grønomstilling", 200, "/Storage/resource/Picture 10.png");
 
@@ -62,71 +62,92 @@ public class App {
         //Udflugter/events data:
         Event egeskov = Controller.createEvent("Egeskov", "GGWP", LocalDate.of(2024, 12, 19), LocalDate.of(2024, 12, 19), 75);
         Event trapHolt = Controller.createEvent("Trapholt", "GGWP", LocalDate.of(2024, 12, 20), LocalDate.of(2024, 12, 20), 200);
+        List<Event> events = List.of(egeskov, trapHolt);
 
         //Deltager data:
         Participant mikkelAndersen = Controller.createParticipant("Mikkel Andersen", "Jyllandsgade 8 7100 Vejle", "Danmark ", "+45 70731584");
-        Enrollment mikkelEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 5, 12), LocalDate.of(2024, 5, 15), mikkelAndersen, GrønneOgSundeVelfærdsbygninger, transylvania, true);
+        Companion mikkelCompanion = new Companion("Lise Andersen", "+45 12345678", true, List.of(egeskov));
+        Enrollment mikkelEnrollment = Controller.createEnrollment(true, true, true, true, LocalDate.of(2024, 5, 12), LocalDate.of(2024, 5, 15), mikkelAndersen, GrønneOgSundeVelfærdsbygninger, transylvania, mikkelCompanion);
 
         Participant emmaJensen = Controller.createParticipant("Emma Jensen", "Østergade 25, 8000 Aarhus", "Danmark", "+45 12345678");
-        Enrollment emmaJensenEnrollment = Controller.createEnrollment(true, true, false, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), emmaJensen, cirkulærByggerri, denHvideSvane, true);
+        Companion emmaCompanion = new Companion("Lise Jensen", "+45 87654321", false, List.of(egeskov));
+        Enrollment emmaJensenEnrollment = Controller.createEnrollment(true, true, false, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), emmaJensen, cirkulærByggerri, denHvideSvane, emmaCompanion);
 
         Participant lucasHansen = Controller.createParticipant("Lucas Hansen", "Vestergade 45, 9000 Aalborg", "Danmark", "+45 87654321");
-        Enrollment lucasHansenEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), lucasHansen, renEnergiIndenforPlanetærGrænserI2024, tipTon, true);
+        Companion lucasCompanion = new Companion("Mette Hansen", "+45 23456789", true, List.of(egeskov));
+        Enrollment lucasHansenEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), lucasHansen, renEnergiIndenforPlanetærGrænserI2024, tipTon, lucasCompanion);
 
         Participant frejaSørensen = Controller.createParticipant("Freja Sørensen", "Nørregade 10, 5000 Odense", "Danmark", "+45 99887766");
-        Enrollment frejaSørensenEnrollment = Controller.createEnrollment(true, false, true, false, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), frejaSørensen, GrønneOgSundeVelfærdsbygninger, transylvania, true);
+        Companion frejaCompanion = new Companion("Mette Sørensen", "+45 23456789", true, List.of(egeskov));
+        Enrollment frejaSørensenEnrollment = Controller.createEnrollment(true, false, true, false, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), frejaSørensen, GrønneOgSundeVelfærdsbygninger, transylvania, frejaCompanion);
 
         Participant madsNielsen = Controller.createParticipant("Mads Nielsen", "Søndergade 30, 6000 Kolding", "Danmark", "+45 11223344");
-        Enrollment madsNielsenEnrollment = Controller.createEnrollment(false, true, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), madsNielsen, PyrolyseOgBiokul, denHvideSvane, true);
+        Companion madsCompanion = new Companion("Lise Nielsen", "+45 99887765", false, List.of(egeskov));
+        Enrollment madsNielsenEnrollment = Controller.createEnrollment(false, true, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), madsNielsen, PyrolyseOgBiokul, denHvideSvane, madsCompanion);
 
         Participant sofieKristensen = Controller.createParticipant("Sofie Kristensen", "Hovedgaden 50, 4000 Roskilde", "Danmark", "+45 44332211");
-        Enrollment sofieKristensenEnrollment = Controller.createEnrollment(true, true, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), sofieKristensen, harmoniseringAfEpder, tipTon, true);
+        Companion sofieCompanion = new Companion("Jakob Kristensen", "+45 98765432", true, List.of(egeskov));
+        Enrollment sofieKristensenEnrollment = Controller.createEnrollment(true, true, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), sofieKristensen, harmoniseringAfEpder, tipTon, sofieCompanion);
 
         Participant williamPetersen = Controller.createParticipant("William Petersen", "Lundgade 12, 7100 Vejle", "Danmark", "+45 55667788");
-        Enrollment williamPetersenEnrollment = Controller.createEnrollment(false, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), williamPetersen, GrønneOgSundeVelfærdsbygninger, transylvania, true);
+        Companion williamCompanion = new Companion("Anna Petersen", "+45 22334455", false, List.of(egeskov));
+        Enrollment williamPetersenEnrollment = Controller.createEnrollment(false, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), williamPetersen, GrønneOgSundeVelfærdsbygninger, transylvania, williamCompanion);
 
         Participant claraMikkelsen = Controller.createParticipant("Clara Mikkelsen", "Parkvej 55, 2400 København", "Danmark", "+45 88990011");
-        Enrollment claraMikkelsenEnrollment = Controller.createEnrollment(true, false, false, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), claraMikkelsen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, tipTon, true);
+        Companion claraCompanion = new Companion("Morten Mikkelsen", "+45 66778899", true, List.of(egeskov));
+        Enrollment claraMikkelsenEnrollment = Controller.createEnrollment(true, false, false, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), claraMikkelsen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, tipTon, claraCompanion);
 
         Participant oscarChristensen = Controller.createParticipant("Oscar Christensen", "Kirkegade 9, 8000 Aarhus", "Danmark", "+45 66778899");
-        Enrollment oscarChristensenEnrollment = Controller.createEnrollment(false, true, true, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), oscarChristensen, EusKommendeKrav, denHvideSvane, true);
+        Companion oscarCompanion = new Companion("Lene Christensen", "+45 22335566", false, List.of(egeskov));
+        Enrollment oscarChristensenEnrollment = Controller.createEnrollment(false, true, true, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), oscarChristensen, EusKommendeKrav, denHvideSvane, oscarCompanion);
 
         Participant idaThomsen = Controller.createParticipant("Ida Thomsen", "Vejgade 15, 3000 Helsingør", "Danmark", "+45 99880077");
-        Enrollment idaThomsenEnrollment = Controller.createEnrollment(true, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), idaThomsen, hjælpBiodiversitetOgKlima, transylvania, true);
+        Companion idaCompanion = new Companion("Sara Thomsen", "+45 11223344", true, List.of(egeskov));
+        Enrollment idaThomsenEnrollment = Controller.createEnrollment(true, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), idaThomsen, hjælpBiodiversitetOgKlima, transylvania, idaCompanion);
 
         Participant noahAndersen = Controller.createParticipant("Noah Andersen", "Søgade 4, 6000 Kolding", "Danmark", "+45 77441122");
-        Enrollment noahAndersenEnrollment = Controller.createEnrollment(false, true, true, true, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), noahAndersen, GrønneOgSundeVelfærdsbygninger, denHvideSvane, true);
+        Companion noahCompanion = new Companion("Marie Andersen", "+45 33445566", false, List.of(egeskov));
+        Enrollment noahAndersenEnrollment = Controller.createEnrollment(false, true, true, true, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), noahAndersen, GrønneOgSundeVelfærdsbygninger, denHvideSvane, noahCompanion);
 
         Participant livaJacobsen = Controller.createParticipant("Liva Jacobsen", "Strandvej 44, 8700 Horsens", "Danmark", "+45 33225577");
-        Enrollment livaJacobsenEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), livaJacobsen, cirkulærCementOgBeton, tipTon, true);
+        Companion livaCompanion = new Companion("Søren Jacobsen", "+45 55667788", true, List.of(egeskov));
+        Enrollment livaJacobsenEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), livaJacobsen, cirkulærCementOgBeton, tipTon, livaCompanion);
 
         Participant elliotMathisen = Controller.createParticipant("Elliot Mathisen", "Bakkegade 33, 2200 København", "Danmark", "+45 11225588");
-        Enrollment elliotMathisenEnrollment = Controller.createEnrollment(false, true, false, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), elliotMathisen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, transylvania, true);
+        Companion elliotCompanion = new Companion("Pernille Mathisen", "+45 99881122", true, List.of(egeskov));
+        Enrollment elliotMathisenEnrollment = Controller.createEnrollment(false, true, false, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), elliotMathisen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, transylvania, elliotCompanion);
 
         Participant almaRasmussen = Controller.createParticipant("Alma Rasmussen", "Viborgvej 2, 8500 Grenaa", "Danmark", "+45 55221100");
-        Enrollment almaRasmussenEnrollment = Controller.createEnrollment(true, false, true, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), almaRasmussen, harmoniseringAfEpder, denHvideSvane,true);
+        Companion almaCompanion = new Companion("Rasmus Rasmussen", "+45 33445566", false, List.of(egeskov));
+        Enrollment almaRasmussenEnrollment = Controller.createEnrollment(true, false, true, false, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), almaRasmussen, harmoniseringAfEpder, denHvideSvane, almaCompanion);
 
         Participant victorKnudsen = Controller.createParticipant("Victor Knudsen", "Skolegade 8, 7100 Vejle", "Danmark", "+45 22334455");
-        Enrollment victorKnudsenEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), victorKnudsen, renEnergiIndenforPlanetærGrænserI2024, tipTon, true);
+        Companion victorCompanion = new Companion("Mette Knudsen", "+45 66778899", true, List.of(egeskov));
+        Enrollment victorKnudsenEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), victorKnudsen, renEnergiIndenforPlanetærGrænserI2024, tipTon, victorCompanion);
 
         Participant karlaMortensen = Controller.createParticipant("Karla Mortensen", "Lillegade 10, 2900 Hellerup", "Danmark", "+45 99887744");
-        Enrollment karlaMortensenEnrollment = Controller.createEnrollment(true, true, false, false, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), karlaMortensen, GrønneOgSundeVelfærdsbygninger, transylvania, true);
+        Companion karlaCompanion = new Companion("Anders Mortensen", "+45 55667788", false, List.of(egeskov));
+        Enrollment karlaMortensenEnrollment = Controller.createEnrollment(true, true, false, false, LocalDate.of(2024, 2, 14), LocalDate.of(2024, 2, 18), karlaMortensen, GrønneOgSundeVelfærdsbygninger, transylvania, karlaCompanion);
 
         Participant malteLarsen = Controller.createParticipant("Malte Larsen", "Engvej 60, 4800 Nykøbing", "Danmark", "+45 55668822");
-        Enrollment malteLarsenEnrollment = Controller.createEnrollment(false, true, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), malteLarsen, hjælpBiodiversitetOgKlima, denHvideSvane, true);
+        Companion malteCompanion = new Companion("Julie Larsen", "+45 99887766", true, List.of(egeskov));
+        Enrollment malteLarsenEnrollment = Controller.createEnrollment(false, true, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), malteLarsen, hjælpBiodiversitetOgKlima, denHvideSvane, malteCompanion);
 
         Participant agnesØstergaard = Controller.createParticipant("Agnes Østergaard", "Markvej 1, 8600 Silkeborg", "Danmark", "+45 22331144");
-        Enrollment agnesØstergaardEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), agnesØstergaard, EusKommendeKrav, tipTon, true);
+        Companion agnesCompanion = new Companion("Kasper Østergaard", "+45 11223344", false, List.of(egeskov));
+        Enrollment agnesØstergaardEnrollment = Controller.createEnrollment(true, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), agnesØstergaard, EusKommendeKrav, tipTon, agnesCompanion);
 
         Participant felixAndersen = Controller.createParticipant("Felix Andersen", "Kystvej 20, 3700 Rønne", "Danmark", "+45 66332244");
-        Enrollment felixAndersenEnrollment = Controller.createEnrollment(false, true, true, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), felixAndersen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, transylvania, true);
+        Companion felixCompanion = new Companion("Nina Andersen", "+45 33445566", true, List.of(egeskov));
+        Enrollment felixAndersenEnrollment = Controller.createEnrollment(false, true, true, false, LocalDate.of(2024, 11, 15), LocalDate.of(2024, 11, 18), felixAndersen, FremskrivningAfAntalletAfElektriskeLastbilerIDanmark, transylvania, felixCompanion);
 
         Participant lærkeChristiansen = Controller.createParticipant("Lærke Christiansen", "Søborgvej 5, 2800 Kongens Lyngby", "Danmark", "+45 33447788");
-        Enrollment lærkeChristiansenEnrollment = Controller.createEnrollment(true, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), lærkeChristiansen, GrønneOgSundeVelfærdsbygninger, denHvideSvane, true);
+        Companion lærkeCompanion = new Companion("Thomas Christiansen", "+45 22334455", false, List.of(egeskov));
+        Enrollment lærkeChristiansenEnrollment = Controller.createEnrollment(true, false, false, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), lærkeChristiansen, GrønneOgSundeVelfærdsbygninger, denHvideSvane, lærkeCompanion);
 
         Participant stormNørgaard = Controller.createParticipant("Storm Nørgaard", "Vesterbrogade 99, 1620 København", "Danmark", "+45 22990011");
-        Enrollment stormNørgaardEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), stormNørgaard, harmoniseringAfEpder, tipTon, true);
-
+        Companion stormCompanion = new Companion("Rikke Nørgaard", "+45 44336688", true, List.of(egeskov));
+        Enrollment stormNørgaardEnrollment = Controller.createEnrollment(false, false, true, true, LocalDate.of(2024, 1, 1), LocalDate.of(2024, 1, 5), stormNørgaard, harmoniseringAfEpder, tipTon, stormCompanion);
 
         //Vores test af de udleveret data
 //// Test 01

@@ -49,28 +49,28 @@ public class ParticipantViewThirdTab extends Tab {
         // Opsæt søgefelt
         searchField.setPromptText("Søg efter en deltager");
         searchField.textProperty().addListener((obs, oldText, newText) -> {
-            filterParticipants(newText, conferenceComboBox.getValue());
+            filterParticipants(newText, conferenceComboBox.getValue(), hotelsComboBox.getValue(), eventsComboBox.getValue());
         });
 
         // Opsæt ComboBox for konference valg
         conferenceComboBox.setPromptText("Vælg konference");
         conferenceComboBox.getItems().setAll(Storage.getConferences());
         conferenceComboBox.valueProperty().addListener((obs, oldConference, newConference) -> {
-            filterParticipants(searchField.getText(), newConference);
+            filterParticipants(searchField.getText(), newConference, hotelsComboBox.getValue(), eventsComboBox.getValue());
         });
 
         // Opsæt ComboBox for hotel valg
         hotelsComboBox.setPromptText("Vælg hotel");
         hotelsComboBox.getItems().setAll(Storage.getHotels());
         hotelsComboBox.valueProperty().addListener((obs, oldHotel, newHotel) -> {
-            filterParticipants2(searchField.getText(), newHotel);
+            filterParticipants(searchField.getText(), conferenceComboBox.getValue(), newHotel, eventsComboBox.getValue());
         });
 
         // Opsæt ComboBox for event valg
         eventsComboBox.setPromptText("Vælg event");
         eventsComboBox.getItems().setAll(Storage.getEvents());
         eventsComboBox.valueProperty().addListener((obs, oldEvent, newEvent) -> {
-            filterParticipants3(searchField.getText(), newEvent);
+            filterParticipants(searchField.getText(), conferenceComboBox.getValue(), hotelsComboBox.getValue(), newEvent);
         });
 
         // Tilføj komponenter til layoutet
@@ -116,20 +116,22 @@ public class ParticipantViewThirdTab extends Tab {
         participantListView.getItems().setAll(participants);
     }
 
-    private void filterParticipants(String searchText, Conferences selectedConference) {
+    private void filterParticipants(String searchText, Conferences selectedConference, Hotel selectedHotel, Event selectedEvent) {
         List<Enrollment> enrollments = Storage.getEnrollments();
         ArrayList<Participant> filteredParticipants = new ArrayList<>();
 
         for (Enrollment enrollment : enrollments) {
             Participant participant = enrollment.getParticipant();
-            Conferences conference = enrollment.getConference();
 
-            // Filtrering baseret på søgetekst og konference
+            // Tjek filtreringskriterier
             boolean matchesSearch = searchText == null || searchText.isEmpty() ||
                     participant.getName().toLowerCase().contains(searchText.toLowerCase());
-            boolean matchesConference = selectedConference == null || selectedConference.equals(conference);
+            boolean matchesConference = selectedConference == null || selectedConference.equals(enrollment.getConference());
+            boolean matchesHotel = selectedHotel == null || selectedHotel.equals(enrollment.getHotel());
+            boolean matchesEvent = selectedEvent == null || enrollment.getEvents().contains(selectedEvent);
 
-            if (matchesSearch && matchesConference) {
+            // Tilføj deltager hvis alle kriterier matcher
+            if (matchesSearch && matchesConference && matchesHotel && matchesEvent) {
                 filteredParticipants.add(participant);
             }
         }
@@ -191,14 +193,26 @@ public class ParticipantViewThirdTab extends Tab {
                         .append("Foredragsholder: ").append(enrollment.isSpeaker() ? "Ja" : "Nej").append("\n");
 
                 // Ledsager
-                if (enrollment.isAccompanied()) {
-                    details.append("Ledsager: Ja - Navn: ").append(enrollment.getCompanionName()).append("\n")
-                            .append("Ledsagerudflugt: ").append(enrollment.wantsCompanionTrip()
-                                    ? enrollment.getCompanionTrip()
-                                    : "Ingen ledsagerudflugt valgt").append("\n");
+                if (enrollment.isAccompanied() && enrollment.getCompanion() != null) {
+                    Companion companion = enrollment.getCompanion();
+                    details.append("Ledsager: ").append(companion.getName()).append("\n");
+                    details.append("Telefon: ").append(companion.getPhoneNumber()).append("\n");
+
+                    if (!companion.getSelectedEvents().isEmpty()) {
+                        details.append("Valgte events: ");
+                        for (Event event : companion.getSelectedEvents()) {
+                            details.append(event.getName()).append(", ");
+                        }
+                        // Fjern sidste komma og mellemrum
+                        details.setLength(details.length() - 2);
+                        details.append("\n");
+                    } else {
+                        details.append("Ingen events valgt.\n");
+                    }
                 } else {
-                    details.append("Ledsager: Nej\n");
+                    details.append("Ledsager: Ingen.\n");
                 }
+
 
                 // Overnatning
                 if (enrollment.wantsAccommodation()) {
@@ -221,13 +235,12 @@ public class ParticipantViewThirdTab extends Tab {
                 }
 
                 // Events
-                if (!enrollment.getHotelFacilitiesList().isEmpty()) {
-                    details.append("Valgte faciliteter: ");
-                    for (HotelFacilities facility : enrollment.getHotelFacilitiesList()) {
-                        details.append(facility.getNameOfFacility()).append(", ");
+                List<Event> events = enrollment.getEvents();
+                if (!events.isEmpty()) {
+                    details.append("Deltager i følgende events:\n");
+                    for (Event event : events) {
+                        details.append("- ").append(event.getName()).append("\n");
                     }
-                    details.setLength(details.length() - 2);
-                    details.append("\n");
                 }
 
                 // Total pris

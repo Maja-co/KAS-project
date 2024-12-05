@@ -20,7 +20,7 @@ public class Enrollment {
 
     public Enrollment(boolean isParticipantPrivate, boolean isAccompanied, boolean hotelStay,
                       boolean isParticipantLecturer, LocalDate dateOfArrival, LocalDate dateOfDeparture,
-                      Participant participant, Conferences conference, Hotel hotel) {
+                      Participant participant, Conferences conference, Hotel hotel, Companion companion) {
 
         this.conference = conference;
         this.isParticipantPrivate = isParticipantPrivate;
@@ -31,6 +31,7 @@ public class Enrollment {
         this.dateOfDeparture = dateOfDeparture;
         this.participant = participant;
         this.hotel = hotel;
+        this.companion = companion;
     }
 
     public ArrayList<HotelFacilities> getHotelFacilitiesList() {
@@ -70,7 +71,7 @@ public class Enrollment {
     }
 
     public String getCompanionName() {
-        return isAccompanied() ? companion.getName() : null;
+        return isAccompanied() ? companion.getName() : "Ingen ledsager";
     }
 
     public boolean wantsAccommodation() {
@@ -86,7 +87,7 @@ public class Enrollment {
     }
 
     public boolean wantsCompanionTrip() {
-        return isAccompanied() && companion.wantsTrip();
+        return isAccompanied() && companion != null && companion.wantsTrip();
     }
 
     public String getCompanionTrip() {
@@ -127,4 +128,7 @@ public class Enrollment {
         return totalPrice;
     }
 
+    public Companion getCompanion() {
+        return companion;
+    }
 }

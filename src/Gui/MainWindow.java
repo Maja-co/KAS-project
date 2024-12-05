@@ -21,7 +21,7 @@ public class MainWindow extends Application {
         ConferencesViewFirstTab conferencesViewFirstTab = new ConferencesViewFirstTab(participantViewThirdTab);
         Tab tab1 = conferencesViewFirstTab.createFirstTab();
 
-        // Send participantViewThirdTab som argument til ConferencesCreationSecondTab
+        //
         ConferencesCreationSecondTab conferencesCreationSecondTab = new ConferencesCreationSecondTab(participantViewThirdTab);
         Tab tab2 = conferencesCreationSecondTab.createSecondTab();
         tabPane.getTabs().addAll(tab1, tab2, participantViewThirdTab);
