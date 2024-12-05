@@ -215,13 +215,11 @@ public class RegistrationPopUp {
             boolean isLecturer = speakerCheckBox.isSelected();
             boolean isAccompanied = companionCheckBox.isSelected();
             String companionMobile = isAccompanied ? companionMobileField.getText().trim() : "";
-            Companion companion = isAccompanied
-                    ? new Companion(companionField.getText().trim(), companionMobile, false, new ArrayList<>())
-                    : null;
+            Companion companion = isAccompanied ? new Companion(companionField.getText().trim(), companionMobile, false, new ArrayList<>()) : null;
 
             Hotel selectedHotel = Storage.getHotels().stream().filter(h -> h.getName().equals(hotelListView.getSelectionModel().getSelectedItem())).findFirst().orElse(null);
             Participant participant = Controller.createParticipant(name, address, country, mobile);
-            Enrollment enrollment = Controller.createEnrollment(true, true, wantsAccommodation, isLecturer,
+            Enrollment enrollment = Controller.createEnrollment(true, isAccompanied, wantsAccommodation, isLecturer,
                     startDatePicker.getValue(), endDatePicker.getValue(), participant, conference, selectedHotel, companion);
 
             if (selectedHotel != null) {
