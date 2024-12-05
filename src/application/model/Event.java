@@ -9,7 +9,6 @@ public class Event {
     LocalDate startDate;
     LocalDate endDate;
     double pricePerEvent;
-    ArrayList<Event> events = new ArrayList<>();
 
     public Event(String name, String adress, LocalDate startDate, LocalDate endDate, double pricePerEvent) {
         this.name = name;
@@ -25,12 +24,6 @@ public class Event {
 
     public String getName() {
         return name;
-    }
-
-    public void addEvent(Event event) {
-        if (!events.contains(event)) {
-            events.add(event);
-        }
     }
 
     @Override

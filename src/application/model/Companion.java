@@ -26,20 +26,6 @@ public class Companion {
         return phoneNumber;
     }
 
-    public boolean wantsTrip() {
-        return wantsTrip;
-    }
-
-    public String getTripDetails() {
-        return tripDetails != null ? tripDetails : "Ingen ledsagerudflugt valgt";
-    }
-    public void addEvent(Event event) {
-        if (this.selectedEvents == null) {
-            this.selectedEvents = new ArrayList<>();
-        }
-        this.selectedEvents.add(event);
-    }
-
     public List<Event> getSelectedEvents() {
         return selectedEvents;
     }

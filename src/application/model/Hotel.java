@@ -47,10 +47,6 @@ public class Hotel {
         return name;
     }
 
-    public String getAddress() {
-        return address;
-    }
-
     public void addHotelFacilities(HotelFacilities facility) {
         if (!this.listOfHotelFacilities.contains(facility)) {
             this.listOfHotelFacilities.add(facility);

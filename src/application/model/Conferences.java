@@ -13,10 +13,6 @@ public class Conferences {
     private int numberOfSeats;
     private String imagePath;
 
-    private ArrayList<Enrollment> enrollments = new ArrayList<>();
-    private ArrayList<Event> events = new ArrayList<>();
-    private ArrayList<Hotel> hotels = new ArrayList<>();
-
     public Conferences(String name, LocalDate startDate, LocalDate endDate, String location, double pricePrDay, String category, int numberOfSeats, String imagePath) {
         this.name = name;
         this.startDate = startDate;
@@ -30,64 +26,6 @@ public class Conferences {
 
     public String getName() {
         return name;
-    }
-
-    public LocalDate getStartDate() {
-        return startDate;
-    }
-
-    public LocalDate getEndDate() {
-        return endDate;
-    }
-
-    public String getLocation() {
-        return location;
-    }
-
-    public double getPricePrDay() {
-        return pricePrDay;
-    }
-
-    public ArrayList<Event> getEvents() {
-        return new ArrayList<>(events);
-    }
-
-    public void addEvent(Event event) {
-        if (!events.contains(event)) {
-            events.add(event);
-        }
-    }
-
-    public void removeEvent(Event event) {
-        events.remove(event);
-    }
-
-    public ArrayList<Hotel> getHotels() {
-        return new ArrayList<>(hotels);
-    }
-
-    public void addHotel(Hotel hotel) {
-        if (!hotels.contains(hotel)) {
-            hotels.add(hotel);
-        }
-    }
-
-    public void removeHotel(Hotel hotel) {
-        hotels.remove(hotel);
-    }
-
-    public ArrayList<Enrollment> getEnrollments() {
-        return new ArrayList<>(enrollments);
-    }
-
-    public void addEnrollment(Enrollment enrollment) {
-        if (!enrollments.contains(enrollment)) {
-            enrollments.add(enrollment);
-        }
-    }
-
-    public void removeEnrollment(Enrollment enrollment) {
-        enrollments.remove(enrollment);
     }
 
     public double calculateConferencePrice(LocalDate startDate, LocalDate endDate) {

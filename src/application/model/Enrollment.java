@@ -33,10 +33,10 @@ public class Enrollment {
         this.hotel = hotel;
         this.companion = companion;
     }
-
-    public ArrayList<HotelFacilities> getHotelFacilitiesList() {
-        return hotelFacilitiesList;
-    }
+//
+//    public ArrayList<HotelFacilities> getHotelFacilitiesList() {
+//        return hotelFacilitiesList;
+//    }
 
     public void addHotelFacilities(HotelFacilities hotelFacility) {
         if (!hotelFacilitiesList.contains(hotelFacility)) {
@@ -86,13 +86,13 @@ public class Enrollment {
         return hotel != null ? hotel.getName() : "Ingen hotel valgt";
     }
 
-    public boolean wantsCompanionTrip() {
-        return isAccompanied() && companion != null && companion.wantsTrip();
-    }
-
-    public String getCompanionTrip() {
-        return isAccompanied() ? companion.getTripDetails() : null;
-    }
+//    public boolean wantsCompanionTrip() {
+//        return isAccompanied() && companion != null && companion.wantsTrip();
+//    }
+//
+//    public String getCompanionTrip() {
+//        return isAccompanied() ? companion.getTripDetails() : null;
+//    }
 
     public Participant getParticipant() {
         return participant;
