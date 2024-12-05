@@ -24,8 +24,25 @@ public class MainWindow extends Application {
         Tab tab2 = conferencesCreationSecondTab.createSecondTab();
         tabPane.getTabs().addAll(tab1, tab2, participantViewThirdTab);
 
+        tabPane.getSelectionModel().selectedItemProperty().addListener((obs, oldTab, newTab) -> {
+            //Find din næste konference - fane
+            if (newTab == tab1) {
+                primaryStage.setWidth(500);
+                primaryStage.setHeight(800);
+            //Opret Konference - fane
+            } else if (newTab == tab2) {
+                primaryStage.setWidth(500);
+                primaryStage.setHeight(800);
+            //Deltager liste - fane
+            } else if (newTab == participantViewThirdTab) {
+                primaryStage.setWidth(800);
+                primaryStage.setHeight(800);
+
+            }
+        });
+
         // Scene og vindue
-        Scene scene = new Scene(tabPane, 480, 800);
+        Scene scene = new Scene(tabPane, 500, 800);
         scene.setFill(javafx.scene.paint.Color.LIGHTBLUE);
         primaryStage.setScene(scene);
         primaryStage.show();

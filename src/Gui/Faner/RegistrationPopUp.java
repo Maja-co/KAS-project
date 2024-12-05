@@ -8,10 +8,7 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
-import javafx.scene.layout.Background;
-import javafx.scene.layout.BackgroundFill;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
@@ -124,7 +121,9 @@ public class RegistrationPopUp {
 
         // Knappen til at tilmelde sig
         Button submitButton = new Button("Tilmeld mig - Samlet pris: 0 kr");
-        submitButton.setPrefWidth(300);
+        submitButton.setPrefWidth(600);
+        submitButton.setPadding(new Insets(5));
+        VBox.setMargin(submitButton, new Insets(10, 10, 10, 15));
 
         // Beregning af prisen baseret på de valgte faciliteter og udflugter
         ChangeListener<Object> priceUpdater = (obs, oldVal, newVal) -> {
@@ -242,7 +241,7 @@ public class RegistrationPopUp {
                 accommodationCheckBox, hotelListView, hotelFacilitiesListView, eventCheckBox, eventListView, submitButton
         );
 
-        Scene popupScene = new Scene(new ScrollPane(popupContent), 650, 750);
+        Scene popupScene = new Scene(new ScrollPane(popupContent), 700, 800);
         popup.setScene(popupScene);
         popup.sizeToScene();
         popup.setTitle("Tilmelding");

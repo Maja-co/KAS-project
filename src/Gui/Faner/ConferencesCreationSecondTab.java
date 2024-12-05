@@ -1,6 +1,8 @@
 package Gui.Faner;
 
 import application.controller.Controller;
+import application.model.Conferences;
+import Storage.Storage;
 import javafx.geometry.Insets;
 import javafx.scene.control.*;
 import javafx.scene.layout.Background;
@@ -18,6 +20,7 @@ Her har man mulighed for at oprette en konference til systemet
  */
 
 public class ConferencesCreationSecondTab {
+    private ParticipantViewThirdTab participantViewThirdTab;
 
     public Tab createSecondTab() {
         // Opret fane
@@ -60,22 +63,21 @@ public class ConferencesCreationSecondTab {
         endDatePicker.setPromptText("Slutdato");
 
         // Knapper
-        Button createButton = new Button("Opret konferencen");
-        createButton.setPrefWidth(400);
-        createButton.setOnAction(e -> {
+        Button addConferenceButton = new Button("Opret konferencen");
+        addConferenceButton.setPrefWidth(500);
+        addConferenceButton.setOnAction(e -> {
             if (validateInputs(subjectField, conferenceField, adresseField, seatsField, priceField, startDatePicker, endDatePicker)) {
-                String subject = subjectField.getText();
+                String category = subjectField.getText();
                 String name = conferenceField.getText();
-                String address = adresseField.getText();
-                int seats = Integer.parseInt(seatsField.getText());
-                double price = Double.parseDouble(priceField.getText());
+                String location = adresseField.getText();
+                int numberOfSeats = Integer.parseInt(seatsField.getText());
+                double pricePrDay = Double.parseDouble(priceField.getText());
                 LocalDate startDate = startDatePicker.getValue();
                 LocalDate endDate = endDatePicker.getValue();
-
-                // Brug Controller til at oprette konferencen
                 String imagePath = "/path/to/default/image.png";
-                Controller.createConference(name, startDate, endDate, address, price, subject, seats, imagePath);
-
+                Conferences newConference = new Conferences(name, startDate, endDate, location, pricePrDay, category, numberOfSeats, imagePath);
+                Storage.addConference(newConference);
+                participantViewThirdTab.updateConferences();
                 showSuccess("Konferencen blev oprettet succesfuldt!");
             } else {
                 showError("Alle felter skal udfyldes korrekt!");
@@ -91,7 +93,7 @@ public class ConferencesCreationSecondTab {
                 priceField,
                 startDatePicker,
                 endDatePicker,
-                new VBox(10, createButton)
+                new VBox(10, addConferenceButton)
         );
 
         tab.setContent(content);

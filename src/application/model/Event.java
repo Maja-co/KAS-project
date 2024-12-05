@@ -32,4 +32,9 @@ public class Event {
             events.add(event);
         }
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

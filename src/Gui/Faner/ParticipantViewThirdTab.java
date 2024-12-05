@@ -23,6 +23,8 @@ public class ParticipantViewThirdTab extends Tab {
     private ListView<Participant> participantListView = new ListView<>();
     private TextField searchField = new TextField();
     private ComboBox<Conferences> conferenceComboBox = new ComboBox<>();
+    private ComboBox<Hotel> hotelsComboBox = new ComboBox<>();
+    private ComboBox<Event> eventsComboBox = new ComboBox<>();
     private Label participantDetailsLabel = new Label();
 
     public ParticipantViewThirdTab() {
@@ -37,9 +39,6 @@ public class ParticipantViewThirdTab extends Tab {
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.5), null, null)));
         gridPane.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
 
-        participantListView.setPrefWidth(530);
-        participantListView.setPrefHeight(780);
-
         // Opret og centrer overskriften
         Label titleLabel = new Label("Deltagerliste");
         titleLabel.setStyle("-fx-font-family: Georgia; -fx-font-size: 24px; -fx-font-weight: bold; -fx-text-fill: #FFFFFF;");
@@ -53,18 +52,45 @@ public class ParticipantViewThirdTab extends Tab {
             filterParticipants(newText, conferenceComboBox.getValue());
         });
 
-        // Opsæt ComboBox for konferencevalg
+        // Opsæt ComboBox for konference valg
         conferenceComboBox.setPromptText("Vælg konference");
         conferenceComboBox.getItems().setAll(Storage.getConferences());
         conferenceComboBox.valueProperty().addListener((obs, oldConference, newConference) -> {
             filterParticipants(searchField.getText(), newConference);
         });
 
+        // Opsæt ComboBox for hotel valg
+        hotelsComboBox.setPromptText("Vælg hotel");
+        hotelsComboBox.getItems().setAll(Storage.getHotels());
+        hotelsComboBox.valueProperty().addListener((obs, oldHotel, newHotel) -> {
+            filterParticipants2(searchField.getText(), newHotel);
+        });
+
+        // Opsæt ComboBox for event valg
+        eventsComboBox.setPromptText("Vælg event");
+        eventsComboBox.getItems().setAll(Storage.getEvents());
+        eventsComboBox.valueProperty().addListener((obs, oldEvent, newEvent) -> {
+            filterParticipants3(searchField.getText(), newEvent);
+        });
+
         // Tilføj komponenter til layoutet
         gridPane.add(searchField, 0, 0);
-        gridPane.add(conferenceComboBox, 1, 0);
         gridPane.add(participantListView, 0, 1);
-        gridPane.add(participantDetailsLabel, 1, 1);
+        gridPane.add(conferenceComboBox, 1, 0);
+        gridPane.add(hotelsComboBox, 2, 0);
+        gridPane.add(eventsComboBox, 3, 0);
+
+        gridPane.add(participantDetailsLabel, 1, 1, 2, 1);
+        participantDetailsLabel.setStyle("-fx-font-size: 16px; -fx-font-family: Georgia; -fx-text-fill: #000000;");
+        participantDetailsLabel.setWrapText(true);
+        participantDetailsLabel.setMaxWidth(Double.MAX_VALUE);
+        participantDetailsLabel.setPadding(new Insets(10));
+
+        conferenceComboBox.setPrefWidth(300);
+        hotelsComboBox.setPrefWidth(300);
+        eventsComboBox.setPrefWidth(300);
+        participantListView.setPrefWidth(400);
+
 
         participantListView.setOnMouseClicked(event -> {
             Participant selectedItem = participantListView.getSelectionModel().getSelectedItem();
@@ -74,6 +100,11 @@ public class ParticipantViewThirdTab extends Tab {
         });
         this.setContent(gridPane);
         updateParticipantList();
+    }
+
+    // Opdaterer konferencelisten i ComboBox
+    public void updateConferences() {
+        conferenceComboBox.getItems().setAll(Storage.getConferences());
     }
 
     void updateParticipantList() {
@@ -105,6 +136,47 @@ public class ParticipantViewThirdTab extends Tab {
         participantListView.getItems().setAll(filteredParticipants);
     }
 
+    private void filterParticipants2(String searchText, Hotel selectedHotel) {
+        List<Enrollment> enrollments = Storage.getEnrollments();
+        ArrayList<Participant> filteredParticipants = new ArrayList<>();
+
+        for (Enrollment enrollment : enrollments) {
+            Participant participant = enrollment.getParticipant();
+            Hotel hotel = enrollment.getHotel();
+
+            // Filtrering baseret på søgetekst og hotel
+            boolean matchesSearch = searchText == null || searchText.isEmpty() ||
+                    participant.getName().toLowerCase().contains(searchText.toLowerCase());
+            boolean matchesConference = selectedHotel == null || selectedHotel.equals(hotel);
+
+            if (matchesSearch && matchesConference) {
+                filteredParticipants.add(participant);
+            }
+        }
+        participantListView.getItems().setAll(filteredParticipants);
+    }
+
+    private void filterParticipants3(String searchText, Event selectedEvents) {
+        List<Enrollment> enrollments = Storage.getEnrollments();
+        ArrayList<Participant> filteredParticipants = new ArrayList<>();
+
+        for (Enrollment enrollment : enrollments) {
+            Participant participant = enrollment.getParticipant();
+            ArrayList<Event> event = enrollment.getEvents();
+
+            // Filtrering baseret på søgetekst og events
+            boolean matchesSearch = searchText == null || searchText.isEmpty() ||
+                    participant.getName().toLowerCase().contains(searchText.toLowerCase());
+            boolean matchesConference = selectedEvents == null || selectedEvents.equals(event);
+
+            if (matchesSearch && matchesConference) {
+                filteredParticipants.add(participant);
+            }
+        }
+        participantListView.getItems().setAll(filteredParticipants);
+    }
+
+
     private void showParticipantDetails(Participant selectedParticipant) {
         List<Enrollment> enrollments = Storage.getEnrollments();
         for (Enrollment enrollment : enrollments) {
@@ -128,6 +200,7 @@ public class ParticipantViewThirdTab extends Tab {
                 } else {
                     details.append("Ledsager: Nej\n");
                 }
+
                 // Overnatning
                 if (enrollment.wantsAccommodation()) {
                     details.append("Overnatning: Ja:\nHotel: ").append(enrollment.getHotelName()).append("\n");

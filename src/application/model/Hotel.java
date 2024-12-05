@@ -56,4 +56,9 @@ public class Hotel {
             this.listOfHotelFacilities.add(facility);
         }
     }
+
+    @Override
+    public String toString() {
+        return name;
+    }
 }

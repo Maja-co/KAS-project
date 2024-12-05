@@ -45,6 +45,7 @@ public class ConferencesViewFirstTab {
         GridPane gridPane = new GridPane();
         gridPane.setHgap(20);
         gridPane.setVgap(20);
+        gridPane.setMinWidth(400);
         gridPane.setStyle("-fx-font-family: Georgia; -fx-font-size: 14px;");
         gridPane.setBackground(new Background(new BackgroundFill(Color.rgb(36, 74, 54, 0.6), null, null)));
 
