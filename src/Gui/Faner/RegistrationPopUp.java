@@ -71,7 +71,13 @@ public class RegistrationPopUp {
         TextField companionField = new TextField();
         companionField.setPromptText("Ledsagers navn");
         companionField.setDisable(true);
-        companionCheckBox.selectedProperty().addListener((obs, oldVal, newVal) -> companionField.setDisable(!newVal));
+        TextField companionMobileField = new TextField();
+        companionMobileField.setPromptText("Ledsagerens mobilnummer");
+        companionMobileField.setDisable(true);
+        companionCheckBox.selectedProperty().addListener((obs, oldVal, newVal) -> {
+            companionField.setDisable(!newVal);
+            companionMobileField.setDisable(!newVal);
+        });
 
         CheckBox accommodationCheckBox = new CheckBox("Ønsker du overnatning?");
         ListView<String> hotelListView = new ListView<>();
@@ -208,8 +214,9 @@ public class RegistrationPopUp {
 
             boolean isLecturer = speakerCheckBox.isSelected();
             boolean isAccompanied = companionCheckBox.isSelected();
+            String companionMobile = isAccompanied ? companionMobileField.getText().trim() : "";
             Companion companion = isAccompanied
-                    ? new Companion(companionField.getText().trim(), "", false, new ArrayList<>())
+                    ? new Companion(companionField.getText().trim(), companionMobile, false, new ArrayList<>())
                     : null;
 
             Hotel selectedHotel = Storage.getHotels().stream().filter(h -> h.getName().equals(hotelListView.getSelectionModel().getSelectedItem())).findFirst().orElse(null);
@@ -239,7 +246,7 @@ public class RegistrationPopUp {
 
         popupContent.getChildren().addAll(
                 nameField, addressField, countryField, mobileField,
-                startDatePicker, endDatePicker, speakerCheckBox, companionCheckBox, companionField,
+                startDatePicker, endDatePicker, speakerCheckBox, companionCheckBox, companionField,companionMobileField,
                 accommodationCheckBox, hotelListView, hotelFacilitiesListView, eventCheckBox, eventListView, submitButton
         );
 

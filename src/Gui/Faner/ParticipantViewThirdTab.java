@@ -137,47 +137,6 @@ public class ParticipantViewThirdTab extends Tab {
         }
         participantListView.getItems().setAll(filteredParticipants);
     }
-
-    private void filterParticipants2(String searchText, Hotel selectedHotel) {
-        List<Enrollment> enrollments = Storage.getEnrollments();
-        ArrayList<Participant> filteredParticipants = new ArrayList<>();
-
-        for (Enrollment enrollment : enrollments) {
-            Participant participant = enrollment.getParticipant();
-            Hotel hotel = enrollment.getHotel();
-
-            // Filtrering baseret på søgetekst og hotel
-            boolean matchesSearch = searchText == null || searchText.isEmpty() ||
-                    participant.getName().toLowerCase().contains(searchText.toLowerCase());
-            boolean matchesConference = selectedHotel == null || selectedHotel.equals(hotel);
-
-            if (matchesSearch && matchesConference) {
-                filteredParticipants.add(participant);
-            }
-        }
-        participantListView.getItems().setAll(filteredParticipants);
-    }
-
-    private void filterParticipants3(String searchText, Event selectedEvents) {
-        List<Enrollment> enrollments = Storage.getEnrollments();
-        ArrayList<Participant> filteredParticipants = new ArrayList<>();
-
-        for (Enrollment enrollment : enrollments) {
-            Participant participant = enrollment.getParticipant();
-            ArrayList<Event> event = enrollment.getEvents();
-
-            // Filtrering baseret på søgetekst og events
-            boolean matchesSearch = searchText == null || searchText.isEmpty() ||
-                    participant.getName().toLowerCase().contains(searchText.toLowerCase());
-            boolean matchesConference = selectedEvents == null || selectedEvents.equals(event);
-
-            if (matchesSearch && matchesConference) {
-                filteredParticipants.add(participant);
-            }
-        }
-        participantListView.getItems().setAll(filteredParticipants);
-    }
-
     private void showParticipantDetails(Participant selectedParticipant) {
         List<Enrollment> enrollments = Storage.getEnrollments();
         for (Enrollment enrollment : enrollments) {
@@ -212,7 +171,6 @@ public class ParticipantViewThirdTab extends Tab {
                 } else {
                     details.append("Ledsager: Ingen.\n");
                 }
-
 
                 // Overnatning
                 if (enrollment.wantsAccommodation()) {
