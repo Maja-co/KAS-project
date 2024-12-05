@@ -65,7 +65,6 @@ public class ConferencesViewFirstTab {
         scrollPane.setFitToWidth(true);
         vbox.getChildren().add(scrollPane);
         tab.setContent(vbox);
-
         return tab;
     }
 

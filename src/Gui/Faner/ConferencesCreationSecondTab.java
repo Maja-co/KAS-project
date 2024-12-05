@@ -22,6 +22,10 @@ Her har man mulighed for at oprette en konference til systemet
 public class ConferencesCreationSecondTab {
     private ParticipantViewThirdTab participantViewThirdTab;
 
+    public ConferencesCreationSecondTab(ParticipantViewThirdTab participantViewThirdTab) {
+        this.participantViewThirdTab = participantViewThirdTab;
+    }
+
     public Tab createSecondTab() {
         // Opret fane
         Tab tab = new Tab("Opret konferencer");

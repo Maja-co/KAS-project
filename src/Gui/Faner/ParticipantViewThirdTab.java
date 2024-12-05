@@ -90,7 +90,7 @@ public class ParticipantViewThirdTab extends Tab {
         hotelsComboBox.setPrefWidth(300);
         eventsComboBox.setPrefWidth(300);
         participantListView.setPrefWidth(400);
-
+        participantListView.setPrefHeight(800);
 
         participantListView.setOnMouseClicked(event -> {
             Participant selectedItem = participantListView.getSelectionModel().getSelectedItem();
@@ -175,7 +175,6 @@ public class ParticipantViewThirdTab extends Tab {
         }
         participantListView.getItems().setAll(filteredParticipants);
     }
-
 
     private void showParticipantDetails(Participant selectedParticipant) {
         List<Enrollment> enrollments = Storage.getEnrollments();
